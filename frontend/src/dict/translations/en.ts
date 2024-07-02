@@ -1,0 +1,32 @@
+export default {
+  errors: {
+    unknown: "Unknown error",
+  },
+  auth: {
+    welcomeTo: "Welcome to ",
+    loginTo: "Log in to ",
+    email: "Email",
+    password: "Password",
+    repeatPassword: "Repeat Password",
+    privacyPolicy: "I accept privacy policy",
+    isNotValid: " is not valid!",
+    enterValid: "Enter a valid value please",
+    notHavingAccount: "Haven't got an account yet?",
+    havingAccount: "Do you already have an account?",
+    login: "Log in",
+    register: "Register",
+    emailInvalid: "Email is not valid",
+    passwordInvalid: "Password is not valid",
+    repeatPasswordInvalid: "Passwords are not the same",
+    privacyPolicyInvalid: "Privacy policy is not accepted",
+    emailVerificationInvalid: "Email is not verified",
+    remindPassword: "Remind password",
+    changeForgottenPassword: "Change password",
+    forgotPassword: "Forgot password?",
+  },
+  common: {
+    close: "Close",
+    clickHere: "Click here",
+    send: "Send",
+  },
+};

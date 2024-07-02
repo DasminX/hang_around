@@ -1,0 +1,32 @@
+export default {
+  errors: {
+    unknown: "Nieznany błąd",
+  },
+  auth: {
+    welcomeTo: "Witaj w ",
+    loginTo: "Zaloguj się na ",
+    email: "Email",
+    password: "Hasło",
+    repeatPassword: "Powtórz hasło",
+    privacyPolicy: "Akceptuje politykę prywatności",
+    isNotValid: " jest niepoprawne!",
+    enterValid: "Proszę wprowadzić poprawną wartość.",
+    notHavingAccount: "Jeszcze nie posiadasz konta?",
+    havingAccount: "Posiadasz już konto?",
+    login: "Zaloguj się",
+    register: "Zarejestruj się",
+    emailInvalid: "Email jest nieprawidłowy",
+    passwordInvalid: "Hasło jest nieprawidłowe",
+    repeatPasswordInvalid: "Hasła nie są takie same",
+    privacyPolicyInvalid: "Polityka prywatności nie została zaakceptowana",
+    emailVerificationInvalid: "Email nie został zweryfikowany",
+    remindPassword: "Przypomnij hasło",
+    changeForgottenPassword: "Zmień hasło",
+    forgotPassword: "Nie pamiętasz hasła?",
+  },
+  common: {
+    close: "Zamknij",
+    clickHere: "Kliknij tutaj",
+    send: "Wyślij",
+  },
+};
