@@ -9,7 +9,7 @@ import { isFirebaseError } from "../utils/helpers";
 import { AppError } from "../utils/appError";
 import { FirebaseService } from "../utils/firebaseInitializer";
 import { FirebaseErrorAdapter } from "./adapters/firebaseError";
-import { APIResponse } from "../shared/response";
+import { APIResponseSuccess } from "../shared/response";
 
 export const signinController = async (
   req: Request,
@@ -34,7 +34,7 @@ export const signinController = async (
 
     const result = await user.getIdTokenResult();
 
-    return res.json(new APIResponse(result));
+    return res.json(new APIResponseSuccess(result));
   } catch (e) {
     if (isFirebaseError(e)) {
       const firebaseError = new FirebaseErrorAdapter(e as FirebaseError);
@@ -67,7 +67,7 @@ export const signupController = async (
     // TODO firebase zmienic warunki weak password
     await sendEmailVerification(user);
 
-    return res.json(new APIResponse());
+    return res.json(new APIResponseSuccess());
   } catch (e) {
     if (isFirebaseError(e)) {
       const firebaseError = new FirebaseErrorAdapter(e as FirebaseError);
@@ -79,3 +79,5 @@ export const signupController = async (
     return next(e);
   }
 };
+
+/* TODO firebase forgot password */

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { PlacesFinder } from "./domain/placesFinder";
-import { APIResponse } from "../shared/response";
+import { APIResponseSuccess } from "../shared/response";
 import { AppError } from "../utils/appError";
 import { findplacesRequestBodySchema } from "./schema";
 
@@ -15,6 +15,7 @@ export const findPlaces = async (
       throw new AppError("Invalid request body.", 400);
     }
 
+    /* DOROBIĆ SPRAWDZENIE BEARER AUTH I ODRZUCANIE JEŚLI NIE MA !!!!! */
     const result = await PlacesFinder.find({
       location: req.body.location,
       query: req.body.queryText,
@@ -24,7 +25,7 @@ export const findPlaces = async (
       throw result;
     }
 
-    return res.json(new APIResponse(result));
+    return res.json(new APIResponseSuccess(result));
   } catch (error) {
     return next(error);
   }
