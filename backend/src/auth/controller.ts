@@ -14,7 +14,7 @@ export const signinController = async (req: Request, res: Response, next: NextFu
       throw new AppError("Credentials not provided", 400);
     }
 
-    const { user } = await signInWithEmailAndPassword(FirebaseService.auth, email, password);
+    const { user } = await signInWithEmailAndPassword(FirebaseService.clientAuth, email, password);
 
     if (!user.emailVerified) {
       throw new AppError("Email not verified!", 400);
@@ -45,7 +45,7 @@ export const signupController = async (req: Request, res: Response, next: NextFu
       );
     }
 
-    const { user } = await createUserWithEmailAndPassword(FirebaseService.auth, email, password);
+    const { user } = await createUserWithEmailAndPassword(FirebaseService.clientAuth, email, password);
 
     await sendEmailVerification(user);
 
