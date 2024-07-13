@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
-import { isFirebaseError } from "../utils/helpers";
-import { AppError, FirebaseErrorAdapter } from "../shared/errors";
 import { FirebaseService } from "../shared/firebaseService";
 import { APIResponseSuccess } from "../utils/response";
 import { isPasswordStrongEnough } from "./utils";
+import { AppError } from "../shared/errors";
+import { FirebaseErrorAdapter } from "../shared/adapters";
 
 export const signinController = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -22,7 +22,7 @@ export const signinController = async (req: Request, res: Response, next: NextFu
 
     return res.json(new APIResponseSuccess(await user.getIdTokenResult())); // TOFIX wrap with object and remove in frontend instead
   } catch (e) {
-    if (isFirebaseError(e)) {
+    if (FirebaseErrorAdapter.isFirebaseError(e)) {
       const firebaseError = new FirebaseErrorAdapter(e as FirebaseError);
       return next(new AppError(firebaseError.message, firebaseError.statusCode));
     }
@@ -51,7 +51,7 @@ export const signupController = async (req: Request, res: Response, next: NextFu
 
     return res.json(new APIResponseSuccess());
   } catch (e) {
-    if (isFirebaseError(e)) {
+    if (FirebaseErrorAdapter.isFirebaseError(e)) {
       const firebaseError = new FirebaseErrorAdapter(e as FirebaseError);
       return next(new AppError(firebaseError.message, firebaseError.statusCode));
     }
