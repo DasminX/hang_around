@@ -3,39 +3,39 @@ import { Auth, getAuth } from "firebase/auth";
 import { Firestore, getFirestore } from "firebase/firestore";
 
 export class FirebaseService {
-  private static app: FirebaseApp;
-  private static auth: Auth;
-  private static firestore: Firestore;
+  private static _app: FirebaseApp;
+  private static _auth: Auth;
+  private static _firestore: Firestore;
 
   private constructor() {}
 
   public static initializeApp() {
-    if (!FirebaseService.app) {
-      FirebaseService.app = initializeApp(FirebaseService.getConfig());
-      FirebaseService.auth = getAuth(FirebaseService.app);
-      FirebaseService.firestore = getFirestore(FirebaseService.app);
+    if (!FirebaseService._app) {
+      FirebaseService._app = initializeApp(FirebaseService.getConfig());
+      FirebaseService._auth = getAuth(FirebaseService._app);
+      FirebaseService._firestore = getFirestore(FirebaseService._app);
     }
   }
 
-  public static getApp(): FirebaseApp {
-    if (!this.app) {
+  public static get app(): FirebaseApp {
+    if (!this._app) {
       this.initializeApp();
     }
-    return this.app;
+    return this._app;
   }
 
-  public static getAuth(): Auth {
-    if (!this.auth) {
+  public static get auth(): Auth {
+    if (!this._auth) {
       this.initializeApp();
     }
-    return this.auth;
+    return this._auth;
   }
 
-  public static getFirestore(): Firestore {
-    if (!this.firestore) {
+  public static get firestore(): Firestore {
+    if (!this._firestore) {
       this.initializeApp();
     }
-    return this.firestore;
+    return this._firestore;
   }
 
   private static getConfig() {

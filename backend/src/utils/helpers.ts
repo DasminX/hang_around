@@ -1,20 +1,14 @@
-export const isObjectAndContainsProperties = (
-  object: unknown,
-  ...properties: string[]
-): boolean => {
-  let isValid = false;
+import { ObjectOrNull } from "./response";
+
+export const isObjectAndContainsProperties = (object: ObjectOrNull, ...properties: string[]): boolean => {
+  let isValid = true;
   if (typeof object === "object" && object != null) {
     for (const property of properties) {
-      if (property in object) {
-        isValid = true;
-      } else {
+      if (!(property in object)) {
         isValid = false;
+        break;
       }
     }
   }
   return isValid;
-};
-
-export const isFirebaseError = (object: unknown): boolean => {
-  return isObjectAndContainsProperties(object, "message", "code");
 };

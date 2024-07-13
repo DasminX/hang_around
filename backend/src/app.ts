@@ -4,14 +4,16 @@ import helmet from "helmet";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
 import compression from "compression";
-import { AppError } from "./utils/appError";
+import { AppError } from "./shared/errors";
 import mainRouter from "./router";
+import cookieParser from "cookie-parser";
 
 export const getNodeApp = () => {
   const app = express();
 
   app.options("*", cors());
   app.use(helmet());
+  app.use(cookieParser());
 
   if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"));
@@ -42,21 +44,14 @@ export const getNodeApp = () => {
     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
   });
 
-  app.use(
-    (
-      err: AppError,
-      _req: Request,
-      res: Response,
-      _next: NextFunction
-    ): Response => {
-      return res.json({
-        status: err.status,
-        code: err.statusCode,
-        message: err.message,
-        stack: process.env.NODE_ENV === "development" ? err.stack : null,
-      });
-    }
-  );
+  app.use((err: AppError, _req: Request, res: Response, _next: NextFunction): Response => {
+    return res.json({
+      status: err.status,
+      code: err.statusCode,
+      message: err.message,
+      stack: process.env.NODE_ENV === "development" ? err.stack : null,
+    });
+  });
 
   return app;
 };

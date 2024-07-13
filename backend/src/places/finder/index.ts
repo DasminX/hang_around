@@ -1,7 +1,7 @@
 import path from "path";
 import { PlacesClient } from "@googlemaps/places";
 
-import { AppError } from "../../utils/appError";
+import { AppError } from "../../shared/errors";
 
 export class PlacesFinder {
   private static client: PlacesClient | null = null;
@@ -9,21 +9,12 @@ export class PlacesFinder {
   private static initializeClient() {
     if (!PlacesFinder.client) {
       PlacesFinder.client = new PlacesClient({
-        keyFile: path.join(
-          process.cwd(),
-          (process.env.GOOGLE_PLACES_API_JSON_PATH as string) || "empty.txt"
-        ),
+        keyFile: path.join(process.cwd(), (process.env.GOOGLE_PLACES_API_JSON_PATH as string) || "empty.txt"),
       });
     }
   }
 
-  public static async find({
-    location,
-    query,
-  }: {
-    location: [number, number];
-    query: string;
-  }) {
+  public static async find({ location, query }: { location: [number, number]; query: string }) {
     if (!PlacesFinder.client) {
       this.initializeClient();
     }

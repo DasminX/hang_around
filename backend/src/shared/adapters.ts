@@ -1,18 +1,23 @@
 import { FirebaseError } from "firebase/app";
+import { ObjectOrNull } from "../utils/response";
+import { isObjectAndContainsProperties } from "../utils/helpers";
 
 export class FirebaseErrorAdapter {
   public message: string;
-  public statusCode: number;
+  public statusCode = 400;
 
   constructor(adaptee: FirebaseError) {
-    this.statusCode = 400; // TODO dodac inne ?
     this.message = this._getMessage(adaptee.code);
+  }
+
+  public static isFirebaseError(object: ObjectOrNull): boolean {
+    return isObjectAndContainsProperties(object, "message", "code");
   }
 
   private _getMessage(code: string) {
     if (code.startsWith("auth")) return this._authMessage(code);
 
-    return this._defaultUnknownError();
+    return this._unknownError;
   }
 
   private _authMessage(code: string) {
@@ -33,10 +38,10 @@ export class FirebaseErrorAdapter {
         return "Email is already in use!";
     }
 
-    return this._defaultUnknownError();
+    return this._unknownError;
   }
 
-  private _defaultUnknownError() {
+  private get _unknownError() {
     return "Unknown error";
   }
 }

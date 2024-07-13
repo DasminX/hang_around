@@ -1,16 +1,14 @@
 import { NextFunction, Request, Response } from "express";
-import { PlacesFinder } from "./domain/placesFinder";
-import { APIResponseSuccess } from "../shared/response";
-import { AppError } from "../utils/appError";
-import { findplacesRequestBodySchema } from "./schema";
+import { PlacesFinder } from "./finder";
+import { APIResponseSuccess } from "../utils/response";
+import { AppError } from "../shared/errors";
+import { findPlacesRequestBodySchema } from "./schema";
 
-export const findPlaces = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const findPlaces = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const parseResult = findplacesRequestBodySchema.safeParse(req.body);
+    return next(new Error("Elo"));
+
+    const parseResult = findPlacesRequestBodySchema.safeParse(req.body);
     if ("error" in parseResult) {
       throw new AppError("Invalid request body.", 400);
     }

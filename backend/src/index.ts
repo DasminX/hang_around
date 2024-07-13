@@ -1,7 +1,7 @@
 import path from "path";
 import dotenv from "dotenv";
-import { initializeDependencies } from "./utils/dependenciesInitializer";
 import { getNodeApp } from "./app";
+import { FirebaseService } from "./shared/firebaseService";
 
 process.on("uncaughtException", (err) => {
   console.log("UNCAUGHT EXCEPTION! 💥 Shutting down...");
@@ -16,7 +16,7 @@ const app = getNodeApp();
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
   try {
-    initializeDependencies();
+    FirebaseService.initializeApp();
   } catch (e) {
     console.log(`Error while initializing dependencies...`, e);
   } finally {
