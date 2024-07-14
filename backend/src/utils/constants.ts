@@ -1,7 +1,11 @@
 export const AUTH_TOKEN_COOKIE_NAME = "DX_HA_TOKEN_42020703";
 export const APP_NAME = "DX_HA_APP_V1";
 
-export const ONE_HOUR_MS = 3600000;
+export const ONE_SECOND = 1000;
+export const ONE_MINUTE = ONE_SECOND * 60;
+export const ONE_HOUR = ONE_MINUTE * 60;
+export const ONE_DAY = ONE_HOUR * 24;
+export const ONE_WEEK = ONE_DAY * 7;
 
 export const FIREBASE_ERRORS = {
   "auth/invalid-email": "Invalid email provided!",

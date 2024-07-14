@@ -8,6 +8,7 @@ import morgan from "morgan";
 import mainRouter from "./router";
 import { NotFoundError } from "./shared/errors";
 import { errorController } from "./shared/errorController";
+import { ONE_HOUR } from "./utils/constants";
 
 export const getNodeApp = () => {
   const app = express();
@@ -24,8 +25,8 @@ export const getNodeApp = () => {
   }
 
   const limiter = rateLimit({
-    max: 100,
-    windowMs: 60 * 60 * 1000,
+    limit: 100,
+    windowMs: ONE_HOUR,
     message: "Too many requests from this IP, please try again in an hour!",
   });
 

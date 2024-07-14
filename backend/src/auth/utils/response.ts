@@ -1,12 +1,12 @@
 import { IdTokenResult } from "firebase/auth";
 import { APIResponseSuccess } from "../../utils/response";
-import { ONE_HOUR_MS } from "../../utils/constants";
+import { ONE_HOUR } from "../../utils/constants";
 
 export class SignInResponse extends APIResponseSuccess {
   constructor(data: IdTokenResult) {
     super({
       token: data.token,
-      expirationTime: Number.isNaN(Number(data.claims.exp)) ? Date.now() + 2 * ONE_HOUR_MS : Number(data.claims.exp),
+      expirationTime: Number.isNaN(Number(data.claims.exp)) ? Date.now() + 2 * ONE_HOUR : Number(data.claims.exp),
     });
   }
 }
