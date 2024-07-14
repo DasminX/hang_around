@@ -50,8 +50,8 @@ export class PlacesFinder {
       );
 
       return res[0].places;
-    } catch (error) {
-      return new PlacesFinderError(error);
+    } catch (e) {
+      return new PlacesFinderError(e);
     }
   }
 }

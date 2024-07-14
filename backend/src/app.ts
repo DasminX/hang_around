@@ -1,10 +1,10 @@
 import express from "express";
-import morgan from "morgan";
 import helmet from "helmet";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
 import cookieParser from "cookie-parser";
 import compression from "compression";
+import morgan from "morgan";
 import mainRouter from "./router";
 import { NotFoundError } from "./shared/errors";
 import { errorController } from "./shared/errorController";
@@ -16,6 +16,7 @@ export const getNodeApp = () => {
   app.use(helmet());
   app.use(cookieParser());
 
+  // TODO ADD WINSTON
   if (process.env.NODE_ENV === "development") {
     app.use(morgan("dev"));
   } else {

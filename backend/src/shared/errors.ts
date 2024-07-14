@@ -3,6 +3,7 @@ import { isObjectAndContainsProperties } from "../utils/helpers";
 import { FIREBASE_ERRORS } from "../utils/constants";
 import { StatusCodes } from "http-status-codes";
 import { Request } from "express";
+import { ZodIssue } from "zod";
 
 export enum ErrorCode {
   UNKNOWN_ERROR = "UNKNOWN_ERROR",
@@ -72,6 +73,12 @@ export class PlacesFinderNotInitializedError extends AppError {
 export class PlacesFinderError extends AppError {
   constructor(detail: unknown) {
     super("Something went wrong in places finder.", StatusCodes.INTERNAL_SERVER_ERROR, ErrorCode.UNKNOWN_ERROR, detail);
+  }
+}
+
+export class InputValidationError extends AppError {
+  constructor(details: string[]) {
+    super("Given inputs are invalid.", StatusCodes.BAD_REQUEST, ErrorCode.INPUT_VALIDATION_ERROR, details);
   }
 }
 

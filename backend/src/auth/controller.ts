@@ -3,13 +3,12 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVe
 import { FirebaseService } from "../shared/firebaseService";
 import { isPasswordStrongEnough, SignInResponse, SignUpResponse } from "./utils";
 import { BadCredentialsError, EmailNotConfirmedError, WeakPasswordError } from "../shared/errors";
+import { parseInputBySchema } from "../shared/validateZodSchema";
+import { SIGN_IN_SCHEMA, SIGN_UP_SCHEMA } from "./schema";
 
 export const signinController = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { email, password } = req.body;
-    if (!email || !password) {
-      throw new BadCredentialsError();
-    }
+    const { email, password } = parseInputBySchema(req.body, SIGN_IN_SCHEMA);
 
     const { user } = await signInWithEmailAndPassword(FirebaseService.clientAuth, email, password);
 
@@ -25,12 +24,9 @@ export const signinController = async (req: Request, res: Response, next: NextFu
 
 export const signupController = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { email, password } = req.body;
-    if (!email || !password) {
-      throw new BadCredentialsError();
-    }
+    const { email, password } = parseInputBySchema(req.body, SIGN_UP_SCHEMA);
 
-    if (isPasswordStrongEnough(password)) {
+    if (!isPasswordStrongEnough(password)) {
       throw new WeakPasswordError();
     }
 
