@@ -16,7 +16,7 @@ const app = getNodeApp();
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
   try {
-    FirebaseService.initializeApp();
+    FirebaseService.initialize();
   } catch (e) {
     console.log(`Error while initializing dependencies...`, e);
   } finally {

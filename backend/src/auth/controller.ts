@@ -6,6 +6,7 @@ import { APIResponseSuccess } from "../utils/response";
 import { isPasswordStrongEnough } from "./utils";
 import { AppError } from "../shared/errors";
 import { FirebaseErrorAdapter } from "../shared/adapters";
+import { SignInResponse } from "./signInResponse";
 
 export const signinController = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -20,7 +21,7 @@ export const signinController = async (req: Request, res: Response, next: NextFu
       throw new AppError("Email not verified!", 400);
     }
 
-    return res.json(new APIResponseSuccess(await user.getIdTokenResult())); // TOFIX wrap with object and remove in frontend instead
+    return res.json(new SignInResponse(await user.getIdTokenResult()));
   } catch (e) {
     if (FirebaseErrorAdapter.isFirebaseError(e)) {
       const firebaseError = new FirebaseErrorAdapter(e as FirebaseError);

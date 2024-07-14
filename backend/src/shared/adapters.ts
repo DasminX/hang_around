@@ -36,6 +36,8 @@ export class FirebaseErrorAdapter {
         return "Password should be at least 6 characters long.";
       case "auth/email-already-in-use":
         return "Email is already in use!";
+      case "auth/id-token-expired":
+        return "Session expired! Sign in again.";
     }
 
     return this._unknownError;
