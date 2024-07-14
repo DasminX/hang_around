@@ -1,12 +1,12 @@
-import express, { NextFunction, Request, Response } from "express";
+import express from "express";
 import morgan from "morgan";
 import helmet from "helmet";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
-import compression from "compression";
-import { AppError, NotFoundError } from "./shared/errors";
-import mainRouter from "./router";
 import cookieParser from "cookie-parser";
+import compression from "compression";
+import mainRouter from "./router";
+import { NotFoundError } from "./shared/errors";
 import { errorController } from "./shared/errorController";
 
 export const getNodeApp = () => {

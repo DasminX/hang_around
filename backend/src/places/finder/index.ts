@@ -1,7 +1,6 @@
 import path from "path";
 import { PlacesClient } from "@googlemaps/places";
-
-import { AppError, PlacesFinderError, PlacesFinderNotInitializedError } from "../../shared/errors";
+import { PlacesFinderError, PlacesFinderNotInitializedError } from "../../shared/errors";
 
 export class PlacesFinder {
   private static client: PlacesClient | null = null;
