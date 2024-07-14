@@ -35,5 +35,3 @@ export class Authenticator {
     return cookies[AUTH_TOKEN_COOKIE_NAME] || null;
   }
 }
-
-// testowy komentarz
