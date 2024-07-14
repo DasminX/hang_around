@@ -13,3 +13,9 @@ export const SIGN_UP_SCHEMA = z
     password: z.string(),
   })
   .strict();
+
+export const RESET_PASSWORD_SCHEMA = z
+  .object({
+    email: z.string().email(),
+  })
+  .strict();

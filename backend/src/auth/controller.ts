@@ -1,10 +1,15 @@
 import { NextFunction, Request, Response } from "express";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  sendPasswordResetEmail,
+} from "firebase/auth";
 import { FirebaseService } from "../shared/firebaseService";
 import { isPasswordStrongEnough, SignInResponse, SignUpResponse } from "./utils";
 import { BadCredentialsError, EmailNotConfirmedError, WeakPasswordError } from "../shared/errors";
 import { parseInputBySchema } from "../shared/validateZodSchema";
-import { SIGN_IN_SCHEMA, SIGN_UP_SCHEMA } from "./schema";
+import { RESET_PASSWORD_SCHEMA, SIGN_IN_SCHEMA, SIGN_UP_SCHEMA } from "./schema";
 
 export const signinController = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -40,4 +45,14 @@ export const signupController = async (req: Request, res: Response, next: NextFu
   }
 };
 
-/* TODO firebase forgot password */
+export const resetPasswordController = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { email } = parseInputBySchema(req.body, RESET_PASSWORD_SCHEMA);
+
+    await sendPasswordResetEmail(FirebaseService.clientAuth, email);
+
+    return res.json(new SignUpResponse());
+  } catch (e) {
+    next(e);
+  }
+};
