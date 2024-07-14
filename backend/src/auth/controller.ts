@@ -2,11 +2,9 @@ import { NextFunction, Request, Response } from "express";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 import { FirebaseService } from "../shared/firebaseService";
-import { APIResponseSuccess } from "../utils/response";
-import { isPasswordStrongEnough } from "./utils";
+import { isPasswordStrongEnough, SignInResponse, SignUpResponse } from "./utils";
 import { AppError } from "../shared/errors";
 import { FirebaseErrorAdapter } from "../shared/adapters";
-import { SignInResponse } from "./signInResponse";
 
 export const signinController = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -50,7 +48,7 @@ export const signupController = async (req: Request, res: Response, next: NextFu
 
     await sendEmailVerification(user);
 
-    return res.json(new APIResponseSuccess());
+    return res.json(new SignUpResponse());
   } catch (e) {
     if (FirebaseErrorAdapter.isFirebaseError(e)) {
       const firebaseError = new FirebaseErrorAdapter(e as FirebaseError);
