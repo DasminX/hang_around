@@ -4,9 +4,10 @@ import helmet from "helmet";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
 import compression from "compression";
-import { AppError } from "./shared/errors";
+import { AppError, NotFoundError } from "./shared/errors";
 import mainRouter from "./router";
 import cookieParser from "cookie-parser";
+import { errorController } from "./shared/errorController";
 
 export const getNodeApp = () => {
   const app = express();
@@ -41,17 +42,10 @@ export const getNodeApp = () => {
   app.use("/api/v1", mainRouter);
 
   app.all("*", (req, _res, next) => {
-    next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+    next(new NotFoundError(req.originalUrl));
   });
 
-  app.use((err: AppError, _req: Request, res: Response, _next: NextFunction): Response => {
-    return res.json({
-      status: err.status,
-      code: err.statusCode,
-      message: err.message,
-      stack: process.env.NODE_ENV === "development" ? err.stack : null,
-    });
-  });
+  app.use(errorController);
 
   return app;
 };

@@ -1,7 +1,7 @@
 import path from "path";
 import { PlacesClient } from "@googlemaps/places";
 
-import { AppError } from "../../shared/errors";
+import { AppError, PlacesFinderError, PlacesFinderNotInitializedError } from "../../shared/errors";
 
 export class PlacesFinder {
   private static client: PlacesClient | null = null;
@@ -19,7 +19,7 @@ export class PlacesFinder {
       this.initializeClient();
     }
     if (this.client == null) {
-      return new AppError("Error! Client not initialized...", 400);
+      return new PlacesFinderNotInitializedError();
     }
 
     try {
@@ -52,7 +52,7 @@ export class PlacesFinder {
 
       return res[0].places;
     } catch (error) {
-      return new AppError(error as string, 400);
+      return new PlacesFinderError(error);
     }
   }
 }

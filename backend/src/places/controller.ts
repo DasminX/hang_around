@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { PlacesFinder } from "./finder";
 import { APIResponseSuccess } from "../utils/response";
-import { AppError } from "../shared/errors";
+import { AppError, BadCredentialsError } from "../shared/errors";
 import { findPlacesRequestBodySchema } from "./schema";
 
 export const findPlaces = async (req: Request, res: Response, next: NextFunction) => {
@@ -10,7 +10,7 @@ export const findPlaces = async (req: Request, res: Response, next: NextFunction
 
     const parseResult = findPlacesRequestBodySchema.safeParse(req.body);
     if ("error" in parseResult) {
-      throw new AppError("Invalid request body.", 400);
+      throw new BadCredentialsError();
     }
 
     /* DOROBIĆ SPRAWDZENIE BEARER AUTH I ODRZUCANIE JEŚLI NIE MA !!!!! */

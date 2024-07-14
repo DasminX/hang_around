@@ -1,32 +1,26 @@
 import { NextFunction, Request, Response } from "express";
 import { FirebaseService } from "../shared/firebaseService";
-import { AppError } from "../shared/errors";
+import { NotAuthenticatedError } from "../shared/errors";
 import { AUTH_TOKEN_COOKIE_NAME } from "../utils/constants";
-import { FirebaseErrorAdapter } from "../shared/adapters";
-import { FirebaseError } from "firebase/app";
 
 export class Authenticator {
   public static async isAuthenticated(req: Request, res: Response, next: NextFunction) {
     try {
       const token = Authenticator.getBearer(req.headers) ?? Authenticator.getFromCookie(req.cookies) ?? null;
       if (!token) {
-        throw new AppError("Not authenticated!", 403);
+        throw new NotAuthenticatedError();
       }
 
       const decodedIdToken = await FirebaseService.adminAuth.verifyIdToken(token);
       if (!decodedIdToken) {
-        throw new AppError("Not authenticated!", 403);
+        throw new NotAuthenticatedError();
       }
 
       console.log(decodedIdToken); // TODO potrzebne do zapisania w redis
 
       next();
     } catch (e) {
-      if (FirebaseErrorAdapter.isFirebaseError(e)) {
-        const firebaseError = new FirebaseErrorAdapter(e as FirebaseError);
-        return next(new AppError(firebaseError.message, firebaseError.statusCode));
-      }
-      return next(e);
+      next(e);
     }
   }
 

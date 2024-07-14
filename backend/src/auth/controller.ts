@@ -1,32 +1,31 @@
 import { NextFunction, Request, Response } from "express";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
-import { FirebaseError } from "firebase/app";
 import { FirebaseService } from "../shared/firebaseService";
 import { isPasswordStrongEnough, SignInResponse, SignUpResponse } from "./utils";
-import { AppError } from "../shared/errors";
-import { FirebaseErrorAdapter } from "../shared/adapters";
+import {
+  AppError,
+  BadCredentialsError,
+  EmailNotConfirmedError,
+  FirebaseErrorCustom,
+  WeakPasswordError,
+} from "../shared/errors";
 
 export const signinController = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      throw new AppError("Credentials not provided", 400);
+      throw new BadCredentialsError();
     }
 
     const { user } = await signInWithEmailAndPassword(FirebaseService.clientAuth, email, password);
 
     if (!user.emailVerified) {
-      throw new AppError("Email not verified!", 400);
+      throw new EmailNotConfirmedError();
     }
 
     return res.json(new SignInResponse(await user.getIdTokenResult()));
   } catch (e) {
-    if (FirebaseErrorAdapter.isFirebaseError(e)) {
-      const firebaseError = new FirebaseErrorAdapter(e as FirebaseError);
-      return next(new AppError(firebaseError.message, firebaseError.statusCode));
-    }
-
-    return next(e);
+    next(e);
   }
 };
 
@@ -34,14 +33,11 @@ export const signupController = async (req: Request, res: Response, next: NextFu
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      throw new AppError("Wrong email or password", 400);
+      throw new BadCredentialsError();
     }
 
     if (isPasswordStrongEnough(password)) {
-      throw new AppError(
-        "Password too weak: must be at least 8 characters long and include uppercase letters, lowercase letters, digits, and special characters.",
-        400
-      );
+      throw new WeakPasswordError();
     }
 
     const { user } = await createUserWithEmailAndPassword(FirebaseService.clientAuth, email, password);
@@ -50,11 +46,6 @@ export const signupController = async (req: Request, res: Response, next: NextFu
 
     return res.json(new SignUpResponse());
   } catch (e) {
-    if (FirebaseErrorAdapter.isFirebaseError(e)) {
-      const firebaseError = new FirebaseErrorAdapter(e as FirebaseError);
-      return next(new AppError(firebaseError.message, firebaseError.statusCode));
-    }
-
     return next(e);
   }
 };
