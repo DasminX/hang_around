@@ -47,7 +47,7 @@ export class PlacesFinder {
                 "places.id,places.accessibilityOptions,places.businessStatus,places.displayName,places.formattedAddress,places.googleMapsUri,places.iconBackgroundColor,places.iconMaskBaseUri,places.location,places.primaryType,places.shortFormattedAddress,places.types,places.utcOffsetMinutes",
             },
           },
-        }
+        },
       );
 
       return res[0].places;

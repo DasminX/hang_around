@@ -24,7 +24,7 @@ export const findPlaces = async (req: Request, res: Response, next: NextFunction
     }
 
     return res.json(new APIResponseSuccess(result));
-  } catch (error) {
-    return next(error);
+  } catch (e) {
+    next(e);
   }
 };

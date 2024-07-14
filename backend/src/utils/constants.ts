@@ -12,4 +12,5 @@ export const FIREBASE_ERRORS = {
   "auth/weak-password": "Password should be at least 6 characters long.",
   "auth/email-already-in-use": "Email is already in use!",
   "auth/id-token-expired": "Session expired! Sign in again.",
+  "auth/argument-error": "Authorization token is invalid or malformed. Try again.",
 } as const;

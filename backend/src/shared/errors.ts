@@ -21,7 +21,7 @@ export abstract class AppError extends Error {
     message: string,
     public readonly httpCode: StatusCodes,
     public readonly errorCode: ErrorCode = ErrorCode.UNKNOWN_ERROR,
-    public readonly details: unknown = {}
+    public readonly details: unknown = {},
   ) {
     super(message);
 
@@ -46,7 +46,7 @@ export class WeakPasswordError extends AppError {
     super(
       "Password too weak: must be at least 8 characters long and include uppercase letters, lowercase letters, digits, and special characters.",
       StatusCodes.BAD_REQUEST,
-      ErrorCode.BAD_CREDENTIALS
+      ErrorCode.BAD_CREDENTIALS,
     );
   }
 }

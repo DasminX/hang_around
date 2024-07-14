@@ -2,13 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { FirebaseService } from "../shared/firebaseService";
 import { isPasswordStrongEnough, SignInResponse, SignUpResponse } from "./utils";
-import {
-  AppError,
-  BadCredentialsError,
-  EmailNotConfirmedError,
-  FirebaseErrorCustom,
-  WeakPasswordError,
-} from "../shared/errors";
+import { BadCredentialsError, EmailNotConfirmedError, WeakPasswordError } from "../shared/errors";
 
 export const signinController = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -46,7 +40,7 @@ export const signupController = async (req: Request, res: Response, next: NextFu
 
     return res.json(new SignUpResponse());
   } catch (e) {
-    return next(e);
+    next(e);
   }
 };
 

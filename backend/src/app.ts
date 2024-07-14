@@ -34,7 +34,7 @@ export const getNodeApp = () => {
   app.use(
     express.urlencoded({
       extended: true,
-    })
+    }),
   );
 
   app.use(compression());
