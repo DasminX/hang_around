@@ -11,12 +11,12 @@ export class Authenticator {
         throw new NotAuthenticatedError();
       }
 
-      const decodedIdToken = await FirebaseService.adminAuth.verifyIdToken(token);
-      if (!decodedIdToken) {
+      const userFromDecodedToken = await FirebaseService.adminAuth.verifyIdToken(token);
+      if (!userFromDecodedToken) {
         throw new NotAuthenticatedError();
       }
 
-      console.log(decodedIdToken); // TODO potrzebne do zapisania w redis
+      console.log(userFromDecodedToken); // TODO potrzebne do zapisania w redis
 
       next();
     } catch (e) {

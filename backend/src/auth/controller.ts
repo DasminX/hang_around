@@ -6,8 +6,8 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { FirebaseService } from "../shared/firebaseService";
-import { isPasswordStrongEnough, SignInResponse, SignUpResponse } from "./utils";
-import { BadCredentialsError, EmailNotConfirmedError, WeakPasswordError } from "../shared/errors";
+import { isPasswordStrongEnough, SignInResponse, SignOutResponse, SignUpResponse } from "./utils";
+import { EmailNotConfirmedError, WeakPasswordError } from "../shared/errors";
 import { parseInputBySchema } from "../shared/validateZodSchema";
 import { RESET_PASSWORD_SCHEMA, SIGN_IN_SCHEMA, SIGN_UP_SCHEMA } from "./schema";
 
@@ -52,6 +52,14 @@ export const resetPasswordController = async (req: Request, res: Response, next:
     await sendPasswordResetEmail(FirebaseService.clientAuth, email);
 
     return res.json(new SignUpResponse());
+  } catch (e) {
+    next(e);
+  }
+};
+
+export const signOutController = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    return res.json(new SignOutResponse());
   } catch (e) {
     next(e);
   }
