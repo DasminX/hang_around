@@ -16,7 +16,8 @@ export class Authenticator {
         throw new NotAuthenticatedError();
       }
 
-      console.log(userFromDecodedToken); // TODO potrzebne do zapisania w redis
+      res.locals.user = userFromDecodedToken;
+      // console.log(userFromDecodedToken); // TODO potrzebne do zapisania w redis
 
       next();
     } catch (e) {

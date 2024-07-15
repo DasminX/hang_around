@@ -7,7 +7,7 @@ import compression from "compression";
 import mainRouter from "./router";
 import { NotFoundError } from "./shared/errors";
 import { errorController } from "./shared/errorController";
-import rateLimiter from "./shared/rate-limiter";
+import { getGlobalRateLimiter } from "./shared/global-rate-limiter";
 import { loggerMiddleware } from "./shared/logger";
 
 export const getNodeApp = () => {
@@ -18,14 +18,10 @@ export const getNodeApp = () => {
   app.use(cookieParser());
 
   app.use(loggerMiddleware());
-  app.use(rateLimiter());
+  app.use(getGlobalRateLimiter());
 
   app.use(express.json({ limit: "10kb" }));
-  app.use(
-    express.urlencoded({
-      extended: true,
-    }),
-  );
+  app.use(express.urlencoded({ extended: true }));
 
   app.use(compression());
 
