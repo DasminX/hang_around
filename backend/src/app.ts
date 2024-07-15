@@ -1,14 +1,14 @@
 import express from "express";
 import helmet from "helmet";
 import cors from "cors";
-import rateLimit from "express-rate-limit";
 import cookieParser from "cookie-parser";
 import compression from "compression";
-import morgan from "morgan";
+
 import mainRouter from "./router";
 import { NotFoundError } from "./shared/errors";
 import { errorController } from "./shared/errorController";
-import { ONE_HOUR } from "./utils/constants";
+import rateLimiter from "./shared/rate-limiter";
+import { loggerMiddleware } from "./shared/logger";
 
 export const getNodeApp = () => {
   const app = express();
@@ -17,20 +17,8 @@ export const getNodeApp = () => {
   app.use(helmet());
   app.use(cookieParser());
 
-  // TODO ADD WINSTON
-  if (process.env.NODE_ENV === "development") {
-    app.use(morgan("dev"));
-  } else {
-    app.use(morgan("combined"));
-  }
-
-  const limiter = rateLimit({
-    limit: 100,
-    windowMs: ONE_HOUR,
-    message: "Too many requests from this IP, please try again in an hour!",
-  });
-
-  app.use(limiter);
+  app.use(loggerMiddleware());
+  app.use(rateLimiter());
 
   app.use(express.json({ limit: "10kb" }));
   app.use(

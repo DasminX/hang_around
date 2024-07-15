@@ -30,6 +30,7 @@
     "redis": "^4.6.15",
     "ts-node": "10.9.2",
     "winston": "^3.13.1",
+    "winston-daily-rotate-file": "^5.0.0",
     "zod": "3.23.5"
   },
   "devDependencies": {

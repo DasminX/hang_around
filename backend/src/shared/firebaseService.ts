@@ -5,6 +5,7 @@ import { Firestore as AdminFirestore, getFirestore as getAdminFirestore } from "
 import { FirebaseApp as ClientApp, initializeApp as initializeClientApp } from "firebase/app";
 import { Auth as ClientAuth, getAuth as getClientAuth } from "firebase/auth";
 import { Firestore as ClientFirestore, getFirestore as getClientFirestore } from "firebase/firestore";
+import { logger } from "./logger";
 
 export class FirebaseService {
   private static _adminApp: AdminApp;
@@ -22,14 +23,14 @@ export class FirebaseService {
       FirebaseService._adminApp = initializeAdminApp(FirebaseService._getConfig());
       FirebaseService._adminAuth = getAdminAuth(FirebaseService._adminApp);
       FirebaseService._adminFirestore = getAdminFirestore(FirebaseService._adminApp);
-      console.log("Admin firebase initialized...");
+      logger.info("Admin firebase initialized...");
     }
 
     if (!FirebaseService._clientApp) {
       FirebaseService._clientApp = initializeClientApp(FirebaseService._getConfig());
       FirebaseService._clientAuth = getClientAuth(FirebaseService._clientApp);
       FirebaseService._clientFirestore = getClientFirestore(FirebaseService._clientApp);
-      console.log("Client firebase initialized...");
+      logger.info("Client firebase initialized...");
     }
   }
 

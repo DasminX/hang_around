@@ -2,10 +2,10 @@ import path from "path";
 import dotenv from "dotenv";
 import { getNodeApp } from "./app";
 import { FirebaseService } from "./shared/firebaseService";
+import { logger } from "./shared/logger";
 
 process.on("uncaughtException", (err) => {
-  console.log("UNCAUGHT EXCEPTION! 💥 Shutting down...");
-  console.log(err.name, err.message);
+  logger.error(`Uncaught exception: ${err.toString()}`, err);
   process.exit(1);
 });
 
@@ -18,22 +18,25 @@ const server = app.listen(port, () => {
   try {
     FirebaseService.initialize();
   } catch (e) {
-    console.log(`Error while initializing dependencies...`, e);
+    logger.error(`Server is starting: Error while initializing dependencies...`, e);
   } finally {
-    console.log(`App running on port ${port}...`);
+    logger.info(`App running on port ${port}...`);
   }
 });
 
 process.on("unhandledRejection", (err) => {
-  console.log("UNHANDLED REJECTION! 💥 Shutting down...");
+  if (err) {
+    logger.error(`Unhandled rejection: ${err.toString()}`, err);
+  }
   server.close(() => {
     process.exit(1);
   });
 });
 
 process.on("SIGTERM", () => {
-  console.log("👋 SIGTERM RECEIVED. Shutting down gracefully");
+  logger.error(`SIGTERM received...`);
+
   server.close(() => {
-    console.log("💥 Process terminated!");
+    logger.error(`Process terminated.`);
   });
 });
