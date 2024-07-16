@@ -1,12 +1,5 @@
 import winston from "winston";
-import morgan from "morgan";
 import "winston-daily-rotate-file";
-
-export class Logger {
-  protected constructor() {}
-
-  public static initialize() {}
-}
 
 export const logger = winston.createLogger({
   level: "http",
@@ -31,10 +24,3 @@ export const logger = winston.createLogger({
     }),
   ],
 });
-
-export const loggerMiddleware = () =>
-  morgan(":method :url :status :res[content-length] - :response-time ms", {
-    stream: {
-      write: (message) => logger.http(message.trim()),
-    },
-  });

@@ -1,13 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import { PlacesFinder } from "./finder";
-import { APIResponseSuccess } from "../utils/response";
-import { AppError, BadCredentialsError } from "../shared/errors";
+import { APIResponseSuccess } from "../shared/response";
+import { AppError } from "../shared/errors";
 import { FIND_PLACES_SCHEMA } from "./schema";
-import { parseInputBySchema } from "../shared/validateZodSchema";
+import { parseInputBySchemaOrThrow } from "../shared/validators/validate-zod-schema";
 
 export const findPlaces = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { location, queryText } = parseInputBySchema(req.body, FIND_PLACES_SCHEMA);
+    const { location, queryText } = parseInputBySchemaOrThrow(req.body, FIND_PLACES_SCHEMA);
     return next(new Error("Elo"));
 
     const result = await PlacesFinder.find({

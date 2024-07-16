@@ -1,4 +1,4 @@
-export const isObjectAndContainsProperties = <K extends string>(
+export const isObjectWithAllProperties = <K extends string>(
   object: unknown,
   ...keys: K[]
 ): object is Record<string, unknown> & Record<K, unknown> => {

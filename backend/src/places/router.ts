@@ -1,10 +1,10 @@
 import { Router as getRouter } from "express";
 import { findPlaces } from "./controller";
-import { Authenticator } from "../authenticator";
-import { getPlacesRateLimiter } from "./places-rate-limiter";
+import { placesRateLimiter } from "./middlewares/places-rate-limiter";
+import isAuthenticated from "../shared/middlewares/auth-middleware";
 
 const router = getRouter();
 
-router.route("/find").post(Authenticator.isAuthenticated, getPlacesRateLimiter(), findPlaces);
+router.route("/find").post(isAuthenticated, placesRateLimiter(), findPlaces);
 
 export default router;

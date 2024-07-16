@@ -1,18 +1,13 @@
-import { FirebaseError } from "firebase/app";
-import { isObjectAndContainsProperties } from "../utils/helpers";
-import { FIREBASE_ERRORS } from "../utils/constants";
-import { StatusCodes } from "http-status-codes";
 import { Request } from "express";
-import { ZodIssue } from "zod";
+import { FirebaseError } from "firebase/app";
+import { StatusCodes } from "http-status-codes";
+import { isObjectWithAllProperties } from "../utils/functions";
 
 export enum ErrorCode {
   UNKNOWN_ERROR = "UNKNOWN_ERROR",
   BAD_CREDENTIALS = "BAD_CREDENTIALS",
   NOT_FOUND = "NOT_FOUND",
-  RESOURCE_NOT_FOUND = "RESOURCE_NOT_FOUND",
-  VALIDATION_ERROR = "VALIDATION_ERROR",
   INPUT_VALIDATION_ERROR = "INPUT_VALIDATION_ERROR",
-  ALREADY_EXISTS_ERROR = "ALREADY_EXISTS_ERROR",
   EMAIL_NOT_CONFIRMED = "EMAIL_NOT_CONFIRMED",
   NOT_AUTHENTICATED = "NOT_AUTHENTICATED",
 }
@@ -82,15 +77,27 @@ export class InputValidationError extends AppError {
   }
 }
 
-export class FirebaseErrorCustom extends AppError {
+const FIREBASE_ERROR_MESSAGES = {
+  "auth/invalid-email": "Invalid email provided!",
+  "auth/user-disabled": "User account has been disabled!",
+  "auth/user-not-found": "User not found!",
+  "auth/wrong-password": "Invalid password provided!",
+  "auth/invalid-credential": "Invalid credentials!",
+  "auth/weak-password": "Password should be at least 6 characters long.",
+  "auth/email-already-in-use": "Email is already in use!",
+  "auth/id-token-expired": "Session expired! Sign in again.",
+  "auth/argument-error": "Authorization token is invalid or malformed. Try again.",
+} as const;
+
+export class AppFirebaseError extends AppError {
   constructor(originalFirebaseError: FirebaseError) {
     const errMsg =
-      FIREBASE_ERRORS[originalFirebaseError.code as keyof typeof FIREBASE_ERRORS] ||
+      FIREBASE_ERROR_MESSAGES[originalFirebaseError.code as keyof typeof FIREBASE_ERROR_MESSAGES] ||
       "Unknown error occured. Try again later.";
     super(errMsg, StatusCodes.BAD_REQUEST, ErrorCode.UNKNOWN_ERROR);
   }
 
   public static isFirebaseError(object: unknown): object is FirebaseError {
-    return isObjectAndContainsProperties(object, "message", "code");
+    return isObjectWithAllProperties(object, "message", "code");
   }
 }

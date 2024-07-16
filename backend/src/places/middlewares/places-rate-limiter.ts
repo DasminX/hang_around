@@ -1,8 +1,8 @@
-import rateLimit from "express-rate-limit";
-import { ONE_HOUR } from "../utils/constants";
 import { Request, Response } from "express";
+import rateLimit from "express-rate-limit";
+import { ONE_HOUR } from "../../utils/constants";
 
-export const getPlacesRateLimiter = () =>
+export const placesRateLimiter = () =>
   rateLimit({
     limit: 5,
     windowMs: ONE_HOUR,

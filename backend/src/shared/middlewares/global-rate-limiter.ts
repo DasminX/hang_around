@@ -1,7 +1,7 @@
 import rateLimit from "express-rate-limit";
-import { ONE_HOUR } from "../utils/constants";
+import { ONE_HOUR } from "../../utils/constants";
 
-export const getGlobalRateLimiter = () =>
+export const globalRateLimiter = () =>
   rateLimit({
     limit: 100,
     windowMs: ONE_HOUR,

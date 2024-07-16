@@ -1,20 +1,17 @@
-import path from "path";
-import dotenv from "dotenv";
 import { getNodeApp } from "./app";
-import { FirebaseService } from "./shared/firebaseService";
+import { FirebaseService } from "./shared/firebase.service";
 import { logger } from "./shared/logger";
+import { loadConfig } from "./utils/config";
 
 process.on("uncaughtException", (err) => {
   logger.error(`Uncaught exception: ${err.toString()}`, err);
   process.exit(1);
 });
 
-dotenv.config({ path: path.join(process.cwd(), ".env") });
-
-const app = getNodeApp();
+loadConfig();
 
 const port = process.env.PORT || 3000;
-const server = app.listen(port, () => {
+const server = getNodeApp().listen(port, () => {
   try {
     FirebaseService.initialize();
   } catch (e) {

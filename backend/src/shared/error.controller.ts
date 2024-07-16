@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
-import { AppError, ErrorCode, FirebaseErrorCustom } from "./errors";
 import { StatusCodes } from "http-status-codes";
+import { AppError, ErrorCode, AppFirebaseError } from "./errors";
 import { logger } from "./logger";
 
 export const errorController = (err: Error, _req: Request, res: Response, _next: NextFunction): Response => {
-  if (FirebaseErrorCustom.isFirebaseError(err)) {
-    err = new FirebaseErrorCustom(err);
+  if (AppFirebaseError.isFirebaseError(err)) {
+    err = new AppFirebaseError(err);
   }
 
   const response = {
