@@ -1,4 +1,4 @@
-import { APIResponseSuccess } from "../../shared/response";
+import { APIResponseSuccess } from "../../shared/api-response-success";
 
 export class ResetPasswordResponse extends APIResponseSuccess {
   constructor() {
