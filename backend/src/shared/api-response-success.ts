@@ -1,5 +1,5 @@
-export class APIResponseSuccess {
+export abstract class APIResponseSuccess {
   public readonly status = "ok";
 
-  constructor(public readonly data: unknown = {}) {}
+  protected constructor(public readonly data: unknown = {}) {}
 }

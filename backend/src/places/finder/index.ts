@@ -2,6 +2,7 @@ import path from "path";
 import { PlacesClient } from "@googlemaps/places";
 import { PlacesFinderError, PlacesFinderNotInitializedError } from "../../shared/errors";
 
+// TODO torefactor
 export class PlacesFinder {
   private static client: PlacesClient | null = null;
 

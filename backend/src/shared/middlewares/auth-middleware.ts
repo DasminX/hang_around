@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { FirebaseService } from "../firebase.service";
 import { NotAuthenticatedError } from "../errors";
 
-const isAuthenticated = async (req: Request, res: Response, next: NextFunction) => {
+const isAuthenticatedMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = getFromBearer(req.headers);
     if (!token) {
@@ -30,4 +30,4 @@ const getFromBearer = (headers: Request["headers"]): string | null => {
   return headers.authorization.split(" ").at(-1) || null;
 };
 
-export { isAuthenticated as default, isAuthenticated };
+export { isAuthenticatedMiddleware as default, isAuthenticatedMiddleware };

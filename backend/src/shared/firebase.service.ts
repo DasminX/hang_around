@@ -7,6 +7,7 @@ import { Auth as ClientAuth, getAuth as getClientAuth } from "firebase/auth";
 import { Firestore as ClientFirestore, getFirestore as getClientFirestore } from "firebase/firestore";
 import { logger } from "./logger";
 
+// TODO separacja admin/client? do przemyślenia
 export class FirebaseService {
   private static _adminApp: AdminApp;
   private static _adminAuth: AdminAuth;

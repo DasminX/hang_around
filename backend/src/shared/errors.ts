@@ -77,6 +77,7 @@ export class InputValidationError extends AppError {
   }
 }
 
+// TODO do przeniesienia do FirebaseService.ERROR_MESSAGES jako getter
 const FIREBASE_ERROR_MESSAGES = {
   "auth/invalid-email": "Invalid email provided!",
   "auth/user-disabled": "User account has been disabled!",
