@@ -33,7 +33,7 @@ export class PlacesFinder {
           textQuery: queryText,
           includedType: "restaurant",
           maxResultCount: 5,
-          // openNow: true, // TODO prod uncomment
+          // openNow: true, // TODO LATER prod uncomment
           // minRating: 3.5,
         },
         {
