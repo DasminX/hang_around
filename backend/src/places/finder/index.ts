@@ -2,23 +2,19 @@ import path from "path";
 import { PlacesClient } from "@googlemaps/places";
 import { PlacesFinderError, PlacesFinderNotInitializedError } from "../../shared/errors";
 
-// TODO torefactor
 export class PlacesFinder {
   private static client: PlacesClient | null = null;
 
-  private static initializeClient() {
+  public static initialize() {
     if (!PlacesFinder.client) {
       PlacesFinder.client = new PlacesClient({
-        keyFile: path.join(process.cwd(), (process.env.GOOGLE_PLACES_API_JSON_PATH as string) || "empty.txt"),
+        keyFile: path.join(process.cwd(), (process.env.GOOGLE_PLACES_API_JSON_PATH as string) || ""),
       });
     }
   }
 
-  public static async find({ location, query }: { location: [number, number]; query: string }) {
-    if (!PlacesFinder.client) {
-      this.initializeClient();
-    }
-    if (this.client == null) {
+  public static async find({ location, queryText }: { location: [number, number]; queryText: string }) {
+    if (!this.client) {
       return new PlacesFinderNotInitializedError();
     }
 
@@ -34,10 +30,10 @@ export class PlacesFinder {
               radius: 1000,
             },
           },
-          textQuery: query,
+          textQuery: queryText,
           includedType: "restaurant",
           maxResultCount: 5,
-          // openNow: true,
+          // openNow: true, // TODO prod uncomment
           // minRating: 3.5,
         },
         {

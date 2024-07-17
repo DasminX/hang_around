@@ -1,4 +1,5 @@
 import { getNodeApp } from "./app";
+import { PlacesFinder } from "./places/finder";
 import { FirebaseService } from "./shared/firebase.service";
 import { logger } from "./shared/logger";
 import { loadConfig } from "./utils/config";
@@ -14,10 +15,11 @@ const port = process.env.PORT || 3000;
 const server = getNodeApp().listen(port, () => {
   try {
     FirebaseService.initialize();
-  } catch (e) {
-    logger.error(`Server is starting: Error while initializing dependencies...`, e);
-  } finally {
+    PlacesFinder.initialize();
     logger.info(`App running on port ${port}...`);
+  } catch (e) {
+    logger.error(`Server error while initializing dependencies...`, e);
+    process.exit(1);
   }
 });
 
