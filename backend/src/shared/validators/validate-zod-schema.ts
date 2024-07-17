@@ -1,8 +1,7 @@
-import { ZodIssue, ZodTypeAny } from "zod";
+import { ZodIssue, ZodSchema, ZodTypeAny } from "zod";
 import { InputValidationError } from "../errors";
 
-// TODO improve types
-export const parseInputBySchemaOrThrow = <T extends ZodTypeAny>(input: unknown, schema: T): T["_output"] => {
+export const parseInputBySchemaOrThrow = (input: unknown, schema: ZodSchema): ZodSchema["_output"] => {
   const parsed = schema.safeParse(input);
 
   if (!parsed.success) {

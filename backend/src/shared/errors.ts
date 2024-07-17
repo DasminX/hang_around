@@ -1,3 +1,4 @@
+import { FirebaseService } from "./firebase.service";
 import { Request } from "express";
 import { FirebaseError } from "firebase/app";
 import { StatusCodes } from "http-status-codes";
@@ -77,23 +78,10 @@ export class InputValidationError extends AppError {
   }
 }
 
-// TODO do przeniesienia do FirebaseService.ERROR_MESSAGES jako getter
-const FIREBASE_ERROR_MESSAGES = {
-  "auth/invalid-email": "Invalid email provided!",
-  "auth/user-disabled": "User account has been disabled!",
-  "auth/user-not-found": "User not found!",
-  "auth/wrong-password": "Invalid password provided!",
-  "auth/invalid-credential": "Invalid credentials!",
-  "auth/weak-password": "Password should be at least 6 characters long.",
-  "auth/email-already-in-use": "Email is already in use!",
-  "auth/id-token-expired": "Session expired! Sign in again.",
-  "auth/argument-error": "Authorization token is invalid or malformed. Try again.",
-} as const;
-
 export class AppFirebaseError extends AppError {
   constructor(originalFirebaseError: FirebaseError) {
     const errMsg =
-      FIREBASE_ERROR_MESSAGES[originalFirebaseError.code as keyof typeof FIREBASE_ERROR_MESSAGES] ||
+      FirebaseService.ERROR_MESSAGES[originalFirebaseError.code as keyof typeof FirebaseService.ERROR_MESSAGES] ||
       "Unknown error occured. Try again later.";
     super(errMsg, StatusCodes.BAD_REQUEST, ErrorCode.UNKNOWN_ERROR);
   }

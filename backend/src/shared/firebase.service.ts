@@ -7,7 +7,6 @@ import { Auth as ClientAuth, getAuth as getClientAuth } from "firebase/auth";
 import { Firestore as ClientFirestore, getFirestore as getClientFirestore } from "firebase/firestore";
 import { logger } from "./logger";
 
-// TODO separacja admin/client? do przemyślenia
 export class FirebaseService {
   private static _adminApp: AdminApp;
   private static _adminAuth: AdminAuth;
@@ -86,5 +85,19 @@ export class FirebaseService {
       messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID as string,
       appId: process.env.FIREBASE_APP_ID as string,
     };
+  }
+
+  public static get ERROR_MESSAGES() {
+    return {
+      "auth/invalid-email": "Invalid email provided!",
+      "auth/user-disabled": "User account has been disabled!",
+      "auth/user-not-found": "User not found!",
+      "auth/wrong-password": "Invalid password provided!",
+      "auth/invalid-credential": "Invalid credentials!",
+      "auth/weak-password": "Password should be at least 6 characters long.",
+      "auth/email-already-in-use": "Email is already in use!",
+      "auth/id-token-expired": "Session expired! Sign in again.",
+      "auth/argument-error": "Authorization token is invalid or malformed. Try again.",
+    } as const;
   }
 }

@@ -15,7 +15,7 @@ const isAuthenticatedMiddleware = async (req: Request, res: Response, next: Next
     }
 
     res.locals.user = userFromDecodedToken;
-    // console.log(userFromDecodedToken); // TODO potrzebne do zapisania w redis
+    // console.log(userFromDecodedToken); // TODO LATER potrzebne do zapisania w redis
 
     next();
   } catch (e) {
