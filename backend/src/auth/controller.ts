@@ -6,8 +6,7 @@ import {
 } from "firebase/auth";
 import { FirebaseService } from "../shared/firebase.service";
 import { SignInResponse, SignOutResponse, SignUpResponse, ResetPasswordResponse } from "./responses";
-import { isPasswordStrongEnough } from "./utils/functions";
-import { EmailNotConfirmedError, WeakPasswordError } from "../shared/errors";
+import { EmailNotConfirmedError } from "../shared/errors";
 import { RESET_PASSWORD_SCHEMA, SIGN_IN_SCHEMA, SIGN_UP_SCHEMA } from "./schema";
 import { parseInputBySchemaOrThrow } from "../shared/validators/validate-zod-schema";
 import { ExpressMiddlewareCaught } from "../utils/types";
@@ -26,10 +25,6 @@ export const signinController: ExpressMiddlewareCaught = async (req, res) => {
 
 export const signupController: ExpressMiddlewareCaught = async (req, res) => {
   const { email, password } = parseInputBySchemaOrThrow(req.body, SIGN_UP_SCHEMA);
-
-  if (!isPasswordStrongEnough(password)) {
-    throw new WeakPasswordError();
-  }
 
   const { user } = await createUserWithEmailAndPassword(FirebaseService.clientAuth, email, password);
 

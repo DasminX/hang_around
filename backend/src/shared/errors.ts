@@ -39,16 +39,6 @@ export class BadCredentialsError extends AppError {
   }
 }
 
-export class WeakPasswordError extends AppError {
-  constructor() {
-    super(
-      "Password too weak: must be at least 8 characters long and include uppercase letters, lowercase letters, digits, and special characters.",
-      StatusCodes.BAD_REQUEST,
-      ErrorCode.BAD_CREDENTIALS,
-    );
-  }
-}
-
 export class EmailNotConfirmedError extends AppError {
   constructor() {
     super("Email not confirmed!", StatusCodes.BAD_REQUEST, ErrorCode.EMAIL_NOT_CONFIRMED);
