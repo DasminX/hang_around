@@ -1,9 +1,9 @@
-import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { AppError, ErrorCode, AppFirebaseError } from "./errors";
 import { logger } from "./logger";
+import { ExpressMiddlewareErrorController } from "../utils/types";
 
-export const errorController = (err: Error, _req: Request, res: Response, _next: NextFunction): Response => {
+export const errorController: ExpressMiddlewareErrorController = (err, _req, res, _next) => {
   if (AppFirebaseError.isFirebaseError(err)) {
     err = new AppFirebaseError(err);
   }

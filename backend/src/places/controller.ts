@@ -5,8 +5,9 @@ import { FIND_PLACES_SCHEMA } from "./schema";
 import { parseInputBySchemaOrThrow } from "../shared/validators/validate-zod-schema";
 import { FindPlaceResponse } from "./responses";
 import { FindPlaceResult } from "./finder/types";
+import { ExpressMiddlewareCaught } from "../utils/types";
 
-export const findPlacesController = async (req: Request, res: Response) => {
+export const findPlacesController: ExpressMiddlewareCaught = async (req, res) => {
   const { location, queryText } = parseInputBySchemaOrThrow(req.body, FIND_PLACES_SCHEMA);
   throw new Error("Functionality is temporary disabled.");
 

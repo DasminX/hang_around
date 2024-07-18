@@ -11,6 +11,7 @@ export enum ErrorCode {
   INPUT_VALIDATION_ERROR = "INPUT_VALIDATION_ERROR",
   EMAIL_NOT_CONFIRMED = "EMAIL_NOT_CONFIRMED",
   NOT_AUTHENTICATED = "NOT_AUTHENTICATED",
+  TIMEOUT = "TIMEOUT",
 }
 
 export abstract class AppError extends Error {
@@ -75,6 +76,12 @@ export class PlacesFinderError extends AppError {
 export class InputValidationError extends AppError {
   constructor(details: string[]) {
     super("Given inputs are invalid.", StatusCodes.BAD_REQUEST, ErrorCode.INPUT_VALIDATION_ERROR, details);
+  }
+}
+
+export class TimeoutError extends AppError {
+  constructor() {
+    super("Connection timed out!", StatusCodes.REQUEST_TIMEOUT, ErrorCode.TIMEOUT);
   }
 }
 

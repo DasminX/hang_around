@@ -1,4 +1,3 @@
-import { Request, Response } from "express";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -11,8 +10,9 @@ import { isPasswordStrongEnough } from "./utils/functions";
 import { EmailNotConfirmedError, WeakPasswordError } from "../shared/errors";
 import { RESET_PASSWORD_SCHEMA, SIGN_IN_SCHEMA, SIGN_UP_SCHEMA } from "./schema";
 import { parseInputBySchemaOrThrow } from "../shared/validators/validate-zod-schema";
+import { ExpressMiddlewareCaught } from "../utils/types";
 
-export const signinController = async (req: Request, res: Response) => {
+export const signinController: ExpressMiddlewareCaught = async (req, res) => {
   const { email, password } = parseInputBySchemaOrThrow(req.body, SIGN_IN_SCHEMA);
 
   const { user } = await signInWithEmailAndPassword(FirebaseService.clientAuth, email, password);
@@ -24,7 +24,7 @@ export const signinController = async (req: Request, res: Response) => {
   return res.json(new SignInResponse(await user.getIdTokenResult()));
 };
 
-export const signupController = async (req: Request, res: Response) => {
+export const signupController: ExpressMiddlewareCaught = async (req, res) => {
   const { email, password } = parseInputBySchemaOrThrow(req.body, SIGN_UP_SCHEMA);
 
   if (!isPasswordStrongEnough(password)) {
@@ -38,7 +38,7 @@ export const signupController = async (req: Request, res: Response) => {
   return res.json(new SignUpResponse());
 };
 
-export const resetPasswordController = async (req: Request, res: Response) => {
+export const resetPasswordController: ExpressMiddlewareCaught = async (req, res) => {
   const { email } = parseInputBySchemaOrThrow(req.body, RESET_PASSWORD_SCHEMA);
 
   await sendPasswordResetEmail(FirebaseService.clientAuth, email);
@@ -46,6 +46,6 @@ export const resetPasswordController = async (req: Request, res: Response) => {
   return res.json(new ResetPasswordResponse());
 };
 
-export const signOutController = async (_req: Request, res: Response) => {
+export const signOutController: ExpressMiddlewareCaught = async (_req, res) => {
   return res.json(new SignOutResponse());
 };
