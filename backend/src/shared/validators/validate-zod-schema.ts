@@ -1,4 +1,4 @@
-import { ZodIssue, ZodSchema, ZodTypeAny } from "zod";
+import { ZodIssue, ZodSchema } from "zod";
 import { InputValidationError } from "../errors";
 
 export const parseInputBySchemaOrThrow = (input: unknown, schema: ZodSchema): ZodSchema["_output"] => {
@@ -22,6 +22,8 @@ const getZodIssueMessage = (issue: ZodIssue) => {
   if ("expected" in issue && "received" in issue) {
     message += `expected ${issue.expected}, but got ${issue.received}.`;
   }
+
+  message += ` ${issue.message}.`;
 
   return message;
 };
