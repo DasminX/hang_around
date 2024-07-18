@@ -6,7 +6,7 @@ import { parseInputBySchemaOrThrow } from "../shared/validators/validate-zod-sch
 import { FindPlaceResponse } from "./responses";
 import { FindPlaceResult } from "./finder/types";
 import { ExpressMiddlewareCaught } from "../utils/types";
-import { DistanceInMeters } from "./distance-to-meters";
+import { DistanceConverter } from "./distance-converter";
 
 export const findPlacesController: ExpressMiddlewareCaught = async (req, res) => {
   const { location, typeOfFood, howFar } = parseInputBySchemaOrThrow(req.body, FIND_PLACES_SCHEMA);
@@ -15,7 +15,7 @@ export const findPlacesController: ExpressMiddlewareCaught = async (req, res) =>
   const result = await PlacesFinder.find({
     location,
     typeOfFood,
-    radius: new DistanceInMeters(howFar).getValue(),
+    radius: new DistanceConverter(howFar).getInMeters(),
   });
 
   if (result instanceof AppError) {
