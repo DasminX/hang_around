@@ -6,14 +6,16 @@ import { parseInputBySchemaOrThrow } from "../shared/validators/validate-zod-sch
 import { FindPlaceResponse } from "./responses";
 import { FindPlaceResult } from "./finder/types";
 import { ExpressMiddlewareCaught } from "../utils/types";
+import { DistanceInMeters } from "./distance-to-meters";
 
 export const findPlacesController: ExpressMiddlewareCaught = async (req, res) => {
-  const { location, queryText } = parseInputBySchemaOrThrow(req.body, FIND_PLACES_SCHEMA);
-  throw new Error("Functionality is temporary disabled.");
+  const { location, typeOfFood, howFar } = parseInputBySchemaOrThrow(req.body, FIND_PLACES_SCHEMA);
+  // throw new Error("Functionality is temporary disabled.");
 
   const result = await PlacesFinder.find({
     location,
-    queryText,
+    typeOfFood,
+    radius: new DistanceInMeters(howFar).getValue(),
   });
 
   if (result instanceof AppError) {

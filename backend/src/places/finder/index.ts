@@ -13,7 +13,15 @@ export class PlacesFinder {
     }
   }
 
-  public static async find({ location, queryText }: { location: [number, number]; queryText: string }) {
+  public static async find({
+    location,
+    typeOfFood,
+    radius,
+  }: {
+    location: [number, number];
+    typeOfFood: string;
+    radius: number;
+  }) {
     if (!this.client) {
       return new PlacesFinderNotInitializedError();
     }
@@ -27,13 +35,14 @@ export class PlacesFinder {
                 latitude: location[0],
                 longitude: location[1],
               },
-              radius: 1000,
+              radius: radius,
             },
           },
-          textQuery: queryText,
+          textQuery: typeOfFood,
           includedType: "restaurant",
           maxResultCount: 5,
-          // openNow: true, // TODO LATER prod uncomment
+          openNow: true, // TODO LATER prod uncomment
+
           // minRating: 3.5,
         },
         {
@@ -41,6 +50,7 @@ export class PlacesFinder {
             headers: {
               "X-Goog-FieldMask":
                 "places.id,places.accessibilityOptions,places.businessStatus,places.displayName,places.formattedAddress,places.googleMapsUri,places.iconBackgroundColor,places.iconMaskBaseUri,places.location,places.primaryType,places.shortFormattedAddress,places.types,places.utcOffsetMinutes",
+              // "*",
             },
           },
         },
