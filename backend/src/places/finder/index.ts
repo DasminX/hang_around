@@ -8,7 +8,10 @@ export class PlacesFinder {
   public static initialize() {
     if (!PlacesFinder.client) {
       PlacesFinder.client = new PlacesClient({
-        keyFile: path.join(process.cwd(), (process.env.GOOGLE_PLACES_API_JSON_PATH as string) || ""),
+        credentials: {
+          private_key: (process.env.GOOGLE_PLACES_API_PRIVATE_KEY as string)?.split(String.raw`\n`).join("\n") || "",
+          client_email: process.env.GOOGLE_PLACES_API_CLIENT_EMAIL,
+        },
       });
     }
   }

@@ -98,6 +98,7 @@ export class FirebaseService {
       "auth/email-already-in-use": "Email is already in use!",
       "auth/id-token-expired": "Session expired! Sign in again.",
       "auth/argument-error": "Authorization token is invalid or malformed. Try again.",
+      // "auth/requests-to-this-api-identitytoolkit-method-google.cloud.identitytoolkit.v1.authenticationservice.signinwithpassword-are-blocked.": "Your identityToolkit is not enabled."
     } as const;
   }
 }

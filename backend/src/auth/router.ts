@@ -10,7 +10,6 @@ router.route("/signin").post(catchAsync(handleOrThrowTimeoutError(signinControll
 router.route("/signup").post(catchAsync(handleOrThrowTimeoutError(signupController)));
 router.route("/reset-password").post(catchAsync(handleOrThrowTimeoutError(resetPasswordController)));
 
-// isAuthenticatedMiddleware is checked in "signout" for having res.locals.user in signOutController - there I can revoke the token for the user
 router.route("/signout").get(isAuthenticatedMiddleware, catchAsync(handleOrThrowTimeoutError(signOutController)));
 
 export default router;
