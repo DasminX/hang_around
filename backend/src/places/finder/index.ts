@@ -1,6 +1,6 @@
-import path from "path";
 import { PlacesClient } from "@googlemaps/places";
 import { PlacesFinderError, PlacesFinderNotInitializedError } from "../../shared/errors";
+import { Place } from "./place.model";
 
 export class PlacesFinder {
   private static client: PlacesClient | null = null;
@@ -44,9 +44,8 @@ export class PlacesFinder {
           textQuery: typeOfFood,
           includedType: "restaurant",
           maxResultCount: 5,
-          openNow: true, // TODO LATER prod uncomment
-
-          // minRating: 3.5,
+          openNow: true,
+          minRating: 4,
         },
         {
           otherArgs: {
@@ -59,7 +58,7 @@ export class PlacesFinder {
         },
       );
 
-      return res[0].places;
+      return res[0].places?.map((place) => new Place(place)) ?? Place.empty();
     } catch (e) {
       return new PlacesFinderError(e);
     }

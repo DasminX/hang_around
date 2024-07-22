@@ -28,6 +28,3 @@ export const FIND_PLACES_SCHEMA = z
     }),
   })
   .strict();
-
-export type HowFar = z.infer<typeof FIND_PLACES_SCHEMA>["howFar"];
-export type HowFarUnits = HowFar["unit"];

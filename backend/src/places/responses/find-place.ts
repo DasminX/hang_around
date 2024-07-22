@@ -1,8 +1,8 @@
 import { APIResponseSuccess } from "../../shared/api-response-success";
-import { FindPlaceResult } from "../finder/types";
+import { Place } from "../finder/place.model";
 
 export class FindPlaceResponse extends APIResponseSuccess {
-  constructor(result: FindPlaceResult) {
+  constructor(result: Place[]) {
     super(result);
   }
 }

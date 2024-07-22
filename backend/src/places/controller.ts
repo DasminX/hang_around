@@ -1,10 +1,8 @@
-import { NextFunction, Request, Response } from "express";
 import { PlacesFinder } from "./finder";
 import { AppError } from "../shared/errors";
 import { FIND_PLACES_SCHEMA } from "./schema";
 import { parseInputBySchemaOrThrow } from "../shared/validators/validate-zod-schema";
 import { FindPlaceResponse } from "./responses";
-import { FindPlaceResult } from "./finder/types";
 import { ExpressMiddlewareCaught } from "../utils/types";
 import { DistanceConverter } from "./distance-converter";
 
@@ -22,5 +20,5 @@ export const findPlacesController: ExpressMiddlewareCaught = async (req, res) =>
     throw result;
   }
 
-  return res.json(new FindPlaceResponse(result as FindPlaceResult));
+  return res.json(new FindPlaceResponse(result));
 };

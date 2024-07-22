@@ -1,4 +1,7 @@
-import { HowFar } from "../schema";
+type HowFar = {
+  distance: number;
+  unit: "m" | "yd";
+};
 
 export class DistanceConverter {
   private _distance: HowFar["distance"];
