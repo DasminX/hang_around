@@ -18,8 +18,9 @@ export const SIGN_UP_SCHEMA = z
     }),
     repeatPassword: z.string()
   }).strict().refine(data => data.password === data.repeatPassword, {
-    message: "Password and repeat password fields must be the same!"
-  })
+    message: "Password and repeat password fields must be the same!",
+    path: ["repeatPassword"]
+  });
 
 export const RESET_PASSWORD_SCHEMA = z
   .object({

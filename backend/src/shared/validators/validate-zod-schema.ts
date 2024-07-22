@@ -1,7 +1,7 @@
-import { ZodIssue, ZodSchema } from "zod";
+import z, { ZodIssue, ZodType } from "zod";
 import { InputValidationError } from "../errors";
 
-export const parseInputBySchemaOrThrow = (input: unknown, schema: ZodSchema): ZodSchema["_output"] => {
+export function parseInputBySchemaOrThrow<T extends ZodType<any, any, any>>(input: unknown, schema: T): z.infer<T> {
   const parsed = schema.safeParse(input);
 
   if (!parsed.success) {
@@ -9,7 +9,7 @@ export const parseInputBySchemaOrThrow = (input: unknown, schema: ZodSchema): Zo
   }
 
   return parsed.data;
-};
+}
 
 const formatZodIssues = (issues: ZodIssue[]) =>
   issues.reduce((prev: string[], curr: ZodIssue) => [...prev, getZodIssueMessage(curr)], []);
