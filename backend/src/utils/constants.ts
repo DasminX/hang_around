@@ -7,3 +7,5 @@ export const ONE_DAY = ONE_HOUR * 24;
 export const ONE_WEEK = ONE_DAY * 7;
 
 export const THOUSAND = 1000;
+
+export const HTTP_TIMEOUT_MS = 5 * THOUSAND;

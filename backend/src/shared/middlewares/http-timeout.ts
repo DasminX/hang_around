@@ -1,5 +1,6 @@
 import { TimeoutError } from "../errors";
 import { ExpressMiddlewareCaught } from "../../utils/types";
+import { HTTP_TIMEOUT_MS } from "../../utils/constants";
 
 export const handleOrThrowTimeoutError =
   (controllerFunction: Function): ExpressMiddlewareCaught =>
@@ -9,6 +10,6 @@ export const handleOrThrowTimeoutError =
       new Promise((_, reject) =>
         setTimeout(() => {
           reject(new TimeoutError());
-        }, 5000),
+        }, HTTP_TIMEOUT_MS),
       ),
     ]);
