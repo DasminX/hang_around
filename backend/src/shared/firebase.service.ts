@@ -1,6 +1,11 @@
 import { App as AdminApp, initializeApp as initializeAdminApp } from "firebase-admin/app";
 import { Auth as AdminAuth, getAuth as getAdminAuth } from "firebase-admin/auth";
-import { Firestore as AdminFirestore, getFirestore as getAdminFirestore } from "firebase-admin/firestore";
+import {
+  Firestore as AdminFirestore,
+  type Firestore,
+  getFirestore as getAdminFirestore,
+  getFirestore,
+} from "firebase-admin/firestore";
 
 import { FirebaseApp as ClientApp, initializeApp as initializeClientApp } from "firebase/app";
 import { Auth as ClientAuth, getAuth as getClientAuth } from "firebase/auth";
@@ -16,21 +21,28 @@ export class FirebaseService {
   private static _clientAuth: ClientAuth;
   private static _clientFirestore: ClientFirestore;
 
+  private static _db: Firestore;
+
   private constructor() {}
 
   public static initialize() {
-    if (!FirebaseService._adminApp) {
-      FirebaseService._adminApp = initializeAdminApp(FirebaseService._getConfig());
-      FirebaseService._adminAuth = getAdminAuth(FirebaseService._adminApp);
-      FirebaseService._adminFirestore = getAdminFirestore(FirebaseService._adminApp);
+    if (!this._adminApp) {
+      this._adminApp = initializeAdminApp(this._getConfig());
+      this._adminAuth = getAdminAuth(this._adminApp);
+      this._adminFirestore = getAdminFirestore(this._adminApp);
       logger.info("Admin firebase initialized...");
     }
 
-    if (!FirebaseService._clientApp) {
-      FirebaseService._clientApp = initializeClientApp(FirebaseService._getConfig());
-      FirebaseService._clientAuth = getClientAuth(FirebaseService._clientApp);
-      FirebaseService._clientFirestore = getClientFirestore(FirebaseService._clientApp);
+    if (!this._clientApp) {
+      this._clientApp = initializeClientApp(this._getConfig());
+      this._clientAuth = getClientAuth(this._clientApp);
+      this._clientFirestore = getClientFirestore(this._clientApp);
       logger.info("Client firebase initialized...");
+    }
+
+    if (!this._db) {
+      this._db = getFirestore();
+      logger.info("Firestore db initialized...");
     }
   }
 
@@ -74,6 +86,13 @@ export class FirebaseService {
       this.initialize();
     }
     return this._clientFirestore;
+  }
+
+  public static get db() {
+    if (!this._db) {
+      this.initialize();
+    }
+    return this._db;
   }
 
   private static _getConfig() {
