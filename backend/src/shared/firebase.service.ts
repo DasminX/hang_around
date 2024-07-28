@@ -27,21 +27,27 @@ export class FirebaseService {
 
   public static initialize() {
     if (!this._adminApp) {
-      this._adminApp = initializeAdminApp(this._getConfig());
+      this._adminApp = initializeAdminApp(this._getAppConfig());
       this._adminAuth = getAdminAuth(this._adminApp);
       this._adminFirestore = getAdminFirestore(this._adminApp);
       logger.info("Admin firebase initialized...");
     }
 
     if (!this._clientApp) {
-      this._clientApp = initializeClientApp(this._getConfig());
+      this._clientApp = initializeClientApp(this._getAppConfig());
       this._clientAuth = getClientAuth(this._clientApp);
       this._clientFirestore = getClientFirestore(this._clientApp);
       logger.info("Client firebase initialized...");
     }
 
     if (!this._db) {
-      this._db = getFirestore();
+      this._db = getFirestore(this._adminApp, process.env.DB_ID as string);
+      this._db.settings({
+        credentials: {
+          client_email: process.env.DB_CLIENT_EMAIL,
+          private_key: (process.env.DB_PRIVATE_KEY as string)?.split(String.raw`\n`).join("\n") || "",
+        },
+      });
       logger.info("Firestore db initialized...");
     }
   }
@@ -95,7 +101,7 @@ export class FirebaseService {
     return this._db;
   }
 
-  private static _getConfig() {
+  private static _getAppConfig() {
     return {
       apiKey: process.env.FIREBASE_API_KEY as string,
       authDomain: process.env.FIREBASE_AUTH_DOMAIN as string,
