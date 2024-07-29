@@ -9,7 +9,7 @@ export class PlacesFinder {
     if (!PlacesFinder.client) {
       PlacesFinder.client = new PlacesClient({
         credentials: {
-          private_key: (process.env.GOOGLE_PLACES_API_PRIVATE_KEY as string)?.split(String.raw`\n`).join("\n") || "",
+          private_key: ((process.env.GOOGLE_PLACES_API_PRIVATE_KEY as string) || "").split(String.raw`\n`).join("\n"),
           client_email: process.env.GOOGLE_PLACES_API_CLIENT_EMAIL,
         },
       });
@@ -58,7 +58,7 @@ export class PlacesFinder {
         },
       );
 
-      return res[0].places?.map((place) => new Place(place)) ?? Place.empty();
+      return res[0].places?.map((place) => Place.fromPlacesAPI(place)) ?? [];
     } catch (e) {
       return new PlacesFinderError(e);
     }
