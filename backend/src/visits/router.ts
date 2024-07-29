@@ -2,14 +2,15 @@ import express from "express";
 import isAuthenticatedMiddleware from "../shared/middlewares/auth-middleware";
 import { catchAsync } from "../shared/catch-async";
 import { handleOrThrowTimeoutError } from "../shared/middlewares/http-timeout";
-import { getAllUserVisits, getAllVisits, getVisit } from "./controller";
+import { createVisit, getVisit, getVisitsForAuthUser } from "./controller";
 
 const router = express.Router();
 
-router.route("/").get(isAuthenticatedMiddleware, catchAsync(handleOrThrowTimeoutError(getAllVisits)));
+router.route("/").get(isAuthenticatedMiddleware, catchAsync(handleOrThrowTimeoutError(getVisitsForAuthUser)));
+router.route("/:id").get(isAuthenticatedMiddleware, catchAsync(handleOrThrowTimeoutError(getVisit)));
+router.route("/").post(isAuthenticatedMiddleware, catchAsync(handleOrThrowTimeoutError(createVisit)));
 
-router.route("/:visitid").get(isAuthenticatedMiddleware, catchAsync(handleOrThrowTimeoutError(getVisit)));
-
-router.route("/user/:userid").get(isAuthenticatedMiddleware, catchAsync(handleOrThrowTimeoutError(getAllUserVisits)));
+// router.route("/").get(isAuthenticatedMiddleware, catchAsync(handleOrThrowTimeoutError(getAllVisits))); // TODO add role
+// router.route("/user/:userid").get(isAuthenticatedMiddleware, catchAsync(handleOrThrowTimeoutError(getAllUserVisits)));
 
 export default router;
