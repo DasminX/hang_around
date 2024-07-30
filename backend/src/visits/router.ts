@@ -1,6 +1,7 @@
 import express from "express";
-import isAuthenticatedMiddleware from "../shared/middlewares/auth-middleware";
+
 import { catchAsync } from "../shared/catch-async";
+import isAuthenticatedMiddleware from "../shared/middlewares/auth-middleware";
 import { handleOrThrowTimeoutError } from "../shared/middlewares/http-timeout";
 import { createVisit, getVisit, getVisitsForAuthUser } from "./controller";
 

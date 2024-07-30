@@ -1,6 +1,7 @@
 import express from "express";
-import healthCheckRouter from "./healthcheck/router";
+
 import authRouter from "./auth/router";
+import healthCheckRouter from "./healthcheck/router";
 import placesRouter from "./places/router";
 import visitsRouter from "./visits/router";
 

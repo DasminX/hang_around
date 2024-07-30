@@ -1,12 +1,12 @@
+import compression from "compression";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 import express from "express";
 import helmet from "helmet";
-import cors from "cors";
-import cookieParser from "cookie-parser";
-import compression from "compression";
 
 import mainRouter from "./router";
-import { NotFoundError } from "./shared/errors";
 import { errorController } from "./shared/error.controller";
+import { NotFoundError } from "./shared/errors";
 import { globalRateLimiter } from "./shared/middlewares/global-rate-limiter";
 import { httpLevelLoggerMiddleware } from "./shared/middlewares/http-level-logger-middleware";
 import { API_VERSION } from "./utils/constants";

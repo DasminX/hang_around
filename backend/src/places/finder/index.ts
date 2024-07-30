@@ -1,6 +1,18 @@
 import { PlacesClient } from "@googlemaps/places";
+
 import { PlacesFinderError, PlacesFinderNotInitializedError } from "../../shared/errors";
-import { Place } from "./place.model";
+import { Location } from "../../shared/location";
+import { ElementType } from "../../utils/types";
+import { Place } from "../place.model";
+import { TYPE_OF_FOOD_ARRAY } from "./../schema";
+
+// TODO change typeOfFood to array of items instead of single items
+type PlacesFindArgs = {
+  location: Location;
+  typeOfFood: ElementType<typeof TYPE_OF_FOOD_ARRAY>;
+  radius: number;
+  minRating: number;
+};
 
 export class PlacesFinder {
   private static client: PlacesClient | null = null;
@@ -16,18 +28,12 @@ export class PlacesFinder {
     }
   }
 
-  public static async find({
-    location,
-    typeOfFood,
-    radius,
-  }: {
-    location: [number, number];
-    typeOfFood: string;
-    radius: number;
-  }) {
+  public static async find(args: PlacesFindArgs) {
     if (!this.client) {
       return new PlacesFinderNotInitializedError();
     }
+
+    const [lat, lng] = args.location.toTuple();
 
     try {
       const res = await this.client.searchText(
@@ -35,23 +41,23 @@ export class PlacesFinder {
           locationBias: {
             circle: {
               center: {
-                latitude: location[0],
-                longitude: location[1],
+                latitude: lat,
+                longitude: lng,
               },
-              radius: radius,
+              radius: args.radius,
             },
           },
-          textQuery: typeOfFood,
+          textQuery: args.typeOfFood,
           includedType: "restaurant",
-          maxResultCount: 5,
+          maxResultCount: 100,
           openNow: true,
-          minRating: 4,
+          minRating: args.minRating,
         },
         {
           otherArgs: {
             headers: {
               "X-Goog-FieldMask":
-                "places.id,places.accessibilityOptions,places.businessStatus,places.displayName,places.formattedAddress,places.googleMapsUri,places.iconBackgroundColor,places.iconMaskBaseUri,places.location,places.primaryType,places.shortFormattedAddress,places.types,places.utcOffsetMinutes",
+                "places.id,places.accessibilityOptions,places.businessStatus,places.displayName,places.formattedAddress,places.googleMapsUri,places.iconBackgroundColor,places.iconMaskBaseUri,places.location,places.primaryType,places.shortFormattedAddress,places.types,places.utcOffsetMinutes,places.rating",
               // "*",
             },
           },

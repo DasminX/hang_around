@@ -1,6 +1,8 @@
 import z from "zod";
+
 import { THOUSAND } from "../utils/constants";
 
+// TODO change typeOfFood to array of items instead of single items
 //prettier-ignore
 export const TYPE_OF_FOOD_ARRAY = [
   "pizza", "burger", "asian food", "sushi", "pasta", "hungarian food", "kebab", 
@@ -12,7 +14,10 @@ export const TYPE_OF_FOOD_ARRAY = [
 
 export const FIND_PLACES_SCHEMA = z
   .object({
-    location: z.tuple([z.number().gte(-90).lte(90), z.number().gte(-180).lte(180)]),
+    location: z.union([
+      z.object({ lat: z.number().gte(-90).lte(90), lng: z.number().gte(-180).lte(180) }),
+      z.tuple([z.number().gte(-90).lte(90), z.number().gte(-180).lte(180)]),
+    ]),
     typeOfFood: z.enum(TYPE_OF_FOOD_ARRAY),
     howFar: z.object({
       distance: z
@@ -26,5 +31,6 @@ export const FIND_PLACES_SCHEMA = z
         invalid_type_error: "Unit must be either m (meter) or yd (yard)",
       }),
     }),
+    minRating: z.number().gte(1).lte(5),
   })
   .strict();

@@ -19,4 +19,12 @@ export class DistanceConverter {
 
     return this._distance;
   }
+
+  public getInYards() {
+    if (this._unit == "m") {
+      return this._distance * 1.0936133;
+    }
+
+    return this._distance;
+  }
 }

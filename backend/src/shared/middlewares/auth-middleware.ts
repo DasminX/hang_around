@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { FirebaseService } from "../firebase.service";
+
 import { NotAuthenticatedError } from "../errors";
+import { FirebaseService } from "../firebase.service";
 
 const isAuthenticatedMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -11,11 +12,11 @@ const isAuthenticatedMiddleware = async (req: Request, res: Response, next: Next
 
     const userFromDecodedToken = await FirebaseService.adminAuth.verifyIdToken(token);
     if (!userFromDecodedToken) {
+      res.locals.user = null;
       throw new NotAuthenticatedError();
     }
 
     res.locals.user = userFromDecodedToken;
-    // console.log(userFromDecodedToken); // TODO LATER potrzebne do zapisania w redis
 
     next();
   } catch (e) {
