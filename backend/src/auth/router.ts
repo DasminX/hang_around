@@ -10,7 +10,6 @@ const router = express.Router();
 router.route("/signin").post(catchAsync(handleOrThrowTimeoutError(signinController)));
 router.route("/signup").post(catchAsync(handleOrThrowTimeoutError(signupController)));
 router.route("/reset-password").post(catchAsync(handleOrThrowTimeoutError(resetPasswordController)));
-
 router.route("/signout").get(isAuthenticatedMiddleware, catchAsync(handleOrThrowTimeoutError(signOutController)));
 
 export default router;
