@@ -1,6 +1,8 @@
 import { google } from "@googlemaps/places/build/protos/protos";
 import { GeoPoint } from "firebase-admin/firestore";
 
+import { Location } from "../shared/location";
+
 // TODO do przemyślenia struktura typów, struktura w firebase i struktura modelu!!!
 // TODO do przemyślenia w jaki sposób zrobić czysty import tego modelu tak, aby nie bylo circular dependency i zaciagania modeli z innych modułów/serwisów (EXPORTOWAĆ INTERFEJS)
 
@@ -9,7 +11,7 @@ export interface PlaceArgs {
   name: string;
   rating: number;
   mapsUri: string;
-  location: { lat: number; lng: number };
+  location: Location;
   isAccessible: boolean;
 }
 
@@ -26,16 +28,16 @@ export type FirestoreVisitData = {
 };
 
 export class Place {
-  public name: string;
   public id: PlaceArgs["id"];
+  public name: string;
   public location: PlaceArgs["location"];
   public rating: PlaceArgs["rating"];
   public mapsUri: PlaceArgs["mapsUri"];
   public isAccessible: boolean;
 
   constructor(_place: PlaceArgs) {
-    this.name = _place.name;
     this.id = _place.id;
+    this.name = _place.name;
     this.location = _place.location;
     this.rating = _place.rating;
     this.mapsUri = _place.mapsUri;
@@ -46,7 +48,7 @@ export class Place {
     return new Place({
       id: data.id!,
       name: data.displayName!.text!,
-      location: { lat: data.location!.latitude!, lng: data.location!.longitude! },
+      location: new Location({ lat: data.location!.latitude!, lng: data.location!.longitude! }),
       rating: data.rating!,
       mapsUri: data.googleMapsUri!,
       isAccessible: Boolean(data.accessibilityOptions?.wheelchairAccessibleEntrance),
@@ -58,7 +60,7 @@ export class Place {
       id: data.id,
       name: data.name,
       isAccessible: data.isAccessible,
-      location: { lat: data.location.latitude, lng: data.location.longitude },
+      location: new Location({ lat: data.location.latitude, lng: data.location.longitude }),
       mapsUri: data.mapsUri,
       rating: data.rating,
     });
