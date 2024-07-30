@@ -1,5 +1,6 @@
-import winston from "winston";
 import "winston-daily-rotate-file";
+
+import winston from "winston";
 
 // TODO LATER do zrobienia jako funkcja, która robi inne transportery w zależności od node_env? a moze na sztywno tutaj? do przemyślenia
 export const logger = winston.createLogger({

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import rateLimit from "express-rate-limit";
+
 import { ONE_HOUR } from "../../utils/constants";
 
 export const placesRateLimiter = rateLimit({

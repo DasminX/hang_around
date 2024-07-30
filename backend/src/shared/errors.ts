@@ -1,8 +1,9 @@
-import { FirebaseService } from "./firebase.service";
 import { Request } from "express";
 import { FirebaseError } from "firebase/app";
 import { StatusCodes } from "http-status-codes";
+
 import { isObjectWithAllProperties } from "../utils/functions";
+import { FirebaseService } from "./firebase.service";
 
 export enum ErrorCode {
   UNKNOWN_ERROR = "UNKNOWN_ERROR",

@@ -1,4 +1,5 @@
 import { PlacesClient } from "@googlemaps/places";
+
 import { PlacesFinderError, PlacesFinderNotInitializedError } from "../../shared/errors";
 import { Place } from "./place.model";
 

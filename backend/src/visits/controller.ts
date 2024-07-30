@@ -1,9 +1,9 @@
 import { FirebaseService } from "../shared/firebase.service";
-import { ExpressMiddlewareCaught } from "../utils/types";
-import { GetVisitResponse } from "./responses";
 import { parseInputBySchemaOrThrow } from "../shared/validators/validate-zod-schema";
-import { CREATE_VISIT_SCHEMA, GET_VISITS_SCHEMA } from "./schema";
+import { ExpressMiddlewareCaught } from "../utils/types";
 import { Location } from "./location";
+import { GetVisitResponse } from "./responses";
+import { CREATE_VISIT_SCHEMA, GET_VISITS_SCHEMA } from "./schema";
 
 export const getVisitsForAuthUser: ExpressMiddlewareCaught = async (req, res) => {
   const visits = await FirebaseService.db.collection("visits").where("userId", "==", res.locals.user.user_id).get();

@@ -1,7 +1,8 @@
 import { StatusCodes } from "http-status-codes";
-import { AppError, ErrorCode, AppFirebaseError } from "./errors";
-import { logger } from "./logger";
+
 import { ExpressMiddlewareErrorController } from "../utils/types";
+import { AppError, AppFirebaseError, ErrorCode } from "./errors";
+import { logger } from "./logger";
 
 export const errorController: ExpressMiddlewareErrorController = (err, _req, res, _next) => {
   if (AppFirebaseError.isFirebaseError(err)) {

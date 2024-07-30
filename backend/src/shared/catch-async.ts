@@ -1,5 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 
-export const catchAsync = (controllerFunction: Function) => (req: Request, res: Response, next: NextFunction) => {
-  controllerFunction(req, res).catch(next);
-};
+import { ExpressMiddlewareCaught } from "../utils/types";
+
+export const catchAsync =
+  (controllerFunction: ExpressMiddlewareCaught) => (req: Request, res: Response, next: NextFunction) => {
+    controllerFunction(req, res).catch(next);
+  };

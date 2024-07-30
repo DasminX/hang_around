@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { FirebaseService } from "../firebase.service";
+
 import { NotAuthenticatedError } from "../errors";
+import { FirebaseService } from "../firebase.service";
 
 const isAuthenticatedMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   try {

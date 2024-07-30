@@ -1,15 +1,16 @@
 import {
-  signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendEmailVerification,
   sendPasswordResetEmail,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
-import { FirebaseService } from "../shared/firebase.service";
-import { SignInResponse, SignOutResponse, SignUpResponse, ResetPasswordResponse } from "./responses";
+
 import { EmailNotConfirmedError } from "../shared/errors";
-import { RESET_PASSWORD_SCHEMA, SIGN_IN_SCHEMA, SIGN_UP_SCHEMA } from "./schema";
+import { FirebaseService } from "../shared/firebase.service";
 import { parseInputBySchemaOrThrow } from "../shared/validators/validate-zod-schema";
 import { ExpressMiddlewareCaught } from "../utils/types";
+import { ResetPasswordResponse, SignInResponse, SignOutResponse, SignUpResponse } from "./responses";
+import { RESET_PASSWORD_SCHEMA, SIGN_IN_SCHEMA, SIGN_UP_SCHEMA } from "./schema";
 
 export const signinController: ExpressMiddlewareCaught = async (req, res) => {
   const { email, password } = parseInputBySchemaOrThrow(req.body, SIGN_IN_SCHEMA);
