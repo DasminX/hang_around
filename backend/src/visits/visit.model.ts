@@ -1,4 +1,5 @@
 import { Location } from "../shared/location";
+import { Timestamp } from "./types";
 
 export type VisitArgs = {
   id: string;
@@ -8,6 +9,7 @@ export type VisitArgs = {
   mapsUri: URL | string;
   isAccessible: boolean;
   userId: string;
+  happenedAt: Timestamp;
 };
 
 export class Visit {
@@ -18,14 +20,16 @@ export class Visit {
   public readonly mapsUri: URL | string;
   public readonly isAccessible: boolean;
   public readonly userId: string;
+  public readonly happenedAt: Timestamp;
 
-  constructor(args: VisitArgs) {
-    this.id = args.id;
-    this.name = args.name;
-    this.location = args.location;
-    this.rating = args.rating;
-    this.mapsUri = args.mapsUri;
-    this.isAccessible = args.isAccessible;
-    this.userId = args.userId;
+  constructor(_args: VisitArgs) {
+    this.id = _args.id;
+    this.name = _args.name;
+    this.location = _args.location;
+    this.rating = _args.rating;
+    this.mapsUri = _args.mapsUri;
+    this.isAccessible = _args.isAccessible;
+    this.userId = _args.userId;
+    this.happenedAt = _args.happenedAt;
   }
 }

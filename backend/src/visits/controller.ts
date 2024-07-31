@@ -4,6 +4,7 @@ import { parseInputBySchemaOrThrow } from "../shared/validators/validate-zod-sch
 import { ExpressMiddlewareCaught } from "../utils/types";
 import { CreatevisitResponse, GetAllVisitsForAuthUserResponse, GetVisitResponse } from "./responses";
 import { CREATE_VISIT_SCHEMA, GET_VISITS_SCHEMA } from "./schema";
+import { Timestamp } from "./types";
 import { Visit, VisitArgs } from "./visit.model";
 
 export const getVisitsForAuthUser: ExpressMiddlewareCaught = async (_req, res) => {
@@ -41,6 +42,7 @@ export const createVisit: ExpressMiddlewareCaught = async (req, res) => {
     mapsUri,
     isAccessible,
     userId: res.locals.user.user_id,
+    happenedAt: Date.now() as Timestamp,
   };
   const locationObject = new Location(location);
 
