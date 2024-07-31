@@ -15,3 +15,5 @@ export type ExpressMiddlewareErrorController = (
   res: Response,
   next: NextFunction,
 ) => ExpressMiddlewareResponseType;
+
+export type Timestamp = Brand<number, "timestamp">;

@@ -1,5 +1,5 @@
 import { Location } from "../shared/location";
-import { Timestamp } from "./types";
+import { Timestamp } from "../utils/types";
 
 export type VisitArgs = {
   id: string;

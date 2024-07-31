@@ -2,14 +2,13 @@ import { PlacesClient } from "@googlemaps/places";
 
 import { PlacesFinderError, PlacesFinderNotInitializedError } from "../../shared/errors";
 import { Location } from "../../shared/location";
-import { ElementType } from "../../utils/types";
 import { Place } from "../place.model";
 import { TYPE_OF_FOOD_ARRAY } from "./../schema";
 
-// TODO change typeOfFood to array of items instead of single items
+// TODO change typesOfFood to array of items instead of single items
 type PlacesFindArgs = {
   location: Location;
-  typeOfFood: ElementType<typeof TYPE_OF_FOOD_ARRAY>;
+  typesOfFood: Array<(typeof TYPE_OF_FOOD_ARRAY)[number]>;
   radius: number;
   minRating: number;
 };
@@ -47,7 +46,7 @@ export class PlacesFinder {
               radius: args.radius,
             },
           },
-          textQuery: args.typeOfFood,
+          textQuery: args.typesOfFood.join(","),
           includedType: "restaurant",
           maxResultCount: 20,
           openNow: true,

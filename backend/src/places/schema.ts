@@ -2,7 +2,6 @@ import z from "zod";
 
 import { THOUSAND } from "../utils/constants";
 
-// TODO change typeOfFood to array of items instead of single items
 //prettier-ignore
 export const TYPE_OF_FOOD_ARRAY = [
   "pizza", "burger", "asian food", "sushi", "pasta", "hungarian food", "kebab", 
@@ -18,7 +17,7 @@ export const FIND_PLACES_SCHEMA = z
       z.object({ lat: z.number().gte(-90).lte(90), lng: z.number().gte(-180).lte(180) }),
       z.tuple([z.number().gte(-90).lte(90), z.number().gte(-180).lte(180)]),
     ]),
-    typeOfFood: z.enum(TYPE_OF_FOOD_ARRAY),
+    typesOfFood: z.array(z.enum(TYPE_OF_FOOD_ARRAY)),
     howFar: z.object({
       distance: z
         .number()

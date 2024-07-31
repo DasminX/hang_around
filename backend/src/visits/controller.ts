@@ -1,10 +1,9 @@
 import { FirebaseService } from "../shared/firebase.service";
 import { Location } from "../shared/location";
 import { parseInputBySchemaOrThrow } from "../shared/validators/validate-zod-schema";
-import { ExpressMiddlewareCaught } from "../utils/types";
+import { ExpressMiddlewareCaught, Timestamp } from "../utils/types";
 import { CreatevisitResponse, GetAllVisitsForAuthUserResponse, GetVisitResponse } from "./responses";
 import { CREATE_VISIT_SCHEMA, GET_VISITS_SCHEMA } from "./schema";
-import { Timestamp } from "./types";
 import { Visit, VisitArgs } from "./visit.model";
 
 export const getVisitsForAuthUser: ExpressMiddlewareCaught = async (_req, res) => {

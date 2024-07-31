@@ -8,13 +8,12 @@ import { FindPlaceResponse } from "./responses";
 import { FIND_PLACES_SCHEMA } from "./schema";
 
 export const findPlacesController: ExpressMiddlewareCaught = async (req, res) => {
-  const { location, typeOfFood, howFar, minRating } = parseInputBySchemaOrThrow(req.body, FIND_PLACES_SCHEMA);
+  const { location, typesOfFood, howFar, minRating } = parseInputBySchemaOrThrow(req.body, FIND_PLACES_SCHEMA);
 
-  // TODO change typeOfFood to array of items instead of single items
   const result = await PlacesFinder.find({
     location: new Location(location),
     radius: new DistanceConverter(howFar).getInMeters(),
-    typeOfFood,
+    typesOfFood,
     minRating,
   });
 
