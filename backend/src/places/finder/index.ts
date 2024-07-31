@@ -49,7 +49,7 @@ export class PlacesFinder {
           },
           textQuery: args.typeOfFood,
           includedType: "restaurant",
-          maxResultCount: 100,
+          maxResultCount: 20,
           openNow: true,
           minRating: args.minRating,
         },
