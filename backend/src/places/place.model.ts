@@ -6,15 +6,6 @@ import { Location } from "../shared/location";
 // TODO do przemyślenia struktura typów, struktura w firebase i struktura modelu!!!
 // TODO do przemyślenia w jaki sposób zrobić czysty import tego modelu tak, aby nie bylo circular dependency i zaciagania modeli z innych modułów/serwisów (EXPORTOWAĆ INTERFEJS)
 
-export interface PlaceArgs {
-  id: string;
-  name: string;
-  rating: number;
-  mapsUri: string;
-  location: Location;
-  isAccessible: boolean;
-}
-
 export type GooglePlace = google.maps.places.v1.IPlace;
 
 export type FirestoreVisitData = {
@@ -26,6 +17,15 @@ export type FirestoreVisitData = {
   location: GeoPoint;
   isAccessible: boolean;
 };
+
+export interface PlaceArgs {
+  id: string;
+  name: string;
+  rating: number;
+  mapsUri: string;
+  location: Location;
+  isAccessible: boolean;
+}
 
 export class Place {
   public id: PlaceArgs["id"];
@@ -55,6 +55,7 @@ export class Place {
     });
   }
 
+  // TODO consider if out or not
   public static fromVisit(data: FirestoreVisitData) {
     return new Place({
       id: data.id,
