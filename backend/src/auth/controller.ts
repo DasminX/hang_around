@@ -1,35 +1,21 @@
-import {
-  createUserWithEmailAndPassword,
-  sendEmailVerification,
-  sendPasswordResetEmail,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-
-import { EmailNotConfirmedError } from "../shared/errors";
-import { FirebaseService } from "../shared/firebase.service";
 import { parseInputBySchemaOrThrow } from "../shared/validators/validate-zod-schema";
 import { ExpressMiddlewareCaught } from "../utils/types";
 import { ResetPasswordResponse, SignInResponse, SignOutResponse, SignUpResponse } from "./responses";
 import { RESET_PASSWORD_SCHEMA, SIGN_IN_SCHEMA, SIGN_UP_SCHEMA } from "./schema";
+import { AuthFirebase } from "./services/auth-database/firebase";
 
 export const signinController: ExpressMiddlewareCaught = async (req, res) => {
   const { email, password } = parseInputBySchemaOrThrow(req.body, SIGN_IN_SCHEMA);
 
-  const { user } = await signInWithEmailAndPassword(FirebaseService.clientAuth, email, password);
+  const token = await new AuthFirebase().signIn(email, password);
 
-  if (!user.emailVerified) {
-    throw new EmailNotConfirmedError();
-  }
-
-  return res.json(new SignInResponse(await user.getIdTokenResult()));
+  return res.json(new SignInResponse(token));
 };
 
 export const signupController: ExpressMiddlewareCaught = async (req, res) => {
   const { email, password } = parseInputBySchemaOrThrow(req.body, SIGN_UP_SCHEMA);
 
-  const { user } = await createUserWithEmailAndPassword(FirebaseService.clientAuth, email, password);
-
-  await sendEmailVerification(user);
+  await new AuthFirebase().signUp(email, password);
 
   return res.json(new SignUpResponse());
 };
@@ -37,11 +23,12 @@ export const signupController: ExpressMiddlewareCaught = async (req, res) => {
 export const resetPasswordController: ExpressMiddlewareCaught = async (req, res) => {
   const { email } = parseInputBySchemaOrThrow(req.body, RESET_PASSWORD_SCHEMA);
 
-  await sendPasswordResetEmail(FirebaseService.clientAuth, email);
+  await new AuthFirebase().forgotPassword(email);
 
   return res.json(new ResetPasswordResponse());
 };
 
+// TODO blacklist tokens
 export const signOutController: ExpressMiddlewareCaught = async (_req, res) => {
   return res.json(new SignOutResponse());
 };
