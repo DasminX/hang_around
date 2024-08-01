@@ -1,8 +1,8 @@
 import express from "express";
 
 import { isAuthenticatedMiddleware } from "../shared/middlewares/auth-middleware";
-import { catchAsync } from "./../shared/catch-async";
-import { handleOrThrowTimeoutError } from "./../shared/middlewares/http-timeout";
+import { catchAsync } from "../shared/http-wrappers/catch-async";
+import { handleOrThrowTimeoutError } from "../shared/http-wrappers/http-timeout";
 import { resetPasswordController, signinController, signOutController, signupController } from "./controller";
 
 const router = express.Router();

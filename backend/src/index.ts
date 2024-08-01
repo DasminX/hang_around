@@ -15,6 +15,7 @@ import { loadEnvConfig } from "./utils/config";
   const port = process.env.PORT || 3000;
   const server = getNodeApp().listen(port, () => {
     try {
+      // TODO INJECT DB FACTORY INITALIZER
       FirebaseService.initialize();
       GooglePlacesFinder.initialize();
       logger.info(`App running on port ${port}...`);

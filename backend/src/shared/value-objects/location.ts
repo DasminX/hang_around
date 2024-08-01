@@ -19,6 +19,10 @@ export class LocationVO {
     }
   }
 
+  public equals(other: LocationVO) {
+    return this.lat === other.lat && this.lng === other.lng;
+  }
+
   public toGeoPoint(): GeoPoint {
     return new GeoPoint(this.lat, this.lng);
   }

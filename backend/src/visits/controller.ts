@@ -1,4 +1,4 @@
-import { LocationVO } from "../shared/location";
+import { LocationVO } from "../shared/value-objects/location";
 import { parseInputBySchemaOrThrow } from "../shared/validators/validate-zod-schema";
 import { ExpressMiddlewareCaught, TimestampBrand } from "../utils/types";
 import { VisitsFirestore } from "./repositories/visits-database/firestore";
@@ -6,7 +6,7 @@ import { CreatevisitResponse, GetAllVisitsForAuthUserResponse, GetVisitResponse 
 import { CREATE_VISIT_SCHEMA, GET_VISITS_SCHEMA } from "./schema";
 
 export const getVisitsForAuthUser: ExpressMiddlewareCaught = async (_req, res) => {
-  const visits = await new VisitsFirestore().getVisitsForUser(res.locals.user.user_id);
+  const visits = await new VisitsFirestore().getVisitsForUser(res.locals.user.uid);
 
   return res.json(new GetAllVisitsForAuthUserResponse(visits));
 };
@@ -14,11 +14,12 @@ export const getVisitsForAuthUser: ExpressMiddlewareCaught = async (_req, res) =
 export const getVisit: ExpressMiddlewareCaught = async (req, res) => {
   const { id: visitId } = parseInputBySchemaOrThrow(req.params, GET_VISITS_SCHEMA);
 
-  const visit = await new VisitsFirestore().getVisitById(visitId, res.locals.user.user_id);
+  const visit = await new VisitsFirestore().getVisitById(visitId, res.locals.user.uid);
 
   return res.json(new GetVisitResponse(visit));
 };
 
+// TODO INJECT DB FACTORY
 export const createVisit: ExpressMiddlewareCaught = async (req, res) => {
   const { name, location, rating, mapsUri, isAccessible } = parseInputBySchemaOrThrow(req.body, CREATE_VISIT_SCHEMA);
 
@@ -27,7 +28,7 @@ export const createVisit: ExpressMiddlewareCaught = async (req, res) => {
     rating,
     mapsUri,
     isAccessible,
-    userId: res.locals.user.user_id,
+    userId: res.locals.user.uid,
     location: new LocationVO(location),
     happenedAt: Date.now() as TimestampBrand,
   });

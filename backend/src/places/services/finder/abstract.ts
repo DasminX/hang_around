@@ -1,4 +1,4 @@
-import { LocationVO } from "../../../shared/location";
+import { LocationVO } from "../../../shared/value-objects/location";
 import { Place } from "../../models/place";
 import { TYPE_OF_FOOD_ARRAY } from "../../schema";
 

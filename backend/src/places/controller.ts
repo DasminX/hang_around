@@ -1,5 +1,5 @@
 import { AppError } from "../shared/errors";
-import { LocationVO } from "../shared/location";
+import { LocationVO } from "../shared/value-objects/location";
 import { parseInputBySchemaOrThrow } from "../shared/validators/validate-zod-schema";
 import { ExpressMiddlewareCaught } from "../utils/types";
 import { FindPlaceResponse } from "./responses";

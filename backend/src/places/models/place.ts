@@ -1,4 +1,4 @@
-import { LocationVO } from "../../shared/location";
+import { LocationVO } from "../../shared/value-objects/location";
 
 export interface PlaceArgs {
   id: string;

@@ -1,7 +1,7 @@
 import { PlacesClient } from "@googlemaps/places";
 
 import { AppError, PlacesFinderError, PlacesFinderNotInitializedError } from "../../../shared/errors";
-import { LocationVO } from "../../../shared/location";
+import { LocationVO } from "../../../shared/value-objects/location";
 import { Place } from "../../models/place";
 import { PlacesFindArgs, PlacesFinderI } from "./abstract";
 

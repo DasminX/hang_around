@@ -5,7 +5,7 @@ import express from "express";
 import helmet from "helmet";
 
 import mainRouter from "./router";
-import { errorController } from "./shared/error.controller";
+import { errorController } from "./error.controller";
 import { NotFoundError } from "./shared/errors";
 import { globalRateLimiter } from "./shared/middlewares/global-rate-limiter";
 import { httpLevelLoggerMiddleware } from "./shared/middlewares/http-level-logger-middleware";
