@@ -1,6 +1,6 @@
 import z from "zod";
 
-import { THOUSAND } from "../utils/constants";
+import { THOUSAND } from "../../utils/constants";
 
 //prettier-ignore
 export const TYPE_OF_FOOD_ARRAY = [

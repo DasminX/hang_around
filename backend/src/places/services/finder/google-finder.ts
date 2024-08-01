@@ -1,24 +1,17 @@
 import { PlacesClient } from "@googlemaps/places";
 
-import { PlacesFinderError, PlacesFinderNotInitializedError } from "../../shared/errors";
-import { Location } from "../../shared/location";
-import { Place } from "../place.model";
-import { TYPE_OF_FOOD_ARRAY } from "./../schema";
+import { AppError, PlacesFinderError, PlacesFinderNotInitializedError } from "../../../shared/errors";
+import { Place } from "../../models/place";
+import { PlacesFindArgs, PlacesFinderI } from "./abstract";
 
-// TODO change typesOfFood to array of items instead of single items
-type PlacesFindArgs = {
-  location: Location;
-  typesOfFood: Array<(typeof TYPE_OF_FOOD_ARRAY)[number]>;
-  radius: number;
-  minRating: number;
-};
+export class GooglePlacesFinder implements PlacesFinderI {
+  private static client: PlacesClient;
 
-export class PlacesFinder {
-  private static client: PlacesClient | null = null;
+  protected constructor() {}
 
-  public static initialize() {
-    if (!PlacesFinder.client) {
-      PlacesFinder.client = new PlacesClient({
+  public static initialize(): void {
+    if (!this.client) {
+      this.client = new PlacesClient({
         credentials: {
           private_key: ((process.env.GOOGLE_PLACES_API_PRIVATE_KEY as string) || "").split(String.raw`\n`).join("\n"),
           client_email: process.env.GOOGLE_PLACES_API_CLIENT_EMAIL,
@@ -27,7 +20,7 @@ export class PlacesFinder {
     }
   }
 
-  public static async find(args: PlacesFindArgs) {
+  public static async find(args: PlacesFindArgs): Promise<Place[] | AppError> {
     if (!this.client) {
       return new PlacesFinderNotInitializedError();
     }

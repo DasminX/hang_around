@@ -1,22 +1,8 @@
 import { google } from "@googlemaps/places/build/protos/protos";
-import { GeoPoint } from "firebase-admin/firestore";
 
-import { Location } from "../shared/location";
-
-// TODO do przemyślenia struktura typów, struktura w firebase i struktura modelu!!!
-// TODO do przemyślenia w jaki sposób zrobić czysty import tego modelu tak, aby nie bylo circular dependency i zaciagania modeli z innych modułów/serwisów (EXPORTOWAĆ INTERFEJS)
+import { Location } from "../../shared/location";
 
 export type GooglePlace = google.maps.places.v1.IPlace;
-
-export type FirestoreVisitData = {
-  id: string;
-  user_id: string;
-  name: string;
-  rating: number;
-  mapsUri: string;
-  location: GeoPoint;
-  isAccessible: boolean;
-};
 
 export interface PlaceArgs {
   id: string;
@@ -44,7 +30,7 @@ export class Place {
     this.isAccessible = _place.isAccessible;
   }
 
-  public static fromPlacesAPI(data: GooglePlace) {
+  public static fromPlacesAPI(data: GooglePlace): Place {
     return new Place({
       id: data.id!,
       name: data.displayName!.text!,
@@ -52,18 +38,6 @@ export class Place {
       rating: data.rating!,
       mapsUri: data.googleMapsUri!,
       isAccessible: Boolean(data.accessibilityOptions?.wheelchairAccessibleEntrance),
-    });
-  }
-
-  // TODO consider if out or not
-  public static fromVisit(data: FirestoreVisitData) {
-    return new Place({
-      id: data.id,
-      name: data.name,
-      isAccessible: data.isAccessible,
-      location: new Location({ lat: data.location.latitude, lng: data.location.longitude }),
-      mapsUri: data.mapsUri,
-      rating: data.rating,
     });
   }
 }

@@ -7,12 +7,12 @@ export class DistanceConverter {
   private _distance: HowFar["distance"];
   private _unit: HowFar["unit"];
 
-  constructor({ distance, unit }: HowFar) {
-    this._distance = distance;
-    this._unit = unit;
+  constructor(howFar: HowFar) {
+    this._distance = howFar.distance;
+    this._unit = howFar.unit;
   }
 
-  public getInMeters() {
+  public getInMeters(): number {
     if (this._unit == "yd") {
       return this._distance * 0.9144;
     }
@@ -20,7 +20,7 @@ export class DistanceConverter {
     return this._distance;
   }
 
-  public getInYards() {
+  public getInYards(): number {
     if (this._unit == "m") {
       return this._distance * 1.0936133;
     }
