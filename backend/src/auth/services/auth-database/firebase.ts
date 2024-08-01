@@ -9,11 +9,11 @@ import { EmailNotConfirmedError } from "../../../shared/errors";
 import { FirebaseService } from "../../../shared/firebase.service";
 import { ONE_HOUR } from "../../../utils/constants";
 import { Timestamp } from "../../../utils/types";
-import { Token } from "../../token/token.model";
+import { Token } from "../../models/token";
 import { AuthDatabaseI } from "./abstract";
 
 export class AuthFirebase implements AuthDatabaseI {
-  async signIn(email: string, password: string) {
+  async signIn(email: string, password: string): Promise<Token> {
     const { user } = await signInWithEmailAndPassword(FirebaseService.clientAuth, email, password);
 
     if (!user.emailVerified) {
@@ -27,13 +27,14 @@ export class AuthFirebase implements AuthDatabaseI {
 
     return new Token(idTokenResult.token, timestamp);
   }
-  async signUp(email: string, password: string) {
+
+  async signUp(email: string, password: string): Promise<void> {
     const { user } = await createUserWithEmailAndPassword(FirebaseService.clientAuth, email, password);
 
     await sendEmailVerification(user);
   }
 
-  async forgotPassword(email: string) {
+  async forgotPassword(email: string): Promise<void> {
     await sendPasswordResetEmail(FirebaseService.clientAuth, email);
   }
 }

@@ -1,4 +1,4 @@
-import { Token } from "../../token/token.model";
+import { Token } from "../../models/token";
 
 export interface AuthDatabaseI {
   signIn(email: string, password: string): Promise<Token>;
