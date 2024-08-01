@@ -1,4 +1,5 @@
 export const API_VERSION = "v1";
+export const API_PREFIX = `/api/${API_VERSION}`;
 
 export const ONE_SECOND = 1000;
 export const ONE_MINUTE = ONE_SECOND * 60;

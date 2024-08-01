@@ -9,7 +9,7 @@ import { errorController } from "./shared/error.controller";
 import { NotFoundError } from "./shared/errors";
 import { globalRateLimiter } from "./shared/middlewares/global-rate-limiter";
 import { httpLevelLoggerMiddleware } from "./shared/middlewares/http-level-logger-middleware";
-import { API_VERSION } from "./utils/constants";
+import { API_PREFIX } from "./utils/constants";
 
 export const getNodeApp = () => {
   const app = express();
@@ -26,11 +26,9 @@ export const getNodeApp = () => {
 
   app.use(compression());
 
-  app.use(`/api/${API_VERSION}`, mainRouter);
+  app.use(API_PREFIX, mainRouter);
 
-  app.all("*", (req, _res, next) => {
-    next(new NotFoundError(req.originalUrl));
-  });
+  app.all("*", (req, _res, next) => next(new NotFoundError(req.originalUrl)));
 
   app.use(errorController);
 

@@ -1,6 +1,7 @@
 import { PlacesClient } from "@googlemaps/places";
 
 import { AppError, PlacesFinderError, PlacesFinderNotInitializedError } from "../../../shared/errors";
+import { LocationVO } from "../../../shared/location";
 import { Place } from "../../models/place";
 import { PlacesFindArgs, PlacesFinderI } from "./abstract";
 
@@ -56,7 +57,21 @@ export class GooglePlacesFinder implements PlacesFinderI {
         },
       );
 
-      return res[0].places?.map((place) => Place.fromPlacesAPI(place)) ?? [];
+      if (!Array.isArray(res[0].places) || !res[0].places.length) {
+        return [];
+      }
+
+      return res[0].places?.map(
+        (place) =>
+          new Place({
+            id: place.id!,
+            name: place.displayName!.text!,
+            location: new LocationVO({ lat: place.location!.latitude!, lng: place.location!.longitude! }),
+            rating: place.rating!,
+            mapsUri: place.googleMapsUri!,
+            isAccessible: Boolean(place.accessibilityOptions?.wheelchairAccessibleEntrance),
+          }),
+      );
     } catch (e) {
       return new PlacesFinderError(e);
     }

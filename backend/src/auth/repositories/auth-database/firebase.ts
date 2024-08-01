@@ -8,7 +8,7 @@ import {
 import { EmailNotConfirmedError } from "../../../shared/errors";
 import { FirebaseService } from "../../../shared/firebase.service";
 import { ONE_HOUR } from "../../../utils/constants";
-import { Timestamp } from "../../../utils/types";
+import { TimestampBrand } from "../../../utils/types";
 import { Token } from "../../models/token";
 import { AuthDatabaseI } from "./abstract";
 
@@ -22,8 +22,8 @@ export class AuthFirebase implements AuthDatabaseI {
 
     const idTokenResult = await user.getIdTokenResult();
     const timestamp = Number.isNaN(Number(idTokenResult.claims.exp))
-      ? ((Date.now() + ONE_HOUR) as Timestamp)
-      : (Number(idTokenResult.claims.exp) as Timestamp);
+      ? ((Date.now() + ONE_HOUR) as TimestampBrand)
+      : (Number(idTokenResult.claims.exp) as TimestampBrand);
 
     return new Token(idTokenResult.token, timestamp);
   }

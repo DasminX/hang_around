@@ -11,7 +11,4 @@ router.route("/").get(isAuthenticatedMiddleware, catchAsync(handleOrThrowTimeout
 router.route("/:id").get(isAuthenticatedMiddleware, catchAsync(handleOrThrowTimeoutError(getVisit)));
 router.route("/").post(isAuthenticatedMiddleware, catchAsync(handleOrThrowTimeoutError(createVisit)));
 
-// router.route("/").get(isAuthenticatedMiddleware, catchAsync(handleOrThrowTimeoutError(getAllVisits))); // TODO add role
-// router.route("/user/:userid").get(isAuthenticatedMiddleware, catchAsync(handleOrThrowTimeoutError(getAllUserVisits)));
-
 export default router;

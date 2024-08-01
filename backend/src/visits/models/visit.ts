@@ -1,26 +1,26 @@
-import { Location } from "../../shared/location";
-import { Timestamp } from "../../utils/types";
+import { LocationVO } from "../../shared/location";
+import { TimestampBrand } from "../../utils/types";
 
 export type VisitArgs = {
   id: string;
   name: string;
-  location: Location;
+  location: LocationVO;
   rating: number;
   mapsUri: URL | string;
   isAccessible: boolean;
   userId: string;
-  happenedAt: Timestamp;
+  happenedAt: TimestampBrand;
 };
 
 export class Visit {
   public readonly id: string;
   public readonly name: string;
-  public readonly location: Location;
+  public readonly location: LocationVO;
   public readonly rating: number;
   public readonly mapsUri: URL | string;
   public readonly isAccessible: boolean;
   public readonly userId: string;
-  public readonly happenedAt: Timestamp;
+  public readonly happenedAt: TimestampBrand;
 
   constructor(_args: VisitArgs) {
     this.id = _args.id;

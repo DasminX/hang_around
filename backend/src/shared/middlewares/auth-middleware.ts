@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 
 import { NotAuthenticatedError } from "../errors";
-import { FirebaseService } from "../firebase.service";
+import { FirebaseTokenVerifier } from "../services/token-verifier/firebase-token-verifier";
 
 const isAuthenticatedMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -10,13 +10,7 @@ const isAuthenticatedMiddleware = async (req: Request, res: Response, next: Next
       throw new NotAuthenticatedError();
     }
 
-    const userFromDecodedToken = await FirebaseService.adminAuth.verifyIdToken(token);
-    if (!userFromDecodedToken) {
-      res.locals.user = null;
-      throw new NotAuthenticatedError();
-    }
-
-    res.locals.user = userFromDecodedToken;
+    res.locals.user = await new FirebaseTokenVerifier().verify(token);
 
     next();
   } catch (e) {

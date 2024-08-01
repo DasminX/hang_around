@@ -1,15 +1,11 @@
-import { google } from "@googlemaps/places/build/protos/protos";
-
-import { Location } from "../../shared/location";
-
-export type GooglePlace = google.maps.places.v1.IPlace;
+import { LocationVO } from "../../shared/location";
 
 export interface PlaceArgs {
   id: string;
   name: string;
   rating: number;
   mapsUri: string;
-  location: Location;
+  location: LocationVO;
   isAccessible: boolean;
 }
 
@@ -28,16 +24,5 @@ export class Place {
     this.rating = _place.rating;
     this.mapsUri = _place.mapsUri;
     this.isAccessible = _place.isAccessible;
-  }
-
-  public static fromPlacesAPI(data: GooglePlace): Place {
-    return new Place({
-      id: data.id!,
-      name: data.displayName!.text!,
-      location: new Location({ lat: data.location!.latitude!, lng: data.location!.longitude! }),
-      rating: data.rating!,
-      mapsUri: data.googleMapsUri!,
-      isAccessible: Boolean(data.accessibilityOptions?.wheelchairAccessibleEntrance),
-    });
   }
 }

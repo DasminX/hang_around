@@ -1,9 +1,9 @@
-import { Location } from "../shared/location";
+import { LocationVO } from "../shared/location";
 import { parseInputBySchemaOrThrow } from "../shared/validators/validate-zod-schema";
-import { ExpressMiddlewareCaught, Timestamp } from "../utils/types";
+import { ExpressMiddlewareCaught, TimestampBrand } from "../utils/types";
+import { VisitsFirestore } from "./repositories/visits-database/firestore";
 import { CreatevisitResponse, GetAllVisitsForAuthUserResponse, GetVisitResponse } from "./responses";
 import { CREATE_VISIT_SCHEMA, GET_VISITS_SCHEMA } from "./schema";
-import { VisitsFirestore } from "./services/visits-database/firestore";
 
 export const getVisitsForAuthUser: ExpressMiddlewareCaught = async (_req, res) => {
   const visits = await new VisitsFirestore().getVisitsForUser(res.locals.user.user_id);
@@ -28,8 +28,8 @@ export const createVisit: ExpressMiddlewareCaught = async (req, res) => {
     mapsUri,
     isAccessible,
     userId: res.locals.user.user_id,
-    location: new Location(location),
-    happenedAt: Date.now() as Timestamp,
+    location: new LocationVO(location),
+    happenedAt: Date.now() as TimestampBrand,
   });
 
   return res.json(new CreatevisitResponse(createdVisit));

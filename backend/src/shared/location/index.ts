@@ -2,7 +2,7 @@ import { GeoPoint } from "firebase-admin/firestore";
 
 type LocationArgs = [number, number] | { lat: number; lng: number } | GeoPoint;
 
-export class Location {
+export class LocationVO {
   public readonly lat: number;
   public readonly lng: number;
 

@@ -2,7 +2,7 @@ import { getNodeApp } from "./app";
 import { GooglePlacesFinder } from "./places/services/finder/google-finder";
 import { FirebaseService } from "./shared/firebase.service";
 import { logger } from "./shared/logger";
-import { loadConfig } from "./utils/config";
+import { loadEnvConfig } from "./utils/config";
 
 (() => {
   process.on("uncaughtException", (err) => {
@@ -10,7 +10,7 @@ import { loadConfig } from "./utils/config";
     process.exit(1);
   });
 
-  loadConfig();
+  loadEnvConfig();
 
   const port = process.env.PORT || 3000;
   const server = getNodeApp().listen(port, () => {

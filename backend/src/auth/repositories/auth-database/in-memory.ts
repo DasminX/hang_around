@@ -1,6 +1,7 @@
 import { randomBytes } from "crypto";
 
-import { Timestamp } from "../../../utils/types";
+import { BadCredentialsError } from "../../../shared/errors";
+import { TimestampBrand } from "../../../utils/types";
 import { Token } from "../../models/token";
 import { AuthDatabaseI } from "./abstract";
 
@@ -13,10 +14,10 @@ export class AuthInMemoryDatabase implements AuthDatabaseI {
     );
 
     if (!isValidCredentials) {
-      throw new Error();
+      throw new BadCredentialsError();
     }
 
-    return new Token(randomBytes(32).toString(), Date.now() as Timestamp);
+    return new Token(randomBytes(32).toString(), Date.now() as TimestampBrand);
   }
   async signUp(email: string, password: string): Promise<void> {
     AuthInMemoryDatabase._db.push({ email, password });

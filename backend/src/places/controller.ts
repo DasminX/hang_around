@@ -1,5 +1,5 @@
 import { AppError } from "../shared/errors";
-import { Location } from "../shared/location";
+import { LocationVO } from "../shared/location";
 import { parseInputBySchemaOrThrow } from "../shared/validators/validate-zod-schema";
 import { ExpressMiddlewareCaught } from "../utils/types";
 import { FindPlaceResponse } from "./responses";
@@ -11,7 +11,7 @@ export const findPlacesController: ExpressMiddlewareCaught = async (req, res) =>
   const { location, typesOfFood, howFar, minRating } = parseInputBySchemaOrThrow(req.body, FIND_PLACES_SCHEMA);
 
   const result = await GooglePlacesFinder.find({
-    location: new Location(location),
+    location: new LocationVO(location),
     radius: new DistanceConverter(howFar).getInMeters(),
     typesOfFood,
     minRating,

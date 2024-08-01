@@ -1,8 +1,8 @@
 import { parseInputBySchemaOrThrow } from "../shared/validators/validate-zod-schema";
 import { ExpressMiddlewareCaught } from "../utils/types";
+import { AuthFirebase } from "./repositories/auth-database/firebase";
 import { ResetPasswordResponse, SignInResponse, SignOutResponse, SignUpResponse } from "./responses";
 import { RESET_PASSWORD_SCHEMA, SIGN_IN_SCHEMA, SIGN_UP_SCHEMA } from "./schema";
-import { AuthFirebase } from "./services/auth-database/firebase";
 
 export const signinController: ExpressMiddlewareCaught = async (req, res) => {
   const { email, password } = parseInputBySchemaOrThrow(req.body, SIGN_IN_SCHEMA);

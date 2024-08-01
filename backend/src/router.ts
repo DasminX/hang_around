@@ -7,7 +7,7 @@ import visitsRouter from "./visits/router";
 
 const router = express.Router();
 
-router.use("/health-check", healthCheckRouter);
+router.use("/healthcheck", healthCheckRouter);
 router.use("/auth", authRouter);
 router.use("/places", placesRouter);
 router.use("/visits", visitsRouter);
