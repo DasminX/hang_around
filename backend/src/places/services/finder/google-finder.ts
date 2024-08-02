@@ -7,24 +7,20 @@ import { Place } from "../../models/place";
 import { PlacesFindArgs, PlacesFinderI } from "./abstract";
 
 export class GooglePlacesFinder implements PlacesFinderI {
-  private static client: PlacesClient;
+  private client: PlacesClient;
 
-  protected constructor() {}
+  constructor(logger: Logger) {
+    this.client = new PlacesClient({
+      credentials: {
+        private_key: ((process.env.GOOGLE_PLACES_API_PRIVATE_KEY as string) || "").split(String.raw`\n`).join("\n"),
+        client_email: process.env.GOOGLE_PLACES_API_CLIENT_EMAIL,
+      },
+    });
 
-  public static initialize(logger: Logger): void {
-    if (!this.client) {
-      this.client = new PlacesClient({
-        credentials: {
-          private_key: ((process.env.GOOGLE_PLACES_API_PRIVATE_KEY as string) || "").split(String.raw`\n`).join("\n"),
-          client_email: process.env.GOOGLE_PLACES_API_CLIENT_EMAIL,
-        },
-      });
-
-      logger.info(`Google Places Finder initialized...`);
-    }
+    logger.info(`Google Places Finder initialized...`);
   }
 
-  public static async find(args: PlacesFindArgs): Promise<Place[] | AppError> {
+  public async find(args: PlacesFindArgs): Promise<Place[] | AppError> {
     if (!this.client) {
       return new PlacesFinderNotInitializedError();
     }
