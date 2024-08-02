@@ -1,6 +1,6 @@
 import { getNodeApp } from "./app";
 import { GooglePlacesFinder } from "./places/services/finder/google-finder";
-import { FirebaseService } from "./shared/firebase.service";
+import { FirebaseProvider } from "./shared/firebase-provider";
 import { logger } from "./shared/logger";
 import { loadEnvConfig } from "./utils/config";
 
@@ -15,9 +15,8 @@ import { loadEnvConfig } from "./utils/config";
   const port = process.env.PORT || 3000;
   const server = getNodeApp().listen(port, () => {
     try {
-      // TODO INJECT DB FACTORY INITALIZER
-      FirebaseService.initialize();
-      GooglePlacesFinder.initialize();
+      FirebaseProvider.initialize(logger);
+      GooglePlacesFinder.initialize(logger);
       logger.info(`App running on port ${port}...`);
     } catch (e) {
       logger.error(`Server error while initializing dependencies...`, e);

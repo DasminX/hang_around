@@ -1,10 +1,10 @@
-import { FirebaseService } from "../../../shared/firebase.service";
+import { FirebaseProvider } from "../../../shared/firebase-provider";
 import { Visit, VisitArgs } from "../../models/visit";
 import { VisitsDatabaseI } from "./abstract";
 
 export class VisitsFirestore implements VisitsDatabaseI {
   async createVisit(visitArgs: Omit<VisitArgs, "id">): Promise<Visit> {
-    const addedVisit = await FirebaseService.db.collection("visits").add({
+    const addedVisit = await FirebaseProvider.db.collection("visits").add({
       ...visitArgs,
       location: visitArgs.location.toGeoPoint(),
     });
@@ -16,7 +16,7 @@ export class VisitsFirestore implements VisitsDatabaseI {
   }
 
   async getVisitById(visitId: string, userId: string): Promise<Visit | null> {
-    const visitDocuments = await FirebaseService.db
+    const visitDocuments = await FirebaseProvider.db
       .collection("visits")
       .where("userId", "==", userId)
       .where("__name__", "==", visitId)
@@ -33,7 +33,7 @@ export class VisitsFirestore implements VisitsDatabaseI {
   }
 
   async getVisitsForUser(userId: string): Promise<Visit[]> {
-    const visitsDocuments = await FirebaseService.db.collection("visits").where("userId", "==", userId).get();
+    const visitsDocuments = await FirebaseProvider.db.collection("visits").where("userId", "==", userId).get();
 
     return visitsDocuments.docs.map((visit) => new Visit({ id: visit.id, ...(visit.data() as Omit<VisitArgs, "id">) }));
   }

@@ -3,7 +3,7 @@ import { FirebaseError } from "firebase/app";
 import { StatusCodes } from "http-status-codes";
 
 import { isObjectWithAllProperties } from "../utils/functions";
-import { FirebaseService } from "./firebase.service";
+import { FirebaseProvider } from "./firebase-provider";
 
 export enum ErrorCode {
   UNKNOWN_ERROR = "UNKNOWN_ERROR",
@@ -79,7 +79,7 @@ export class TimeoutError extends AppError {
 export class AppFirebaseError extends AppError {
   constructor(originalFirebaseError: FirebaseError) {
     const errMsg =
-      FirebaseService.ERROR_MESSAGES[originalFirebaseError.code as keyof typeof FirebaseService.ERROR_MESSAGES] ||
+      FirebaseProvider.ERROR_MESSAGES[originalFirebaseError.code as keyof typeof FirebaseProvider.ERROR_MESSAGES] ||
       "Unknown error occured. Try again later.";
     super(errMsg, StatusCodes.BAD_REQUEST, ErrorCode.UNKNOWN_ERROR);
   }

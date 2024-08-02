@@ -3,55 +3,33 @@ import { Auth as ClientAuth, getAuth as getClientAuth } from "firebase/auth";
 import { initializeApp as initializeAdminApp } from "firebase-admin/app";
 import { Auth as AdminAuth, getAuth as getAdminAuth } from "firebase-admin/auth";
 import { type Firestore, getFirestore } from "firebase-admin/firestore";
+import { Logger } from "winston";
 
-import { logger } from "./logger";
+export class FirebaseProvider {
+  public static adminAuth: AdminAuth;
+  public static clientAuth: ClientAuth;
 
-export class FirebaseService {
-  private static _adminAuth: AdminAuth;
-  private static _clientAuth: ClientAuth;
-
-  private static _db: Firestore;
+  public static db: Firestore;
 
   private constructor() {}
 
-  public static initialize() {
+  public static initialize(logger: Logger) {
     const adminApp = initializeAdminApp(this._getAppConfig());
-    this._adminAuth = getAdminAuth(adminApp);
+    this.adminAuth = getAdminAuth(adminApp);
     logger.info("Admin firebase initialized...");
 
     const clientApp = initializeClientApp(this._getAppConfig());
-    this._clientAuth = getClientAuth(clientApp);
+    this.clientAuth = getClientAuth(clientApp);
     logger.info("Client firebase initialized...");
 
-    this._db = getFirestore(adminApp, process.env.DB_ID as string);
-    this._db.settings({
+    this.db = getFirestore(adminApp, process.env.DB_ID as string);
+    this.db.settings({
       credentials: {
         client_email: process.env.DB_CLIENT_EMAIL,
         private_key: (process.env.DB_PRIVATE_KEY as string)?.split(String.raw`\n`).join("\n") || "",
       },
     });
     logger.info("Firestore db initialized...");
-  }
-
-  public static get adminAuth(): AdminAuth {
-    if (!this._adminAuth) {
-      this.initialize();
-    }
-    return this._adminAuth;
-  }
-
-  public static get clientAuth(): ClientAuth {
-    if (!this._clientAuth) {
-      this.initialize();
-    }
-    return this._clientAuth;
-  }
-
-  public static get db() {
-    if (!this._db) {
-      this.initialize();
-    }
-    return this._db;
   }
 
   private static _getAppConfig() {
