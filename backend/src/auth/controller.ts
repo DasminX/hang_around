@@ -1,3 +1,5 @@
+import { StatusCodes } from "http-status-codes";
+
 import { parseInputBySchemaOrThrow } from "../shared/validators/validate-zod-schema";
 import { ExpressMiddlewareCaught } from "../utils/types";
 import { AuthFirebase } from "./repositories/auth-database/firebase";
@@ -10,7 +12,7 @@ export const signinController: ExpressMiddlewareCaught = async (req, res) => {
 
   const token = await new AuthFirebase().signIn(email, password);
 
-  return res.json(new SignInResponse(token));
+  return res.status(StatusCodes.OK).json(new SignInResponse(token));
 };
 
 export const signupController: ExpressMiddlewareCaught = async (req, res) => {
@@ -18,7 +20,7 @@ export const signupController: ExpressMiddlewareCaught = async (req, res) => {
 
   await new AuthFirebase().signUp(email, password);
 
-  return res.json(new SignUpResponse());
+  return res.status(StatusCodes.CREATED).json(new SignUpResponse());
 };
 
 export const resetPasswordController: ExpressMiddlewareCaught = async (req, res) => {
@@ -26,10 +28,10 @@ export const resetPasswordController: ExpressMiddlewareCaught = async (req, res)
 
   await new AuthFirebase().forgotPassword(email);
 
-  return res.json(new ResetPasswordResponse());
+  return res.status(StatusCodes.OK).json(new ResetPasswordResponse());
 };
 
 // TODO blacklist tokens
 export const signOutController: ExpressMiddlewareCaught = async (_req, res) => {
-  return res.json(new SignOutResponse());
+  return res.status(StatusCodes.OK).json(new SignOutResponse());
 };

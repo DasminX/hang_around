@@ -1,8 +1,8 @@
 import express from "express";
 
-import { isAuthenticatedMiddleware } from "../shared/middlewares/auth-middleware";
-import { handleOrThrowTimeoutError } from "../shared/http-wrappers/http-timeout";
 import { catchAsync } from "../shared/http-wrappers/catch-async";
+import { handleOrThrowTimeoutError } from "../shared/http-wrappers/http-timeout";
+import { isAuthenticatedMiddleware } from "../shared/middlewares/auth-middleware";
 import { findPlacesController } from "./controller";
 import { placesRateLimiter } from "./middlewares/places-rate-limiter";
 

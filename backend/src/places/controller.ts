@@ -1,6 +1,8 @@
+import { StatusCodes } from "http-status-codes";
+
 import { AppError } from "../shared/errors";
-import { LocationVO } from "../shared/value-objects/location";
 import { parseInputBySchemaOrThrow } from "../shared/validators/validate-zod-schema";
+import { LocationVO } from "../shared/value-objects/location";
 import { ExpressMiddlewareCaught } from "../utils/types";
 import { FindPlaceResponse } from "./responses";
 import { FIND_PLACES_SCHEMA } from "./schema";
@@ -21,5 +23,5 @@ export const findPlacesController: ExpressMiddlewareCaught = async (req, res) =>
     throw result;
   }
 
-  return res.json(new FindPlaceResponse(result));
+  return res.status(StatusCodes.OK).json(new FindPlaceResponse(result));
 };
