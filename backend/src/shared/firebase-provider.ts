@@ -5,31 +5,29 @@ import { Auth as AdminAuth, getAuth as getAdminAuth } from "firebase-admin/auth"
 import { type Firestore, getFirestore } from "firebase-admin/firestore";
 import { Logger } from "winston";
 
+type FirebaseServices = { db: Firestore; clientAuth: ClientAuth; adminAuth: AdminAuth };
 export class FirebaseProvider {
-  public static adminAuth: AdminAuth;
-  public static clientAuth: ClientAuth;
-
-  public static db: Firestore;
-
   private constructor() {}
 
-  public static initialize(logger: Logger) {
+  public static initialize(logger: Logger): FirebaseServices {
     const adminApp = initializeAdminApp(this._getAppConfig());
-    this.adminAuth = getAdminAuth(adminApp);
+    const adminAuth = getAdminAuth(adminApp);
     logger.info("Admin firebase initialized...");
 
     const clientApp = initializeClientApp(this._getAppConfig());
-    this.clientAuth = getClientAuth(clientApp);
+    const clientAuth = getClientAuth(clientApp);
     logger.info("Client firebase initialized...");
 
-    this.db = getFirestore(adminApp, process.env.DB_ID as string);
-    this.db.settings({
+    const db = getFirestore(adminApp, process.env.DB_ID as string);
+    db.settings({
       credentials: {
         client_email: process.env.DB_CLIENT_EMAIL,
         private_key: (process.env.DB_PRIVATE_KEY as string)?.split(String.raw`\n`).join("\n") || "",
       },
     });
     logger.info("Firestore db initialized...");
+
+    return { adminAuth, clientAuth, db };
   }
 
   private static _getAppConfig() {

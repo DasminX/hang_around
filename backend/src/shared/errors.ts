@@ -13,6 +13,7 @@ export enum ErrorCode {
   EMAIL_NOT_CONFIRMED = "EMAIL_NOT_CONFIRMED",
   NOT_AUTHENTICATED = "NOT_AUTHENTICATED",
   TIMEOUT = "TIMEOUT",
+  INTERNAL_ERROR = "INTERNAL_ERROR",
 }
 
 export abstract class AppError extends Error {
@@ -28,6 +29,13 @@ export abstract class AppError extends Error {
   }
 }
 
+export class DataSourceError extends AppError {
+  constructor(pickedDataSource: string) {
+    super(`Invalid datasource provided!`, StatusCodes.INTERNAL_SERVER_ERROR, ErrorCode.INTERNAL_ERROR, {
+      pickedDataSource,
+    });
+  }
+}
 export class NotFoundError extends AppError {
   constructor(url: Request["originalUrl"]) {
     super(`Can't find ${url} on this server!`, StatusCodes.NOT_FOUND, ErrorCode.NOT_FOUND);

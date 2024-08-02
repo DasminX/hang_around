@@ -1,11 +1,14 @@
+import { randomUUID } from "crypto";
+
+import { NotAuthenticatedError } from "../../errors";
 import { TokenVerifierI, VerifyTokenResult } from "./abstract";
 
 export class InMemoryTokenVerifier implements TokenVerifierI {
   async verify(token: string): Promise<VerifyTokenResult> {
-    if (token) {
-      return { uid: "VALID" };
+    if (randomUUID().length == token.length) {
+      return { uid: "VALID-AUTHENTICATED-UUID" };
     }
 
-    return { uid: "INVALID" };
+    throw new NotAuthenticatedError();
   }
 }

@@ -1,4 +1,4 @@
-import { randomBytes } from "crypto";
+import { randomUUID } from "crypto";
 
 import { BadCredentialsError } from "../../../shared/errors";
 import { TimestampBrand } from "../../../utils/types";
@@ -7,21 +7,20 @@ import { AuthDatabaseI } from "./abstract";
 
 type MockUser = { email: string; password: string };
 
-// TODO pomyśleć o email isVerified!
 export class AuthInMemoryDatabase implements AuthDatabaseI {
-  private _db: MockUser[] = [];
+  private db: MockUser[] = [];
 
   async signIn(email: string, password: string): Promise<Token> {
-    const isValidCredentials = this._db.find((account) => account.email === email && account.password === password);
+    const isValidCredentials = this.db.find((account) => account.email === email && account.password === password);
 
     if (!isValidCredentials) {
       throw new BadCredentialsError();
     }
 
-    return new Token(randomBytes(32).toString(), Date.now() as TimestampBrand);
+    return new Token(randomUUID(), Date.now() as TimestampBrand);
   }
   async signUp(email: string, password: string): Promise<void> {
-    this._db.push({ email, password });
+    this.db.push({ email, password });
   }
 
   async forgotPassword(email: string): Promise<void> {

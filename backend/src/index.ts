@@ -1,6 +1,5 @@
 import { getNodeApp } from "./app";
-import { GooglePlacesFinder } from "./places/services/finder/google-finder";
-import { FirebaseProvider } from "./shared/firebase-provider";
+import { DataSource } from "./shared/data-source";
 import { logger } from "./shared/logger";
 import { loadEnvConfig } from "./utils/config";
 
@@ -15,8 +14,7 @@ import { loadEnvConfig } from "./utils/config";
   const port = process.env.PORT || 3000;
   const server = getNodeApp().listen(port, () => {
     try {
-      FirebaseProvider.initialize(logger);
-      GooglePlacesFinder.initialize(logger);
+      DataSource.setup(logger);
       logger.info(`App running on port ${port}...`);
     } catch (e) {
       logger.error(`Server error while initializing dependencies...`, e);

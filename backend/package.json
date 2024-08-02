@@ -4,9 +4,8 @@
   "description": "Back end for HA V1",
   "main": "./src/index.ts",
   "scripts": {
-    "start": "node ./dist/index.js",
-    "start:dev": "nodemon --legacy-watch ./src/index.ts",
-    "start:prod": "NODE_ENV=production nodemon ./dist/index.js",
+    "start:in-memory": "set HA_APP_DATA_SOURCE=IN_MEMORY&& nodemon --legacy-watch ./src/index.ts",
+    "start:remote": "set HA_APP_DATA_SOURCE=FIREBASE&& nodemon --legacy-watch ./src/index.ts",
     "build": "tsc",
     "clean": "npm run prettier:fix && npm run lint:fix",
     "lint:fix": "eslint src --ext .ts --fix",

@@ -1,5 +1,4 @@
 import { PlacesClient } from "@googlemaps/places";
-import { Logger } from "winston";
 
 import { AppError, PlacesFinderError, PlacesFinderNotInitializedError } from "../../../shared/errors";
 import { LocationVO } from "../../../shared/value-objects/location";
@@ -9,15 +8,13 @@ import { PlacesFindArgs, PlacesFinderI } from "./abstract";
 export class GooglePlacesFinder implements PlacesFinderI {
   private client: PlacesClient;
 
-  constructor(logger: Logger) {
+  constructor() {
     this.client = new PlacesClient({
       credentials: {
         private_key: ((process.env.GOOGLE_PLACES_API_PRIVATE_KEY as string) || "").split(String.raw`\n`).join("\n"),
         client_email: process.env.GOOGLE_PLACES_API_CLIENT_EMAIL,
       },
     });
-
-    logger.info(`Google Places Finder initialized...`);
   }
 
   public async find(args: PlacesFindArgs): Promise<Place[] | AppError> {
