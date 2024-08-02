@@ -1,62 +1,36 @@
-import { FirebaseApp as ClientApp, initializeApp as initializeClientApp } from "firebase/app";
+import { initializeApp as initializeClientApp } from "firebase/app";
 import { Auth as ClientAuth, getAuth as getClientAuth } from "firebase/auth";
-import { Firestore as ClientFirestore, getFirestore as getClientFirestore } from "firebase/firestore";
-import { App as AdminApp, initializeApp as initializeAdminApp } from "firebase-admin/app";
+import { initializeApp as initializeAdminApp } from "firebase-admin/app";
 import { Auth as AdminAuth, getAuth as getAdminAuth } from "firebase-admin/auth";
-import {
-  Firestore as AdminFirestore,
-  type Firestore,
-  getFirestore as getAdminFirestore,
-  getFirestore,
-} from "firebase-admin/firestore";
+import { type Firestore, getFirestore } from "firebase-admin/firestore";
 
 import { logger } from "./logger";
 
 export class FirebaseService {
-  private static _adminApp: AdminApp;
   private static _adminAuth: AdminAuth;
-  private static _adminFirestore: AdminFirestore;
-
-  private static _clientApp: ClientApp;
   private static _clientAuth: ClientAuth;
-  private static _clientFirestore: ClientFirestore;
 
   private static _db: Firestore;
 
   private constructor() {}
 
   public static initialize() {
-    if (!this._adminApp) {
-      this._adminApp = initializeAdminApp(this._getAppConfig());
-      this._adminAuth = getAdminAuth(this._adminApp);
-      this._adminFirestore = getAdminFirestore(this._adminApp);
-      logger.info("Admin firebase initialized...");
-    }
+    const adminApp = initializeAdminApp(this._getAppConfig());
+    this._adminAuth = getAdminAuth(adminApp);
+    logger.info("Admin firebase initialized...");
 
-    if (!this._clientApp) {
-      this._clientApp = initializeClientApp(this._getAppConfig());
-      this._clientAuth = getClientAuth(this._clientApp);
-      this._clientFirestore = getClientFirestore(this._clientApp);
-      logger.info("Client firebase initialized...");
-    }
+    const clientApp = initializeClientApp(this._getAppConfig());
+    this._clientAuth = getClientAuth(clientApp);
+    logger.info("Client firebase initialized...");
 
-    if (!this._db) {
-      this._db = getFirestore(this._adminApp, process.env.DB_ID as string);
-      this._db.settings({
-        credentials: {
-          client_email: process.env.DB_CLIENT_EMAIL,
-          private_key: (process.env.DB_PRIVATE_KEY as string)?.split(String.raw`\n`).join("\n") || "",
-        },
-      });
-      logger.info("Firestore db initialized...");
-    }
-  }
-
-  public static get adminApp(): AdminApp {
-    if (!this._adminApp) {
-      this.initialize();
-    }
-    return this._adminApp;
+    this._db = getFirestore(adminApp, process.env.DB_ID as string);
+    this._db.settings({
+      credentials: {
+        client_email: process.env.DB_CLIENT_EMAIL,
+        private_key: (process.env.DB_PRIVATE_KEY as string)?.split(String.raw`\n`).join("\n") || "",
+      },
+    });
+    logger.info("Firestore db initialized...");
   }
 
   public static get adminAuth(): AdminAuth {
@@ -66,32 +40,11 @@ export class FirebaseService {
     return this._adminAuth;
   }
 
-  public static get adminFirestore(): AdminFirestore {
-    if (!this._adminFirestore) {
-      this.initialize();
-    }
-    return this._adminFirestore;
-  }
-
-  public static get clientApp(): ClientApp {
-    if (!this._clientApp) {
-      this.initialize();
-    }
-    return this._clientApp;
-  }
-
   public static get clientAuth(): ClientAuth {
     if (!this._clientAuth) {
       this.initialize();
     }
     return this._clientAuth;
-  }
-
-  public static get clientFirestore(): ClientFirestore {
-    if (!this._clientFirestore) {
-      this.initialize();
-    }
-    return this._clientFirestore;
   }
 
   public static get db() {
