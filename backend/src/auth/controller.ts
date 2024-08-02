@@ -2,7 +2,7 @@ import { StatusCodes } from "http-status-codes";
 
 import { parseInputBySchemaOrThrow } from "../shared/validators/validate-zod-schema";
 import { ExpressMiddlewareCaught } from "../utils/types";
-import { AuthFirebase } from "./repositories/auth-database/firebase";
+import { AuthFirebase } from "./repositories/auth-database/firebase-auth";
 import { ResetPasswordResponse, SignInResponse, SignOutResponse, SignUpResponse } from "./responses";
 import { RESET_PASSWORD_SCHEMA, SIGN_IN_SCHEMA, SIGN_UP_SCHEMA } from "./schema";
 
