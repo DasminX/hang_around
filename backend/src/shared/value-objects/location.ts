@@ -1,6 +1,6 @@
 import { GeoPoint } from "firebase-admin/firestore";
 
-type LocationArgs = [number, number] | { lat: number; lng: number } | GeoPoint;
+export type LocationArgs = [number, number] | { lat: number; lng: number } | GeoPoint;
 
 export class LocationVO {
   public readonly lat: number;

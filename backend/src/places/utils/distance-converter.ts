@@ -1,4 +1,4 @@
-type HowFar = {
+export type HowFar = {
   distance: number;
   unit: "m" | "yd";
 };
