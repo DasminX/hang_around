@@ -26,7 +26,7 @@ export const signupController: ExpressMiddlewareCaught = async (req, res) => {
 export const resetPasswordController: ExpressMiddlewareCaught = async (req, res) => {
   const { email } = parseInputBySchemaOrThrow(req.body, RESET_PASSWORD_SCHEMA);
 
-  await DataSource.auth.forgotPassword(email);
+  await DataSource.auth.resetPassword(email);
 
   return res.status(StatusCodes.OK).json(new ResetPasswordResponse());
 };

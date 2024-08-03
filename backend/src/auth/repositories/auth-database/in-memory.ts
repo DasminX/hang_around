@@ -25,8 +25,8 @@ export class AuthInMemoryDatabase implements AuthDatabaseI {
     }
   }
 
-  async forgotPassword(email: string): Promise<void> {
-    console.log(`Tried to send forgot-password token for email ${email}`);
+  async resetPassword(email: string): Promise<void> {
+    console.log(`Tried to send reset-password token for email ${email}`);
   }
 
   async signOut(): Promise<void> {

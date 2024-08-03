@@ -36,7 +36,7 @@ export class AuthFirebase implements AuthDatabaseI {
     await sendEmailVerification(user);
   }
 
-  async forgotPassword(email: string): Promise<void> {
+  async resetPassword(email: string): Promise<void> {
     await sendPasswordResetEmail(this._clientAuth, email);
   }
 
