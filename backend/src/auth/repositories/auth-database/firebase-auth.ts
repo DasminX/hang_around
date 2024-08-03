@@ -13,10 +13,10 @@ import { Token } from "../../models/token";
 import { AuthDatabaseI } from "./abstract";
 
 export class AuthFirebase implements AuthDatabaseI {
-  constructor(private readonly clientAuth: Auth) {}
+  constructor(private readonly _clientAuth: Auth) {}
 
   async signIn(email: string, password: string): Promise<Token> {
-    const { user } = await signInWithEmailAndPassword(this.clientAuth, email, password);
+    const { user } = await signInWithEmailAndPassword(this._clientAuth, email, password);
 
     if (!user.emailVerified) {
       throw new EmailNotConfirmedError();
@@ -31,12 +31,12 @@ export class AuthFirebase implements AuthDatabaseI {
   }
 
   async signUp(email: string, password: string): Promise<void> {
-    const { user } = await createUserWithEmailAndPassword(this.clientAuth, email, password);
+    const { user } = await createUserWithEmailAndPassword(this._clientAuth, email, password);
 
     await sendEmailVerification(user);
   }
 
   async forgotPassword(email: string): Promise<void> {
-    await sendPasswordResetEmail(this.clientAuth, email);
+    await sendPasswordResetEmail(this._clientAuth, email);
   }
 }

@@ -4,10 +4,10 @@ import { Visit, VisitArgs } from "../../models/visit";
 import { VisitsDatabaseI } from "./abstract";
 
 export class VisitsFirestore implements VisitsDatabaseI {
-  constructor(private readonly db: Firestore) {}
+  constructor(private readonly _db: Firestore) {}
 
   async createVisit(visitArgs: Omit<VisitArgs, "id">): Promise<Visit> {
-    const addedVisit = await this.db.collection("visits").add({
+    const addedVisit = await this._db.collection("visits").add({
       ...visitArgs,
       location: visitArgs.location.toGeoPoint(),
     });
@@ -19,7 +19,7 @@ export class VisitsFirestore implements VisitsDatabaseI {
   }
 
   async getVisitById(visitId: string, userId: string): Promise<Visit | null> {
-    const visitDocuments = await this.db
+    const visitDocuments = await this._db
       .collection("visits")
       .where("userId", "==", userId)
       .where("__name__", "==", visitId)
@@ -36,7 +36,7 @@ export class VisitsFirestore implements VisitsDatabaseI {
   }
 
   async getVisitsForUser(userId: string): Promise<Visit[]> {
-    const visitsDocuments = await this.db.collection("visits").where("userId", "==", userId).get();
+    const visitsDocuments = await this._db.collection("visits").where("userId", "==", userId).get();
 
     return visitsDocuments.docs.map((visit) => new Visit({ id: visit.id, ...(visit.data() as Omit<VisitArgs, "id">) }));
   }

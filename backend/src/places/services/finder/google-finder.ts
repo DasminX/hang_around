@@ -6,10 +6,10 @@ import { Place } from "../../models/place";
 import { PlacesFindArgs, PlacesFinderI } from "./abstract";
 
 export class GooglePlacesFinder implements PlacesFinderI {
-  private client: PlacesClient;
+  private _client: PlacesClient;
 
   constructor() {
-    this.client = new PlacesClient({
+    this._client = new PlacesClient({
       credentials: {
         private_key: ((process.env.GOOGLE_PLACES_API_PRIVATE_KEY as string) || "").split(String.raw`\n`).join("\n"),
         client_email: process.env.GOOGLE_PLACES_API_CLIENT_EMAIL,
@@ -18,14 +18,14 @@ export class GooglePlacesFinder implements PlacesFinderI {
   }
 
   public async find(args: PlacesFindArgs): Promise<Place[] | AppError> {
-    if (!this.client) {
+    if (!this._client) {
       return new PlacesFinderNotInitializedError();
     }
 
     const [lat, lng] = args.location.toTuple();
 
     try {
-      const res = await this.client.searchText(
+      const res = await this._client.searchText(
         {
           locationBias: {
             circle: {

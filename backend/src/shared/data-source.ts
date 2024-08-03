@@ -22,9 +22,9 @@ export class DataSource {
     const pickedDataSource = process.env.HA_APP_DATA_SOURCE as string;
 
     if (pickedDataSource == "IN_MEMORY") {
-      this.setInMemory();
+      this._setInMemory();
     } else if (pickedDataSource == "FIREBASE") {
-      this.setFromFirebase();
+      this._setFromFirebase();
     } else {
       throw new DataSourceError(pickedDataSource);
     }
@@ -32,13 +32,13 @@ export class DataSource {
     this.places = new GooglePlacesFinder();
   }
 
-  private static setInMemory() {
+  private static _setInMemory() {
     this.visits = new InMemoryVisitsDatabase();
     this.tokenVerifier = new InMemoryTokenVerifier();
     this.auth = new AuthInMemoryDatabase();
   }
 
-  private static setFromFirebase() {
+  private static _setFromFirebase() {
     const firebase = FirebaseProvider.initialize();
 
     this.visits = new VisitsFirestore(firebase.db);
