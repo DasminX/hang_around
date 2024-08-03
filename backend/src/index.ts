@@ -1,5 +1,4 @@
 import { getNodeApp } from "./app";
-import { DataSource } from "./shared/data-source";
 import { logger } from "./shared/logger";
 import { loadEnvConfig } from "./utils/config";
 
@@ -13,13 +12,7 @@ import { loadEnvConfig } from "./utils/config";
 
   const port = process.env.PORT || 3000;
   const server = getNodeApp().listen(port, () => {
-    try {
-      DataSource.setup();
-      logger.info(`App running on port ${port}...`);
-    } catch (e) {
-      logger.error(`Server error while initializing dependencies...`, e);
-      process.exit(1);
-    }
+    logger.info(`App running on port ${port}...`);
   });
 
   process.on("unhandledRejection", (err) => {
