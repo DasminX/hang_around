@@ -60,15 +60,19 @@ export class GooglePlacesFinder implements PlacesFinderI {
       return res[0].places.map(
         (place) =>
           new Place({
-            id: place.id!,
-            name: place.displayName!.text!,
-            location: new LocationVO({ lat: place.location!.latitude!, lng: place.location!.longitude! }),
-            rating: place.rating!,
-            mapsUri: place.googleMapsUri!,
+            id: place.id ?? "Not specified",
+            name: place.displayName?.text ?? "Not specified",
+            location: new LocationVO({
+              lat: place.location?.latitude ?? Number.NaN,
+              lng: place.location?.longitude ?? Number.NaN,
+            }),
+            rating: place.rating ?? Number.NaN,
+            mapsUri: place.googleMapsUri ?? "",
             isAccessible: Boolean(place.accessibilityOptions?.wheelchairAccessibleEntrance),
           }),
       );
     } catch (e) {
+      console.log(e);
       return new PlacesFinderError(e);
     }
   }
