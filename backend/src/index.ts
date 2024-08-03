@@ -14,7 +14,7 @@ import { loadEnvConfig } from "./utils/config";
   const port = process.env.PORT || 3000;
   const server = getNodeApp().listen(port, () => {
     try {
-      DataSource.setup(logger);
+      DataSource.setup();
       logger.info(`App running on port ${port}...`);
     } catch (e) {
       logger.error(`Server error while initializing dependencies...`, e);

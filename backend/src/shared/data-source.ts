@@ -1,5 +1,3 @@
-import { Logger } from "winston";
-
 import { AuthDatabaseI } from "../auth/repositories/auth-database/abstract";
 import { AuthFirebase } from "../auth/repositories/auth-database/firebase-auth";
 import { AuthInMemoryDatabase } from "../auth/repositories/auth-database/in-memory";
@@ -20,13 +18,13 @@ export class DataSource {
   public static tokenVerifier: TokenVerifierI;
   public static auth: AuthDatabaseI;
 
-  public static setup(logger: Logger): void {
+  public static setup(): void {
     const pickedDataSource = process.env.HA_APP_DATA_SOURCE as string;
 
     if (pickedDataSource == "IN_MEMORY") {
       this.setInMemory();
     } else if (pickedDataSource == "FIREBASE") {
-      this.setFromFirebase(logger);
+      this.setFromFirebase();
     } else {
       throw new DataSourceError(pickedDataSource);
     }
@@ -40,8 +38,8 @@ export class DataSource {
     this.auth = new AuthInMemoryDatabase();
   }
 
-  private static setFromFirebase(logger: Logger) {
-    const firebase = FirebaseProvider.initialize(logger);
+  private static setFromFirebase() {
+    const firebase = FirebaseProvider.initialize();
 
     this.visits = new VisitsFirestore(firebase.db);
     this.tokenVerifier = new FirebaseTokenVerifier(firebase.adminAuth);

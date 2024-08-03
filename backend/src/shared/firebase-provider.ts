@@ -3,13 +3,14 @@ import { Auth as ClientAuth, getAuth as getClientAuth } from "firebase/auth";
 import { initializeApp as initializeAdminApp } from "firebase-admin/app";
 import { Auth as AdminAuth, getAuth as getAdminAuth } from "firebase-admin/auth";
 import { type Firestore, getFirestore } from "firebase-admin/firestore";
-import { Logger } from "winston";
+
+import { logger } from "./logger";
 
 type FirebaseServices = { db: Firestore; clientAuth: ClientAuth; adminAuth: AdminAuth };
 export class FirebaseProvider {
   private constructor() {}
 
-  public static initialize(logger: Logger): FirebaseServices {
+  public static initialize(): FirebaseServices {
     const adminApp = initializeAdminApp(this._getAppConfig());
     const adminAuth = getAdminAuth(adminApp);
     logger.info("Admin firebase initialized...");
