@@ -20,10 +20,16 @@ export class AuthInMemoryDatabase implements AuthDatabaseI {
     return new Token(randomUUID(), Date.now() as TimestampBrand);
   }
   async signUp(email: string, password: string): Promise<void> {
-    this._db.push({ email, password });
+    if (!this._db.find((account) => account.email === email)) {
+      this._db.push({ email, password });
+    }
   }
 
   async forgotPassword(email: string): Promise<void> {
     console.log(`Tried to send forgot-password token for email ${email}`);
+  }
+
+  async signOut(): Promise<void> {
+    console.log("To be implemented!");
   }
 }
