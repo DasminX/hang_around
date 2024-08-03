@@ -28,7 +28,7 @@ export class VisitsFirestore implements VisitsDatabaseI {
     let visit = null;
 
     const visitDocument = visitDocuments.docs.at(0);
-    if (visitDocuments.size > 0 && visitDocument) {
+    if (visitDocument) {
       visit = new Visit({ id: visitDocument.id, ...(visitDocument.data() as Omit<VisitArgs, "id">) });
     }
 
