@@ -56,7 +56,7 @@ export class EmailNotConfirmedError extends AppError {
 
 export class NotAuthenticatedError extends AppError {
   constructor() {
-    super("Not authenticated!", StatusCodes.FORBIDDEN, ErrorCode.NOT_AUTHENTICATED);
+    super("Not authenticated!", StatusCodes.UNAUTHORIZED, ErrorCode.NOT_AUTHENTICATED);
   }
 }
 
