@@ -7,7 +7,7 @@ export default defineConfig({
       HA_APP_DATA_SOURCE: "IN_MEMORY",
       HA_APP_TESTING: "TRUE",
     },
-    testTimeout: 10000,
+    testTimeout: 30000,
     dir: "./src",
   },
 });

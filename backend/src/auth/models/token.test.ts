@@ -6,7 +6,7 @@ import { Token } from "./token";
 describe("Token Model", () => {
   it("should create an instance of Token with provided token and expirationTime", () => {
     const tokenValue = "some-token-value";
-    const expirationTimeValue: TimestampBrand = Date.now() as TimestampBrand;
+    const expirationTimeValue = Date.now() as TimestampBrand;
 
     const token = new Token(tokenValue, expirationTimeValue);
 

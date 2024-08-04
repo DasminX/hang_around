@@ -1,4 +1,4 @@
-import crypto from "crypto";
+import { randomUUID } from "crypto";
 
 import { Visit, VisitArgs } from "../../models/visit";
 import { VisitsDatabaseI } from "./abstract";
@@ -8,7 +8,7 @@ export class InMemoryVisitsDatabase implements VisitsDatabaseI {
 
   async createVisit(visitArgs: Omit<VisitArgs, "id">): Promise<Visit> {
     const visit = new Visit({
-      id: crypto.randomUUID(),
+      id: randomUUID(),
       ...visitArgs,
     });
     this._db.push(visit);

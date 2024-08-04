@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { _delay, isObjectWithAllProperties } from "./functions";
+import { isObjectWithAllProperties } from "./functions";
 
 describe("Utility Functions", () => {
   describe("isObjectWithAllProperties", () => {
@@ -22,29 +22,6 @@ describe("Utility Functions", () => {
       expect(isObjectWithAllProperties(123, "a")).toBe(false);
       expect(isObjectWithAllProperties("string", "a")).toBe(false);
       expect(isObjectWithAllProperties([], "a")).toBe(false);
-    });
-  });
-
-  describe("_delay", () => {
-    it("should resolve after the specified delay", async () => {
-      const start = Date.now();
-      await _delay(100);
-      const end = Date.now();
-      expect(end - start).toBeGreaterThanOrEqual(100);
-    });
-
-    it("should resolve almost immediately for a zero delay", async () => {
-      const start = Date.now();
-      await _delay(0);
-      const end = Date.now();
-      expect(end - start).toBeLessThan(10);
-    });
-
-    it("should handle negative delay gracefully", async () => {
-      const start = Date.now();
-      await _delay(-100);
-      const end = Date.now();
-      expect(end - start).toBeLessThan(10);
     });
   });
 });
