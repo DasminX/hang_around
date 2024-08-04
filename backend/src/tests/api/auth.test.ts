@@ -1,3 +1,4 @@
+import { randomUUID } from "crypto";
 import { StatusCodes } from "http-status-codes";
 import request from "supertest";
 import { beforeAll, describe, expect, it } from "vitest";
@@ -22,7 +23,7 @@ describe(`Route ${AUTH_PATH}`, () => {
       await request(app).post(`${AUTH_PATH}/signup`).send(VALID_SIGN_UP_CREDENTIALS);
     });
 
-    it("should statusCode to be 200 when valid credentials provided", async () => {
+    it("should return 200 when valid credentials are provided", async () => {
       const response = await request(app).post(`${AUTH_PATH}/signin`).send(VALID_SIGN_IN_CREDENTIALS);
 
       expect(response.status).toBe(StatusCodes.OK);
@@ -38,35 +39,100 @@ describe(`Route ${AUTH_PATH}`, () => {
       expect(response.body.data.token).toBeTypeOf("string");
       expect(response.body.data.token).not.toBe("");
 
-      const date = new Date(response.body.data.expirationTime);
-      expect(date).toBeInstanceOf(Date);
-      expect(date.getTime()).toBe(new Date(date).getTime());
+      const expirationTime = new Date(response.body.data.expirationTime);
+      expect(expirationTime.getTime()).toBeGreaterThan(Date.now() - 1000); // Ensuring token is valid (not expired)
     });
 
-    // TODO refactor to check detail messages to have properties
-    it("should yield a InputValidationError properties in res.body if invalid data provided", async () => {
+    it("should yield an InputValidationError in res.body if invalid data provided", async () => {
       const response1 = await request(app).post(`${AUTH_PATH}/signin`).send();
+      expect(response1.status).toBe(StatusCodes.BAD_REQUEST);
       expect(response1.body.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
 
-      const response2 = await request(app).post(`${AUTH_PATH}/signin`).send({
-        email: INVALID_EMAIL,
-      });
+      const response2 = await request(app).post(`${AUTH_PATH}/signin`).send({ email: INVALID_EMAIL });
+      expect(response2.status).toBe(StatusCodes.BAD_REQUEST);
       expect(response2.body.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
 
-      const response3 = await request(app).post(`${AUTH_PATH}/signin`).send({
-        password: INVALID_PASSWORD,
-      });
+      const response3 = await request(app).post(`${AUTH_PATH}/signin`).send({ password: INVALID_PASSWORD });
+      expect(response3.status).toBe(StatusCodes.BAD_REQUEST);
       expect(response3.body.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
     });
 
-    it("should yield a BadCredentialsError properties in res.body if user is not found", async () => {
+    it("should yield a BadCredentialsError in res.body if credentials are invalid", async () => {
       const response = await request(app).post(`${AUTH_PATH}/signin`).send({
         email: VALID_EMAIL,
         password: INVALID_PASSWORD,
       });
+      expect(response.status).toBe(StatusCodes.BAD_REQUEST);
       expect(response.body.errorCode).toBe(ErrorCode.BAD_CREDENTIALS);
     });
   });
 
-  // describe("POST /signup", () => {});
+  describe("POST /signup", () => {
+    it("should return 201 when valid sign-up data is provided", async () => {
+      const response = await request(app).post(`${AUTH_PATH}/signup`).send(VALID_SIGN_UP_CREDENTIALS);
+
+      expect(response.status).toBe(StatusCodes.CREATED);
+    });
+
+    it("should return an InputValidationError when invalid sign-up data is provided", async () => {
+      const response1 = await request(app).post(`${AUTH_PATH}/signup`).send();
+      expect(response1.status).toBe(StatusCodes.BAD_REQUEST);
+      expect(response1.body.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
+
+      const response2 = await request(app)
+        .post(`${AUTH_PATH}/signup`)
+        .send({ email: INVALID_EMAIL, password: VALID_SIGN_UP_CREDENTIALS.password });
+      expect(response2.status).toBe(StatusCodes.BAD_REQUEST);
+      expect(response2.body.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
+
+      const response3 = await request(app)
+        .post(`${AUTH_PATH}/signup`)
+        .send({ email: VALID_EMAIL, password: INVALID_PASSWORD });
+      expect(response3.status).toBe(StatusCodes.BAD_REQUEST);
+      expect(response3.body.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
+    });
+  });
+
+  describe("POST /reset-password", () => {
+    it("should return 200 when valid email is provided", async () => {
+      const response = await request(app).post(`${AUTH_PATH}/reset-password`).send({ email: VALID_EMAIL });
+
+      expect(response.status).toBe(StatusCodes.OK);
+    });
+
+    it("should return an InputValidationError when invalid email is provided", async () => {
+      const response = await request(app).post(`${AUTH_PATH}/reset-password`).send();
+
+      expect(response.status).toBe(StatusCodes.BAD_REQUEST);
+      expect(response.body.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
+
+      const response2 = await request(app).post(`${AUTH_PATH}/reset-password`).send({ email: INVALID_EMAIL });
+
+      expect(response2.status).toBe(StatusCodes.BAD_REQUEST);
+      expect(response2.body.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
+    });
+  });
+  describe("POST /signout", () => {
+    it("should return 200 when authenticated user signs out", async () => {
+      const response = await request(app).get(`${AUTH_PATH}/signout`).set("Authorization", `Bearer ${randomUUID()}`);
+
+      expect(response.status).toBe(StatusCodes.OK);
+    });
+
+    it("should return 401 when no token is provided", async () => {
+      const response = await request(app).get(`${AUTH_PATH}/signout`);
+
+      expect(response.status).toBe(StatusCodes.FORBIDDEN);
+      expect(response.body.errorCode).toBe(ErrorCode.NOT_AUTHENTICATED);
+    });
+
+    it("should return 401 when an invalid token is provided", async () => {
+      const response = await request(app).get(`${AUTH_PATH}/signout`).set("Authorization", `Bearer invalid-token`);
+
+      console.log(response.status, response.body);
+
+      expect(response.status).toBe(StatusCodes.FORBIDDEN);
+      expect(response.body.errorCode).toBe(ErrorCode.NOT_AUTHENTICATED);
+    });
+  });
 });

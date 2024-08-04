@@ -2,8 +2,6 @@ import "winston-daily-rotate-file";
 
 import winston from "winston";
 
-// TODO LATER do zrobienia jako funkcja, która robi inne transportery w zależności od node_env? a moze na sztywno tutaj? do przemyślenia
-
 const loggerOpts =
   process.env.HA_APP_TESTING === "TRUE"
     ? { silent: true }

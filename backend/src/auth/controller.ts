@@ -6,7 +6,6 @@ import { ExpressMiddlewareCaught } from "../utils/types";
 import { ResetPasswordResponse, SignInResponse, SignOutResponse, SignUpResponse } from "./responses";
 import { RESET_PASSWORD_SCHEMA, SIGN_IN_SCHEMA, SIGN_UP_SCHEMA } from "./schema";
 
-// TODO INJECT DB FACTORY
 export const signinController: ExpressMiddlewareCaught = async (req, res) => {
   const { email, password } = parseInputBySchemaOrThrow(req.body, SIGN_IN_SCHEMA);
 
@@ -33,6 +32,7 @@ export const resetPasswordController: ExpressMiddlewareCaught = async (req, res)
 
 // TODO blacklist tokens
 export const signOutController: ExpressMiddlewareCaught = async (_req, res) => {
+  console.log("wchodzi");
   await DataSource.auth.signOut();
 
   return res.status(StatusCodes.OK).json(new SignOutResponse());

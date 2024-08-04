@@ -21,7 +21,6 @@ export const getVisit: ExpressMiddlewareCaught = async (req, res) => {
   return res.status(StatusCodes.OK).json(new GetVisitResponse(visit));
 };
 
-// TODO INJECT DB FACTORY
 export const createVisit: ExpressMiddlewareCaught = async (req, res) => {
   const { name, location, rating, mapsUri, isAccessible } = parseInputBySchemaOrThrow(req.body, CREATE_VISIT_SCHEMA);
 
