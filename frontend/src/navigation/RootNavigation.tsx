@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import { useLoadAuth } from "../hooks/useLoadAuth";
+import { useLoadAuth } from "../shared/hooks/useLoadAuth";
 
 export default function RootNavigation() {
   const isAsyncStorageLoaded = useLoadAuth();

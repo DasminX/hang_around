@@ -1,6 +1,6 @@
 import { Headline, Text } from "react-native-paper";
 import { useTranslation } from "react-i18next";
-import { COLORS } from "../../../../shared/utils/const-colors";
+import { COLORS } from "../../../../utils/colors";
 import { AUTH_MODE_ENUM } from "../../utils/enums";
 
 export const AuthHeadline = ({ mode }: { mode: AUTH_MODE_ENUM }) => {

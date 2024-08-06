@@ -2,14 +2,14 @@ import { create } from "zustand";
 
 type AuthCredentialsType = {
   token: string;
-  expiresIn: number;
-  setTokenCredentials: (payload: { token: string; expiresIn: number }) => void;
+  expirationTime: number;
+  setTokenCredentials: (payload: { token: string; expirationTime: number }) => void;
   resetTokenCredentials: () => void;
 };
 
 export const useAuthStore = create<AuthCredentialsType>((set) => ({
   token: "",
-  expiresIn: -1,
-  setTokenCredentials: ({ token, expiresIn }) => set(() => ({ token, expiresIn })),
-  resetTokenCredentials: () => set(() => ({ token: "", expiresIn: -1 })),
+  expirationTime: -1,
+  setTokenCredentials: ({ token, expirationTime }) => set(() => ({ token, expirationTime })),
+  resetTokenCredentials: () => set(() => ({ token: "", expirationTime: -1 })),
 }));

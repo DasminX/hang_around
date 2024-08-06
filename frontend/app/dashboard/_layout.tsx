@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 import { withAuth } from "../../src/shared/hoc/withAuth";
-import { COLORS } from "../../src/shared/utils/const-colors";
+import { COLORS } from "../../src/utils/colors";
 
 function DasboardLayout() {
   return (

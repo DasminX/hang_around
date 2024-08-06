@@ -1,4 +1,4 @@
-import { type CamelCase } from "../../../shared/utils/types";
+import { type CamelCase } from "../../../utils/types";
 import {
   VALIDATION_STATUS_ENUM,
   INPUT_VALUES_ENUM,

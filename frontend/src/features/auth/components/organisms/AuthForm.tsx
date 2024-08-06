@@ -6,13 +6,13 @@ import { useTranslation } from "react-i18next";
 import VariantButton from "../../../../shared/components/button/VariantButton";
 import { LabelChangeAuthMode } from "../atoms/LabelChangeAuthMode";
 import { AUTH_MODE_ENUM } from "../../utils/enums";
-import { COLORS } from "../../../../shared/utils/const-colors";
+import { COLORS } from "../../../../utils/colors";
 import { ForgotPasswordLink } from "../atoms/ForgotPasswordLink";
 import { EmailFormField } from "../molecules/EmailFormField";
 import { PasswordFormField } from "../molecules/PasswordFormField";
 import { RepeatPasswordFormField } from "../molecules/RepeatPasswordFormField";
 import { PrivacyPolicyFormField } from "../molecules/PrivacyPolicyFormField";
-import { camelCaseStr } from "../../../../shared/utils/string-transformators";
+import { camelCaseStr } from "../../../../utils/string-transformators";
 
 type AuthFormProps = {
   mode: AUTH_MODE_ENUM;

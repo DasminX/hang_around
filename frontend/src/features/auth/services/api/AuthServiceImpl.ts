@@ -4,7 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AUTH_MODE_ENUM } from "../../utils/enums";
 import { FIREBASE_AUTH } from "../../../../../firebaseConfig";
 import { AuthServiceAbstract } from "./AuthService";
-import { AUTH_TOKEN, AUTH_TOKEN_EXPIRESIN } from "../../../../shared/utils/async-storage-consts";
+import { AUTH_TOKEN, AUTH_TOKEN_EXP } from "../../../../utils/constants";
 import { FirebaseAuthError } from "../../utils/types";
 import { BACKEND_URL_DEV } from "./config";
 
@@ -34,7 +34,9 @@ export class AuthServiceLogin extends AuthServiceAbstract {
   public async authorize(
     email: string,
     password: string,
-  ): Promise<(FirebaseCallSuccess & { token: string; expiresIn: number }) | FirebaseAuthError> {
+  ): Promise<
+    (FirebaseCallSuccess & { token: string; expirationTime: number }) | FirebaseAuthError
+  > {
     try {
       const res = await fetch(BACKEND_URL_DEV, {
         method: "POST",
@@ -54,7 +56,7 @@ export class AuthServiceLogin extends AuthServiceAbstract {
 
       await AsyncStorage.multiSet([
         [AUTH_TOKEN, data.token],
-        [AUTH_TOKEN_EXPIRESIN, data.data.exp.toString()],
+        [AUTH_TOKEN_EXP, data.data.exp.toString()],
       ]);
 
       return {
@@ -62,7 +64,7 @@ export class AuthServiceLogin extends AuthServiceAbstract {
         status: AUTH_RESPONSE_ENUM.SUCCESS,
         message: "auth.successfulSignin",
         token: data.data.token,
-        expiresIn: data.data.exp,
+        expirationTime: data.data.exp,
       };
     } catch (error) {
       console.log(error);

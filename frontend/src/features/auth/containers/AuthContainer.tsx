@@ -12,7 +12,7 @@ import { Button } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuthFormStore } from "../slices/authFormInputsStore";
 import { useAuthStore } from "../../../shared/slices/authStore";
-import { camelCaseStr } from "../../../shared/utils/string-transformators";
+import { camelCaseStr } from "../../../utils/string-transformators";
 
 type FormValidityType = Readonly<{
   isInvalid: boolean;
@@ -72,10 +72,10 @@ export const AuthContainer = ({ mode }: { mode: AUTH_MODE_ENUM }) => {
           if (
             "token" in response &&
             typeof response.token === "string" &&
-            "expiresIn" in response &&
-            typeof response.expiresIn === "number"
+            "expirationTime" in response &&
+            typeof response.expirationTime === "number"
           ) {
-            setToken({ token: response.token, expiresIn: response.expiresIn });
+            setToken({ token: response.token, expirationTime: response.expirationTime });
           }
           router.replace("/dashboard/");
           break;

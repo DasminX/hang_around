@@ -22,7 +22,7 @@ describe("validateAuth function", () => {
     expect(tIsValid).toBeTruthy();
   });
 
-  it("should be falsy if expiresIn yields NaN", () => {
+  it("should be falsy if expirationTime yields NaN", () => {
     const validToken = "abc";
     const mockNaN = NaN;
 
@@ -31,11 +31,11 @@ describe("validateAuth function", () => {
     expect(tIsValid).toBeFalsy();
   });
 
-  it("should be falsy if expiresIn is a number bot is not greater than current timestamp", () => {
+  it("should be falsy if expirationTime is a number bot is not greater than current timestamp", () => {
     const validToken = "abc";
-    const validExpiresIn = 1;
+    const validexpirationTime = 1;
 
-    const isValid = validateAuth(validToken, validExpiresIn);
+    const isValid = validateAuth(validToken, validexpirationTime);
 
     expect(isValid).toBeFalsy();
   });

@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import { TextInput, type TextInputProps } from "react-native-paper";
-import { COLORS } from "../../utils/const-colors";
+import { COLORS } from "../../../utils/colors";
 
 export default function OutlinedInput(props: TextInputProps) {
   return (

@@ -1,8 +1,8 @@
 import { Link } from "expo-router";
 import { Text } from "react-native-paper";
 import { useTranslation } from "react-i18next";
-import { capitalizeStr } from "../../../../shared/utils/string-transformators";
-import { COLORS } from "../../../../shared/utils/const-colors";
+import { capitalizeStr } from "../../../../utils/string-transformators";
+import { COLORS } from "../../../../utils/colors";
 import { AUTH_MODE_ENUM } from "../../utils/enums";
 
 type AuthPathType = Readonly<

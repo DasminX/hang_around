@@ -1,6 +1,6 @@
 import { Link, Route } from "expo-router";
 import { Text } from "react-native-paper";
-import { COLORS } from "../../../../shared/utils/const-colors";
+import { COLORS } from "../../../../utils/colors";
 
 export const TextWithLink = ({
   text,

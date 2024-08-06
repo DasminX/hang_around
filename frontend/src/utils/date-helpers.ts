@@ -1,4 +1,4 @@
-const NINETY_DAYS = 1000 * 60 * 60 * 24 * 90;
+import { NINETY_DAYS } from "./constants";
 
 export const toTimestamp = (date: Date | string) => {
   let timestamp = -1;
