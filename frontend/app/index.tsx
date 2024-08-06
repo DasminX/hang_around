@@ -1,9 +1,9 @@
-import { Redirect, useRootNavigation } from "expo-router";
+import { Redirect, useNavigationContainerRef } from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator } from "react-native";
 
 export default function FakeRootIndexForLoggedInRedirectPurpose() {
-  const navigation = useRootNavigation();
+  const navigation = useNavigationContainerRef();
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
