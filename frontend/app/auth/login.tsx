@@ -1,6 +1,14 @@
-import { AuthContainer } from "../../src/features/auth/containers/AuthContainer";
-import { AUTH_MODE_ENUM } from "../../src/features/auth/utils/enums";
+import { useTranslation } from "react-i18next";
+import { AuthHeadline } from "../../src/features/auth/components/atoms/AuthHeadline";
+import { LoginForm } from "../../src/features/auth/components/organisms/LoginForm";
 
 export default function Login() {
-  return <AuthContainer mode={AUTH_MODE_ENUM.LOGIN} />;
+  const { t } = useTranslation();
+
+  return (
+    <>
+      <AuthHeadline headlineText={t("auth.loginTo")} shouldShowAppName={true} />
+      <LoginForm />
+    </>
+  );
 }

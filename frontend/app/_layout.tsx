@@ -5,8 +5,8 @@ import { useEffect } from "react";
 
 import { PaperProvider } from "react-native-paper";
 import { initializeI18N } from "../src/dict/initializer";
-import RootNavigation from "../src/shared/containers/RootNavigation";
 import { StatusBar } from "expo-status-bar";
+import RootNavigation from "../src/navigation/RootNavigation";
 
 export {
   // Catch any errors thrown by the Layout component.

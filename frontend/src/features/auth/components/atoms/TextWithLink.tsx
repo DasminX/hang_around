@@ -1,4 +1,4 @@
-import { Link, Route } from "expo-router";
+import { Href, Link } from "expo-router";
 import { Text } from "react-native-paper";
 import { COLORS } from "../../../../utils/colors";
 
@@ -9,7 +9,7 @@ export const TextWithLink = ({
 }: {
   text: string;
   linkText: string;
-  linkPath: Route<string>;
+  linkPath: Href<string> | string;
 }) => {
   return (
     <Text variant="labelLarge">
