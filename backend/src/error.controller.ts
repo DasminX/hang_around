@@ -10,6 +10,7 @@ export const errorController: ExpressMiddlewareErrorController = (err, _req, res
   }
 
   const response = {
+    status: "fail",
     name: err.name,
     errorCode: err instanceof AppError ? err.errorCode : ErrorCode.UNKNOWN_ERROR,
     message: err.message,
