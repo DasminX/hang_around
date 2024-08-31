@@ -1,0 +1,40 @@
+import { memo } from "react";
+import { Dialog /* , type DialogProps */, Portal, Text } from "react-native-paper";
+import { useTranslation } from "react-i18next";
+import { StyleSheet } from "react-native";
+import VariantButton from "../../ui/button/VariantButton";
+import { useErrorModalStore } from "./errorModalStore";
+
+// type ModalProps = Omit<DialogProps & { title: string; description?: string }, "children">;
+
+export const ErrorModal = memo(() => {
+  const { t } = useTranslation();
+
+  const occured = useErrorModalStore((state) => state.occured);
+  const description = useErrorModalStore((state) => state.description);
+  const title = useErrorModalStore((state) => state.title);
+  const setDefaultError = useErrorModalStore((state) => state.setDefaultError);
+
+  return (
+    <Portal>
+      <Dialog visible={occured} onDismiss={setDefaultError}>
+        <Dialog.Title style={styles.center}>{title}</Dialog.Title>
+        <Dialog.Content>
+          <Text variant="bodyMedium">{description}</Text>
+        </Dialog.Content>
+        <Dialog.Actions>
+          <VariantButton style={styles.button} variant="green" onPress={setDefaultError}>
+            {t("common.close")}
+          </VariantButton>
+        </Dialog.Actions>
+      </Dialog>
+    </Portal>
+  );
+});
+
+const styles = StyleSheet.create({
+  center: {
+    textAlign: "center",
+  },
+  button: { width: "50%", marginRight: "auto", marginLeft: "auto" },
+});

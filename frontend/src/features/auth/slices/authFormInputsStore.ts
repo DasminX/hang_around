@@ -1,5 +1,11 @@
 import { create } from "zustand";
-import { InputType } from "../utils/types";
+
+type InputType = {
+  email: string;
+  password: string;
+  repeatPassword: string;
+  privacyPolicy: boolean;
+};
 
 type AuthFormCredentialsType = InputType & {
   setEmail: (value: InputType["email"]) => void;

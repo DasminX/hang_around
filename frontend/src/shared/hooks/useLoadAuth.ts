@@ -1,41 +1,29 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
-import { AUTH_TOKEN, AUTH_TOKEN_EXP } from "../../utils/constants";
-import { validateAuth } from "../../utils/validate-auth";
-import { useAuthStore } from "../slices/authStore";
-import { KeyValuePair } from "@react-native-async-storage/async-storage/lib/typescript/types";
-
-const getAuthTokenProperties = async () => {
-  const authTokenProperties = await AsyncStorage.multiGet([AUTH_TOKEN, AUTH_TOKEN_EXP]);
-  if (!authTokenProperties.length) return [];
-
-  const transformedATP = authTokenProperties.map((tuple: KeyValuePair) => ({
-    key: tuple[0],
-    value: tuple[1],
-  }));
-
-  const propsAuthToken = transformedATP.find((obj) => obj.key === AUTH_TOKEN)?.value;
-  const propsAuthTokenExp = transformedATP.find((obj) => obj.key === AUTH_TOKEN_EXP)?.value;
-  return [propsAuthToken, propsAuthTokenExp];
-};
+import { isKeptTokenValid as isTokenValid } from "../../utils/functions";
+import { useTokenStore } from "../slices/tokenStore";
+import { getAsyncStorageAuthTokenProps } from "../../utils/async-storage-helpers";
 
 export const useLoadAuth = () => {
   const [isAsyncStorageLoaded, setIsAsyncStorageLoaded] = useState(false);
-  const setTokenCredentials = useAuthStore((state) => state.setTokenCredentials);
+
+  const setTokenCredentials = useTokenStore((state) => state.setTokenCredentials);
+  const resetTokenCredentials = useTokenStore((state) => state.resetTokenCredentials);
 
   useEffect(() => {
-    getAuthTokenProperties()
-      .then(([token, expirationTime]) => {
-        if (token && expirationTime && validateAuth(token, +expirationTime)) {
-          setTokenCredentials({ token: token, expirationTime: +expirationTime });
+    (async () => {
+      try {
+        const [token, expirationTime] = await getAsyncStorageAuthTokenProps();
+
+        if (isTokenValid(token, expirationTime)) {
+          setTokenCredentials({ token, expirationTime });
         }
-      })
-      .catch((e) => {
+      } catch (e) {
         console.log(`Error in getting auth token properties: ${e}`);
-      })
-      .finally(() => {
-        setIsAsyncStorageLoaded(true);
-      });
+        resetTokenCredentials();
+      }
+
+      setIsAsyncStorageLoaded(true);
+    })();
   }, [setTokenCredentials, isAsyncStorageLoaded]);
 
   return isAsyncStorageLoaded;

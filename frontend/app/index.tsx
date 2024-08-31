@@ -12,6 +12,6 @@ export default function FakeRootIndexForLoggedInRedirectPurpose() {
     setReady(true);
   }, [navigation?.isReady]);
 
-  if (ready) return <Redirect href="/dashboard/" />;
+  if (ready) return <Redirect href="/dashboard" />;
   return <ActivityIndicator />;
 }

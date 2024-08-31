@@ -1,14 +1,77 @@
 import { useTranslation } from "react-i18next";
 import { AuthHeadline } from "../../src/features/auth/components/atoms/AuthHeadline";
 import { RegisterForm } from "../../src/features/auth/components/organisms/RegisterForm";
+import { KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
+import { signup } from "../../src/features/auth/api/fetchers";
+import { useAuthFormStore } from "../../src/features/auth/slices/authFormInputsStore";
+import { router } from "expo-router";
+import { ErrorModal } from "../../src/shared/components/error-modal/ErrorModal";
+import { useErrorModalStore } from "../../src/shared/components/error-modal/errorModalStore";
+import { getErrorMessage } from "../../src/utils/functions";
+import { useEffect } from "react";
 
 export default function Register() {
   const { t } = useTranslation();
 
+  const email = useAuthFormStore((state) => state.email);
+  const password = useAuthFormStore((state) => state.password);
+  const repeatPassword = useAuthFormStore((state) => state.repeatPassword);
+  const privacyPolicy = useAuthFormStore((state) => state.privacyPolicy);
+  const resetInputs = useAuthFormStore((state) => state.resetInputValues);
+
+  const setError = useErrorModalStore((state) => state.setError);
+
+  useEffect(() => {
+    return () => resetInputs();
+  }, []);
+
+  async function registerHandler() {
+    if (!privacyPolicy) {
+      return setError({
+        title: t("errors.occured"),
+        description: t("auth.privacyPolicyInvalid"),
+      });
+    }
+
+    const res = await signup(email, password, repeatPassword);
+
+    if (res instanceof Error) {
+      return setError({
+        title: t("errors.occured"),
+        description: res.message,
+      });
+    }
+
+    switch (res.status) {
+      case "fail":
+        return setError({
+          title: t("errors.occured"),
+          description: getErrorMessage(res.message, res.details) ?? t("errors.unknown"),
+        });
+
+      case "ok":
+        return router.push("/auth");
+    }
+  }
+
   return (
-    <>
-      <AuthHeadline headlineText={t("auth.welcomeTo")} shouldShowAppName={true} />
-      <RegisterForm />
-    </>
+    <KeyboardAvoidingView
+      style={styles.root}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <AuthHeadline headlineText={t("auth.welcomeTo")} showAppName={true} />
+      <RegisterForm onSubmit={registerHandler} />
+      <ErrorModal />
+    </KeyboardAvoidingView>
   );
 }
+
+const styles = StyleSheet.create({
+  root: {
+    top: "10%",
+    height: "65%",
+    width: "90%",
+    alignSelf: "center",
+    justifyContent: "space-evenly",
+  },
+});

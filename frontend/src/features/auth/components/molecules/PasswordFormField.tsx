@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import OutlinedInput from "../../../../shared/components/input/OutlinedInput";
+import OutlinedInput from "../../../../shared/ui/input/OutlinedInput";
 import { memo } from "react";
 import { useAuthFormStore } from "../../slices/authFormInputsStore";
 

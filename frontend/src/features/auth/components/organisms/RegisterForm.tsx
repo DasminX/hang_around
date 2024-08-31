@@ -2,15 +2,15 @@ import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 import { useTranslation } from "react-i18next";
 
-import VariantButton from "../../../../shared/components/button/VariantButton";
-import { LabelChangeAuthMode } from "../atoms/LabelChangeAuthMode";
+import VariantButton from "../../../../shared/ui/button/VariantButton";
 import { COLORS } from "../../../../utils/colors";
 import { EmailFormField } from "../molecules/EmailFormField";
 import { PasswordFormField } from "../molecules/PasswordFormField";
 import { RepeatPasswordFormField } from "../molecules/RepeatPasswordFormField";
 import { PrivacyPolicyFormField } from "../molecules/PrivacyPolicyFormField";
+import { TextWithLink } from "../atoms/TextWithLink";
 
-export const RegisterForm = () => {
+export const RegisterForm = ({ onSubmit }: { onSubmit: () => unknown }) => {
   const { t } = useTranslation();
 
   return (
@@ -20,8 +20,11 @@ export const RegisterForm = () => {
       <PasswordFormField />
       <RepeatPasswordFormField />
       <PrivacyPolicyFormField />
-      <VariantButton>{t("auth.register")}</VariantButton>
-      <LabelChangeAuthMode text={`${t("auth.havingAccount")} ${t("auth.login")}`} path="login" />
+      <VariantButton onPress={onSubmit}>{t("auth.register")}</VariantButton>
+      <TextWithLink
+        text={t("auth.havingAccount")}
+        link={{ path: "/auth/login", text: t("auth.login") }}
+      />
     </View>
   );
 };

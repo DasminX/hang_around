@@ -1,17 +1,16 @@
 import { Headline, Text } from "react-native-paper";
 import { COLORS } from "../../../../utils/colors";
 
-export const AuthHeadline = ({
-  headlineText,
-  shouldShowAppName,
-}: {
+type AuthHeadlineProps = {
   headlineText: string;
-  shouldShowAppName: boolean;
-}) => {
+  showAppName: boolean;
+};
+
+export const AuthHeadline = ({ headlineText, showAppName }: AuthHeadlineProps) => {
   return (
     <Headline style={{ textAlign: "center", marginVertical: 24 }}>
       {headlineText}
-      {shouldShowAppName && (
+      {showAppName && (
         <>
           <Text style={{ color: COLORS.palette.orange }}>HangAround</Text>
           <Text>!</Text>

@@ -1,5 +1,6 @@
 export default {
   errors: {
+    occured: "Wystąpił błąd",
     unknown: "Nieznany błąd",
   },
   auth: {

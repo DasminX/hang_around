@@ -2,21 +2,21 @@ import { Href, Link } from "expo-router";
 import { Text } from "react-native-paper";
 import { COLORS } from "../../../../utils/colors";
 
-export const TextWithLink = ({
-  text,
-  linkText,
-  linkPath,
-}: {
+type TextWithLinkProps = {
   text: string;
-  linkText: string;
-  linkPath: Href<string> | string;
-}) => {
+  link: {
+    path: Href<string | object>;
+    text: string;
+  };
+};
+
+export const TextWithLink = ({ text, link }: TextWithLinkProps) => {
   return (
     <Text variant="labelLarge">
       {text}{" "}
       <Text variant="bodyLarge">
-        <Link style={{ color: COLORS.variants.blue }} replace href={linkPath}>
-          {linkText}
+        <Link style={{ color: COLORS.variants.blue }} replace href={link.path}>
+          {link.text}
         </Link>
       </Text>
     </Text>

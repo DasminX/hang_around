@@ -12,7 +12,9 @@ export const ForgotPasswordLink = () => {
         <Link
           replace={false}
           style={{ color: COLORS.variants.blue }}
-          href={"/auth/forgot-password"}
+          href={{
+            pathname: "/auth/forgot-password",
+          }}
         >
           {t(`common.clickHere`)}
         </Link>
