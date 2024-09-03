@@ -11,25 +11,101 @@ export const TYPE_OF_FOOD_ARRAY = [
   "desserts", "breakfast food", "brunch food", "mediterranean food"
 ] as const;
 
+export enum PlacesValidationErrors {
+  INVALID_LOCATION = "INVALID_LOCATION",
+  INVALID_TYPES_OF_FOOD = "INVALID_TYPES_OF_FOOD",
+
+  INVALID_DISTANCE = "INVALID_DISTANCE",
+  TOO_BIG_DISTANCE = "TOO_BIG_DISTANCE",
+  UNIT_REQUIRED = "UNIT_REQUIRED",
+  WRONG_UNIT = "WRONG_UNIT",
+
+  INVALID_RATING_TYPE = "INVALID_RATING_TYPE",
+  TOO_SMALL_RATING = "TOO_SMALL_RATING",
+  TOO_BIG_RATING = "TOO_BIG_RATING",
+}
+
 export const FIND_PLACES_SCHEMA = z
   .object({
-    location: z.union([
-      z.object({ lat: z.number().gte(-90).lte(90), lng: z.number().gte(-180).lte(180) }),
-      z.tuple([z.number().gte(-90).lte(90), z.number().gte(-180).lte(180)]),
-    ]),
-    typesOfFood: z.array(z.enum(TYPE_OF_FOOD_ARRAY)),
+    location: z.union(
+      [
+        z.object({
+          lat: z
+            .number({
+              message: PlacesValidationErrors.INVALID_LOCATION,
+            })
+            .gte(-90, {
+              message: PlacesValidationErrors.INVALID_LOCATION,
+            })
+            .lte(90, {
+              message: PlacesValidationErrors.INVALID_LOCATION,
+            }),
+          lng: z
+            .number({
+              message: PlacesValidationErrors.INVALID_LOCATION,
+            })
+            .gte(-180, {
+              message: PlacesValidationErrors.INVALID_LOCATION,
+            })
+            .lte(180, {
+              message: PlacesValidationErrors.INVALID_LOCATION,
+            }),
+        }),
+        z.tuple([
+          z
+            .number({
+              message: PlacesValidationErrors.INVALID_LOCATION,
+            })
+            .gte(-90, {
+              message: PlacesValidationErrors.INVALID_LOCATION,
+            })
+            .lte(90, {
+              message: PlacesValidationErrors.INVALID_LOCATION,
+            }),
+          z
+            .number({
+              message: PlacesValidationErrors.INVALID_LOCATION,
+            })
+            .gte(-180, {
+              message: PlacesValidationErrors.INVALID_LOCATION,
+            })
+            .lte(180, {
+              message: PlacesValidationErrors.INVALID_LOCATION,
+            }),
+        ]),
+      ],
+      {
+        message: PlacesValidationErrors.INVALID_LOCATION,
+      },
+    ),
+    typesOfFood: z.array(z.enum(TYPE_OF_FOOD_ARRAY), {
+      message: PlacesValidationErrors.INVALID_TYPES_OF_FOOD,
+    }),
     howFar: z.object({
       distance: z
-        .number()
-        .positive()
+        .number({
+          message: PlacesValidationErrors.INVALID_DISTANCE,
+        })
+        .positive({
+          message: PlacesValidationErrors.INVALID_DISTANCE,
+        })
         .lte(10 * THOUSAND, {
-          message: "Limit for a distance is 10000.",
+          message: PlacesValidationErrors.TOO_BIG_DISTANCE,
         }),
       unit: z.enum(["m", "yd"], {
-        required_error: "Unit is required",
-        invalid_type_error: "Unit must be either m (meter) or yd (yard)",
+        required_error: PlacesValidationErrors.UNIT_REQUIRED,
+        invalid_type_error: PlacesValidationErrors.WRONG_UNIT,
       }),
     }),
-    minRating: z.number().gte(1).lte(5),
+    minRating: z
+      .number({
+        message: PlacesValidationErrors.INVALID_RATING_TYPE,
+      })
+      .gte(1, {
+        message: PlacesValidationErrors.TOO_SMALL_RATING,
+      })
+      .lte(5, {
+        message: PlacesValidationErrors.TOO_BIG_RATING,
+      }),
   })
   .strict();

@@ -4,6 +4,7 @@ import { StatusCodes } from "http-status-codes";
 
 import { isObjectWithAllProperties } from "../utils/functions";
 import { FirebaseProvider } from "./firebase-provider";
+import { ZodIssueMessage } from "./validators/validate-zod-schema";
 
 export enum ErrorCode {
   UNKNOWN_ERROR = "UNKNOWN_ERROR",
@@ -73,7 +74,7 @@ export class PlacesFinderError extends AppError {
 }
 
 export class InputValidationError extends AppError {
-  constructor(details: string[]) {
+  constructor(details: (string | ZodIssueMessage)[]) {
     super("Given inputs are invalid.", StatusCodes.BAD_REQUEST, ErrorCode.INPUT_VALIDATION_ERROR, details);
   }
 }

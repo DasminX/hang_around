@@ -1,29 +1,57 @@
 import z from "zod";
 
+export enum AuthValidationErrors {
+  INVALID_EMAIL = "INVALID_EMAIL",
+
+  INVALID_PASSWORD_TYPE = "INVALID_PASSWORD_TYPE",
+  WEAK_PASSWORD = "WEAK_PASSWORD",
+  PASSWORD_NOT_EQUAL = "PASSWORD_NOT_EQUAL",
+}
+
 export const SIGN_IN_SCHEMA = z
   .object({
-    email: z.string().email(),
-    password: z.string(),
+    email: z
+      .string({
+        message: AuthValidationErrors.INVALID_EMAIL,
+      })
+      .email({
+        message: AuthValidationErrors.INVALID_EMAIL,
+      }),
+    password: z.string({
+      message: AuthValidationErrors.INVALID_PASSWORD_TYPE,
+    }),
   })
   .strict();
 
 //prettier-ignore
 export const SIGN_UP_SCHEMA = z
   .object({
-    email: z.string().email(),
-    password: z.string().min(8, {
-      message: "Password must be at least 8 characters long!"
-    }).regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).*$/, {
-      message: "Password is too weak. It must include uppercase letters, lowercase letters, digits, and special characters."
+    email: z.string({
+      message: AuthValidationErrors.INVALID_EMAIL
+    }).email({
+      message: AuthValidationErrors.INVALID_EMAIL
     }),
-    repeatPassword: z.string()
+    password: z.string().min(8, {
+      message: AuthValidationErrors.WEAK_PASSWORD
+    }).regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).*$/, {
+      message: AuthValidationErrors.WEAK_PASSWORD
+    }),
+    repeatPassword: z.string({
+      message: AuthValidationErrors.INVALID_PASSWORD_TYPE
+    })
   }).strict().refine(data => data.password === data.repeatPassword, {
-    message: "Password and repeat password fields must be the same!",
+    message: AuthValidationErrors.PASSWORD_NOT_EQUAL,
     path: ["repeatPassword"]
-  });
+  })
 
 export const RESET_PASSWORD_SCHEMA = z
   .object({
-    email: z.string().email(),
+    email: z
+      .string({
+        message: AuthValidationErrors.INVALID_EMAIL,
+      })
+      .email({
+        message: AuthValidationErrors.INVALID_EMAIL,
+      }),
   })
   .strict();
