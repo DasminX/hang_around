@@ -1,4 +1,27 @@
 export default {
+  api_errors: {
+    REQUIRED: "Wartość wymagana",
+    INVALID_EMAIL: "Nieprawidłowa wartość w polu e-mail.",
+    INVALID_PASSWORD_TYPE: "Nieprawidłowy typ danych w polu hasło.",
+    WEAK_PASSWORD:
+      "Zbyt słabe hasło. Musi składać się z minimum 8 znaków, w tym małych i dużych liter oraz jednej liczby i jednego znaku specjalnego.",
+    PASSWORD_NOT_EQUAL: "Hasła nie są takie same.",
+    INVALID_LOCATION: "Wprowadzona wartość w polu 'lokalizacja' jest nieprawidłowa.",
+    INVALID_TYPES_OF_FOOD: "Jedna z kategorii typu jedzenia jest nieprawidłowa.",
+    INVALID_DISTANCE: "Nieprawidłowa wartość odległości.",
+    TOO_BIG_DISTANCE: "Wprowadzono zbyt daleki dystans.",
+    UNIT_REQUIRED: "Jednostka odległości jest wymagana (m, yd).",
+    WRONG_UNIT: "Nieprawidłowa jednostka odległości.",
+    INVALID_RATING_TYPE: "Nieprawidłowy typ w polu rating.",
+    TOO_SMALL_RATING: "Zbyt mała wartość ratingu (minimum 1).",
+    TOO_BIG_RATING: "Zbyt duża wartość ratingu (maksymalnie 5).",
+    INVALID_ID_TYPE: "Nieprawidłowy typ danych w polu ID.",
+    INVALID_NAME_TYPE: "Nieprawidłowy typ w polu 'nazwa'.",
+    TOO_SHORT_NAME: "Nazwa jest zbyt krótka.",
+    INVALID_URL: "Nieprawidłowy URL.",
+    INVALID_ACCESSIBLE_VALUE: "Nieprawidłowa wartość w polu accessible.",
+    BAD_CREDENTIALS: "Wprowadzono nieprawidłowe dane.",
+  },
   errors: {
     occured: "Wystąpił błąd",
     unknown: "Nieznany błąd",

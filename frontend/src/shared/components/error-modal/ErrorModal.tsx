@@ -22,7 +22,9 @@ export const ErrorModal = memo(() => {
       >
         <Dialog.Title style={styles.center}>{title}</Dialog.Title>
         <Dialog.Content>
-          <Text variant="bodyMedium">{description}</Text>
+          <Text style={styles.center} variant="bodyMedium">
+            {description}
+          </Text>
         </Dialog.Content>
         <Dialog.Actions>
           <VariantButton style={styles.button} variant="green" onPress={setDefaultError}>
