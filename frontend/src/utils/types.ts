@@ -5,6 +5,14 @@ export type APIDataResponse = {
 
 export type APIDetailsResponse = {
   status: "fail";
+  errorCode: string;
   message: string;
-  details: string[] | Record<string, any> | undefined | null;
+  details: Details[] | null;
+};
+
+export type Details = {
+  path: string;
+  code: string;
+  expected?: string;
+  received?: string;
 };

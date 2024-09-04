@@ -22,7 +22,7 @@ export abstract class AppError extends Error {
     message: string,
     public readonly httpCode: StatusCodes,
     public readonly errorCode: ErrorCode = ErrorCode.UNKNOWN_ERROR,
-    public readonly details: unknown = {},
+    public readonly details: unknown = null,
   ) {
     super(message);
 

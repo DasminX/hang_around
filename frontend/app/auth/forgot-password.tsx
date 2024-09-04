@@ -8,7 +8,7 @@ import { router } from "expo-router";
 import { ErrorModal } from "../../src/shared/components/error-modal/ErrorModal";
 import { KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
 import { forgotPassword } from "../../src/features/auth/api/fetchers";
-import { getErrorMessage } from "../../src/utils/functions";
+import { getApiErrorCode } from "../../src/utils/functions";
 
 export default function ForgotPassword() {
   const { t } = useTranslation();
@@ -28,7 +28,7 @@ export default function ForgotPassword() {
     if (res instanceof Error) {
       return setError({
         title: t("errors.occured"),
-        description: res.message,
+        description: t("errors.internal"),
       });
     }
 
@@ -36,7 +36,7 @@ export default function ForgotPassword() {
       case "fail":
         return setError({
           title: t("errors.occured"),
-          description: getErrorMessage(res.message, res.details),
+          description: t(getApiErrorCode(res)),
         });
       case "ok":
         return router.push("/auth/login");

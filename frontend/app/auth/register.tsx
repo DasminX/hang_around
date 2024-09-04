@@ -7,8 +7,8 @@ import { useAuthFormStore } from "../../src/features/auth/slices/authFormInputsS
 import { router } from "expo-router";
 import { ErrorModal } from "../../src/shared/components/error-modal/ErrorModal";
 import { useErrorModalStore } from "../../src/shared/components/error-modal/errorModalStore";
-import { getErrorMessage } from "../../src/utils/functions";
 import { useEffect } from "react";
+import { getApiErrorCode } from "../../src/utils/functions";
 
 export default function Register() {
   const { t } = useTranslation();
@@ -46,7 +46,7 @@ export default function Register() {
       case "fail":
         return setError({
           title: t("errors.occured"),
-          description: getErrorMessage(res.message, res.details) ?? t("errors.unknown"),
+          description: t(getApiErrorCode(res)),
         });
 
       case "ok":

@@ -4,13 +4,10 @@ import { APIDetailsResponse } from "./types";
 export const isKeptTokenValid = (token: string, expirationTime: number) =>
   token?.trim() !== "" && !isNaN(expirationTime) && expirationTime + NINETY_DAYS > Date.now(); // TODO CHANGE NINETY_DAYS
 
-export const getErrorMessage = (
-  message: APIDetailsResponse["message"],
-  details: APIDetailsResponse["details"],
-) => {
-  const description = Array.isArray(details)
-    ? details.reduce((acc: string, curr: string) => acc.concat(curr.split(":").at(1)?.trim() ?? ""))
-    : "";
-
-  return message + "\n" + description;
+export const getApiErrorCode = (res: APIDetailsResponse): `api_errors.${string}` => {
+  if (Array.isArray(res.details) && typeof res.details.at(0)?.code === "string") {
+    return `api_errors.${res.details.at(0)?.code || "UNKNOWN"}`;
+  } else {
+    return `api_errors.${res.errorCode}`;
+  }
 };
