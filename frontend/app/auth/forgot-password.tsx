@@ -5,8 +5,7 @@ import { useAuthFormStore } from "../../src/features/auth/slices/authFormInputsS
 import { useEffect } from "react";
 import { useErrorModalStore } from "../../src/shared/components/error-modal/errorModalStore";
 import { router } from "expo-router";
-import { ErrorModal } from "../../src/shared/components/error-modal/ErrorModal";
-import { KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
+import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
 import { forgotPassword } from "../../src/features/auth/api/fetchers";
 import { getApiErrorCode } from "../../src/utils/functions";
 
@@ -48,9 +47,10 @@ export default function ForgotPassword() {
       style={styles.root}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <AuthHeadline headlineText={t("auth.forgotPassword")} showAppName={false} />
-      <ForgotPasswordForm onSubmit={forgotPasswordHandler} />
-      <ErrorModal />
+      <View>
+        <AuthHeadline headlineText={t("auth.forgotPassword")} showAppName={false} />
+        <ForgotPasswordForm onSubmit={forgotPasswordHandler} />
+      </View>
     </KeyboardAvoidingView>
   );
 }

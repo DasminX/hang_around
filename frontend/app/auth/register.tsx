@@ -1,11 +1,10 @@
 import { useTranslation } from "react-i18next";
 import { AuthHeadline } from "../../src/features/auth/components/atoms/AuthHeadline";
 import { RegisterForm } from "../../src/features/auth/components/organisms/RegisterForm";
-import { KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
+import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
 import { signup } from "../../src/features/auth/api/fetchers";
 import { useAuthFormStore } from "../../src/features/auth/slices/authFormInputsStore";
 import { router } from "expo-router";
-import { ErrorModal } from "../../src/shared/components/error-modal/ErrorModal";
 import { useErrorModalStore } from "../../src/shared/components/error-modal/errorModalStore";
 import { useEffect } from "react";
 import { getApiErrorCode } from "../../src/utils/functions";
@@ -59,9 +58,10 @@ export default function Register() {
       style={styles.root}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <AuthHeadline headlineText={t("auth.welcomeTo")} showAppName={true} />
-      <RegisterForm onSubmit={registerHandler} />
-      <ErrorModal />
+      <View>
+        <AuthHeadline headlineText={t("auth.welcomeTo")} showAppName={true} />
+        <RegisterForm onSubmit={registerHandler} />
+      </View>
     </KeyboardAvoidingView>
   );
 }

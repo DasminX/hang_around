@@ -7,6 +7,7 @@ import { PaperProvider } from "react-native-paper";
 import { initializeI18N } from "../src/dict/initializer";
 import { StatusBar } from "expo-status-bar";
 import RootNavigation from "../src/navigation/RootNavigation";
+import { ErrorModal } from "../src/shared/components/error-modal/ErrorModal";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -46,6 +47,7 @@ export default function RootLayout() {
     <PaperProvider>
       <StatusBar style="light" />
       <RootNavigation />
+      <ErrorModal />
     </PaperProvider>
   );
 }

@@ -17,11 +17,13 @@ export const LoginForm = ({ onSubmit }: { onSubmit: () => unknown }) => {
       <EmailFormField />
       <PasswordFormField />
       <VariantButton onPress={onSubmit}>{t("auth.login")}</VariantButton>
-      <TextWithLink
-        text={t("auth.notHavingAccount")}
-        link={{ path: "/auth/register", text: t("auth.register") }}
-      />
-      <ForgotPasswordLink />
+      <View style={styles.links}>
+        <TextWithLink
+          text={t("auth.notHavingAccount")}
+          link={{ path: "/auth/register", text: t("auth.register") }}
+        />
+        <ForgotPasswordLink />
+      </View>
     </View>
   );
 };
@@ -29,6 +31,10 @@ export const LoginForm = ({ onSubmit }: { onSubmit: () => unknown }) => {
 const styles = StyleSheet.create({
   form: {
     justifyContent: "center",
+    alignItems: "center",
+  },
+  links: {
+    rowGap: 4,
     alignItems: "center",
   },
 });

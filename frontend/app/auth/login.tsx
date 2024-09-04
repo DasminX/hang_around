@@ -1,12 +1,11 @@
 import { useTranslation } from "react-i18next";
 import { AuthHeadline } from "../../src/features/auth/components/atoms/AuthHeadline";
 import { LoginForm } from "../../src/features/auth/components/organisms/LoginForm";
-import { KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
+import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
 import { useAuthFormStore } from "../../src/features/auth/slices/authFormInputsStore";
 import { login } from "../../src/features/auth/api/fetchers";
 import { router } from "expo-router";
 import { useTokenStore } from "../../src/shared/slices/tokenStore";
-import { ErrorModal } from "../../src/shared/components/error-modal/ErrorModal";
 import { useEffect } from "react";
 import { useErrorModalStore } from "../../src/shared/components/error-modal/errorModalStore";
 import { setAsyncStorageAuthTokenProps } from "../../src/utils/async-storage-helpers";
@@ -64,9 +63,10 @@ export default function Login() {
       style={styles.root}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <AuthHeadline headlineText={t("auth.loginTo")} showAppName={true} />
-      <LoginForm onSubmit={loginHandler} />
-      <ErrorModal />
+      <View>
+        <AuthHeadline headlineText={t("auth.loginTo")} showAppName={true} />
+        <LoginForm onSubmit={loginHandler} />
+      </View>
     </KeyboardAvoidingView>
   );
 }

@@ -5,8 +5,6 @@ import { StyleSheet } from "react-native";
 import VariantButton from "../../ui/button/VariantButton";
 import { useErrorModalStore } from "./errorModalStore";
 
-// type ModalProps = Omit<DialogProps & { title: string; description?: string }, "children">;
-
 export const ErrorModal = memo(() => {
   const { t } = useTranslation();
 
@@ -17,7 +15,11 @@ export const ErrorModal = memo(() => {
 
   return (
     <Portal>
-      <Dialog visible={occured} onDismiss={setDefaultError}>
+      <Dialog
+        visible={occured}
+        dismissable={false}
+        /* onDismiss={setDefaultError} */
+      >
         <Dialog.Title style={styles.center}>{title}</Dialog.Title>
         <Dialog.Content>
           <Text variant="bodyMedium">{description}</Text>
