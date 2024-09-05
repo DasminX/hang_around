@@ -21,6 +21,13 @@ export default {
     INVALID_URL: "Nieprawidłowy URL.",
     INVALID_ACCESSIBLE_VALUE: "Nieprawidłowa wartość w polu accessible.",
     BAD_CREDENTIALS: "Wprowadzono nieprawidłowe dane.",
+    UNKNOWN_ERROR: "Wystąpił nieznany błąd. Spróbuj ponownie.",
+    NOT_FOUND: "Nie znaleziono zasobu.",
+    INPUT_VALIDATION_ERROR: "Wprowadzone dane nie są poprawne.",
+    EMAIL_NOT_CONFIRMED: "Aby korzystać z konta musisz potwierdzić swój e-mail.",
+    NOT_AUTHENTICATED: "Odmowa dostępu.",
+    TIMEOUT: "Limit czasu żądania został przekroczony.",
+    INTERNAL_ERROR: "Błąd serwera. Spróbuj ponownie.",
   },
   errors: {
     occured: "Wystąpił błąd",

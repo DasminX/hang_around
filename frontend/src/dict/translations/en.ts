@@ -21,6 +21,13 @@ export default {
     INVALID_URL: "Invalid URL.",
     INVALID_ACCESSIBLE_VALUE: "Invalid value in the accessible field.",
     BAD_CREDENTIALS: "Provided credentials are invalid.",
+    UNKNOWN_ERROR: "An unknown error occurred. Please try again.",
+    NOT_FOUND: "Resource not found.",
+    INPUT_VALIDATION_ERROR: "The input data is invalid.",
+    EMAIL_NOT_CONFIRMED: "You need to confirm your email to use the account.",
+    NOT_AUTHENTICATED: "Access denied.",
+    TIMEOUT: "The request timed out.",
+    INTERNAL_ERROR: "Server error. Please try again.",
   },
   errors: {
     occured: "Error occured",
