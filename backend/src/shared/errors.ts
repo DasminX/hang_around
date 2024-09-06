@@ -15,6 +15,7 @@ export enum ErrorCode {
   NOT_AUTHENTICATED = "NOT_AUTHENTICATED",
   TIMEOUT = "TIMEOUT",
   INTERNAL_ERROR = "INTERNAL_ERROR",
+  ACCOUNT_ALREADY_EXISTS = "ACCOUNT_ALREADY_EXISTS",
 }
 
 export abstract class AppError extends Error {
@@ -85,12 +86,25 @@ export class TimeoutError extends AppError {
   }
 }
 
+export class AccountAlreadyExistsError extends AppError {
+  constructor() {
+    super("Account already exists!", StatusCodes.CONFLICT, ErrorCode.ACCOUNT_ALREADY_EXISTS);
+  }
+}
+
 export class AppFirebaseError extends AppError {
   constructor(originalFirebaseError: FirebaseError) {
     const errMsg =
       FirebaseProvider.ERROR_MESSAGES[originalFirebaseError.code as keyof typeof FirebaseProvider.ERROR_MESSAGES] ||
       "Unknown error occured. Try again later.";
-    super(errMsg, StatusCodes.BAD_REQUEST, ErrorCode.UNKNOWN_ERROR);
+
+    switch (originalFirebaseError.code) {
+      case "auth/email-already-in-use":
+        super(errMsg, StatusCodes.CONFLICT, ErrorCode.ACCOUNT_ALREADY_EXISTS);
+        break;
+      default:
+        super(errMsg, StatusCodes.BAD_REQUEST, ErrorCode.UNKNOWN_ERROR);
+    }
   }
 
   public static isFirebaseError(object: unknown): object is FirebaseError {

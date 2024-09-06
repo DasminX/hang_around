@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto";
 
-import { BadCredentialsError } from "../../../shared/errors";
+import { AccountAlreadyExistsError, BadCredentialsError } from "../../../shared/errors";
 import { TimestampBrand } from "../../../utils/types";
 import { Token } from "../../models/token";
 import { AuthDatabaseI } from "./abstract";
@@ -23,6 +23,8 @@ export class AuthInMemoryDatabase implements AuthDatabaseI {
     if (!this._db.find((account) => account.email === email)) {
       this._db.push({ email, password });
     }
+
+    throw new AccountAlreadyExistsError();
   }
 
   async resetPassword(email: string): Promise<void> {
