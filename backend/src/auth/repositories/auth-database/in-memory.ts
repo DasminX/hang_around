@@ -22,6 +22,7 @@ export class AuthInMemoryDatabase implements AuthDatabaseI {
   async signUp(email: string, password: string): Promise<void> {
     if (!this._db.find((account) => account.email === email)) {
       this._db.push({ email, password });
+      return;
     }
 
     throw new AccountAlreadyExistsError();
