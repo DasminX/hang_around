@@ -5,7 +5,9 @@
   "main": "./src/index.ts",
   "scripts": {
     "start:in-memory": "set HA_APP_DATA_SOURCE=IN_MEMORY&& nodemon --legacy-watch ./src/index.ts",
+    "sim": "npm run start:in-memory",
     "start:remote": "set HA_APP_DATA_SOURCE=FIREBASE&& nodemon --legacy-watch ./src/index.ts",
+    "sr": "npm run start:remote",
     "build": "tsc",
     "clean": "npm run prettier:fix && npm run lint:fix",
     "lint:fix": "eslint src --ext .ts --fix",
