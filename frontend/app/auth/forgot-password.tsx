@@ -18,7 +18,7 @@ export default function ForgotPassword() {
   const setError = useErrorModalStore((state) => state.setError);
 
   useEffect(() => {
-    return () => resetInputs();
+    resetInputs();
   }, []);
 
   async function forgotPasswordHandler() {

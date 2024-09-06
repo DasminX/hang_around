@@ -21,7 +21,7 @@ export default function Register() {
   const setError = useErrorModalStore((state) => state.setError);
 
   useEffect(() => {
-    return () => resetInputs();
+    resetInputs();
   }, []);
 
   async function registerHandler() {

@@ -28,6 +28,7 @@ export default {
     NOT_AUTHENTICATED: "Odmowa dostępu.",
     TIMEOUT: "Limit czasu żądania został przekroczony.",
     INTERNAL_ERROR: "Błąd serwera. Spróbuj ponownie.",
+    ACCOUNT_ALREADY_EXISTS: "Konto już istnieje dla tego adresu e-mail.",
   },
   errors: {
     occured: "Wystąpił błąd",

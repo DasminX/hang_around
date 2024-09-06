@@ -23,7 +23,7 @@ export default function Login() {
   const setTokenCredentials = useTokenStore((state) => state.setTokenCredentials);
 
   useEffect(() => {
-    return () => resetInputs();
+    resetInputs();
   }, []);
 
   async function loginHandler() {

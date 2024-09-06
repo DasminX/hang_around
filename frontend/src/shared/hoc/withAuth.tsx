@@ -1,4 +1,4 @@
-import { type ElementType } from "react";
+import { useEffect, type ElementType } from "react";
 import { Redirect } from "expo-router";
 import { useTokenStore } from "../slices/tokenStore";
 import { isKeptTokenValid } from "../../utils/functions";
@@ -10,9 +10,21 @@ export const withAuth = (BaseComponent: ElementType) =>
     const expirationTime = useTokenStore((state) => state.expirationTime);
     const resetTokenCredentials = useTokenStore((state) => state.resetTokenCredentials);
 
+    const isTokenValid = !isKeptTokenValid(token, expirationTime);
+
+    useEffect(() => {
+      if (!isTokenValid) {
+        resetTokenCredentials();
+        resetAsyncStorageAuthTokenProps();
+      }
+    }, []);
+
     if (!isKeptTokenValid(token, expirationTime)) {
       resetTokenCredentials();
       resetAsyncStorageAuthTokenProps();
+    }
+
+    if (!isTokenValid) {
       return <Redirect href={"/auth/login"} />;
     }
 

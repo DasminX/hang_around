@@ -28,6 +28,7 @@ export default {
     NOT_AUTHENTICATED: "Access denied.",
     TIMEOUT: "The request timed out.",
     INTERNAL_ERROR: "Server error. Please try again.",
+    ACCOUNT_ALREADY_EXISTS: "Account already exists.",
   },
   errors: {
     occured: "Error occured",
