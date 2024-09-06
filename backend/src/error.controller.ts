@@ -5,6 +5,7 @@ import { logger } from "./shared/logger";
 import { ExpressMiddlewareErrorController } from "./utils/types";
 
 export const errorController: ExpressMiddlewareErrorController = (err, _req, res, _next) => {
+  const orgError = { ...err };
   if (AppFirebaseError.isFirebaseError(err)) {
     err = new AppFirebaseError(err);
   }
@@ -20,6 +21,7 @@ export const errorController: ExpressMiddlewareErrorController = (err, _req, res
   logger.error(`Error occurred...`, {
     ...response,
     stack: err.stack,
+    orgError,
   });
 
   const code = err instanceof AppError ? err.httpCode : StatusCodes.INTERNAL_SERVER_ERROR;
