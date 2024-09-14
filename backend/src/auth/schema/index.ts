@@ -1,6 +1,5 @@
+import { AuthValidationErrors } from "@dasminx/hang-around-contracts";
 import z from "zod";
-
-import { AuthValidationErrors } from "../../../../libs/hang-around-contracts/src/messages";
 
 export const SIGN_IN_SCHEMA = z
   .object({

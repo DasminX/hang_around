@@ -1,6 +1,6 @@
 {
-  "name": "hang-around-contracts",
-  "version": "1.0.0",
+  "name": "@dasminx/hang-around-contracts",
+  "version": "1.0.2",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -19,6 +19,7 @@
     "vitest": "^2.1.1"
   },
   "dependencies": {
-    "firebase-admin": "^12.5.0"
+    "firebase-admin": "^12.5.0",
+    "http-status-codes": "^2.3.0"
   }
 }

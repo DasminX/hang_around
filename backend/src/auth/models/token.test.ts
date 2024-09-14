@@ -1,6 +1,6 @@
+import { TimestampBrand } from "@dasminx/hang-around-contracts";
 import { describe, expect, it } from "vitest";
 
-import { TimestampBrand } from "./../../../../libs/hang-around-contracts/src/types";
 import { Token } from "./token";
 
 describe("Token Model", () => {

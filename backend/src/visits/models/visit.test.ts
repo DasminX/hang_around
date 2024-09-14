@@ -1,8 +1,6 @@
+import { LocationVO, TimestampBrand, VisitArgs } from "@dasminx/hang-around-contracts";
 import { describe, expect, it } from "vitest";
 
-import { VisitArgs } from "../../../../libs/hang-around-contracts/src/interfaces";
-import { TimestampBrand } from "../../../../libs/hang-around-contracts/src/types";
-import { LocationVO } from "../../../../libs/hang-around-contracts/src/value-objects";
 import { Visit } from "./visit";
 
 describe("Visit Model", () => {

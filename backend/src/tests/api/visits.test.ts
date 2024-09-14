@@ -1,10 +1,8 @@
+import { API_PREFIX, LocationVO, TimestampBrand } from "@dasminx/hang-around-contracts";
 import { StatusCodes } from "http-status-codes";
 import request from "supertest";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 
-import { API_PREFIX } from "../../../../libs/hang-around-contracts/src/constants";
-import { TimestampBrand } from "../../../../libs/hang-around-contracts/src/types";
-import { LocationVO } from "../../../../libs/hang-around-contracts/src/value-objects";
 import { getNodeApp } from "../../app";
 import { DataSource } from "../../shared/data-source";
 

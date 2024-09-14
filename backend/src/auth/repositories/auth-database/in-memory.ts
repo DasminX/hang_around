@@ -1,6 +1,6 @@
+import { TimestampBrand } from "@dasminx/hang-around-contracts";
 import { randomUUID } from "crypto";
 
-import { TimestampBrand } from "../../../../../libs/hang-around-contracts/src/types";
 import { AccountAlreadyExistsError, BadCredentialsError } from "../../../shared/errors";
 import { Token } from "../../models/token";
 import { AuthDatabaseI } from "./abstract";

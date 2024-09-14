@@ -1,9 +1,7 @@
+import { LocationVO, TimestampBrand, VisitArgs } from "@dasminx/hang-around-contracts";
 import { randomUUID } from "crypto";
 import { beforeEach, describe, expect, it, Mock, vi } from "vitest";
 
-import { VisitArgs } from "../../../../../libs/hang-around-contracts/src/interfaces";
-import { TimestampBrand } from "../../../../../libs/hang-around-contracts/src/types";
-import { LocationVO } from "../../../../../libs/hang-around-contracts/src/value-objects";
 import { Visit } from "../../models/visit";
 import { InMemoryVisitsDatabase } from "./in-memory";
 

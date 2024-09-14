@@ -1,6 +1,6 @@
+import { VisitArgs } from "@dasminx/hang-around-contracts";
 import { randomUUID } from "crypto";
 
-import { VisitArgs } from "../../../../../libs/hang-around-contracts/src/interfaces";
 import { Visit } from "../../models/visit";
 import { VisitsDatabaseI } from "./abstract";
 

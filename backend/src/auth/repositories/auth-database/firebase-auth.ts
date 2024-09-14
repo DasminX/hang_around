@@ -1,3 +1,4 @@
+import { TimestampBrand } from "@dasminx/hang-around-contracts";
 import {
   Auth,
   createUserWithEmailAndPassword,
@@ -6,7 +7,6 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 
-import { TimestampBrand } from "../../../../../libs/hang-around-contracts/src/types";
 import { EmailNotConfirmedError } from "../../../shared/errors";
 import { ONE_HOUR } from "../../../utils/constants";
 import { Token } from "../../models/token";

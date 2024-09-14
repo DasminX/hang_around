@@ -1,10 +1,10 @@
+import { ErrorCode } from "@dasminx/hang-around-contracts";
 import { randomUUID } from "crypto";
 import { StatusCodes } from "http-status-codes";
 import request from "supertest";
 import { beforeAll, describe, expect, it } from "vitest";
 
 import { getNodeApp } from "../../app";
-import { ErrorCode } from "../../shared/errors";
 import {
   INVALID_EMAIL,
   INVALID_PASSWORD,

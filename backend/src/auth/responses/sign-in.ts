@@ -1,4 +1,4 @@
-import { APIResponseSuccess } from "../../../../libs/hang-around-contracts/src/classes";
+import { APIResponseSuccess } from "../../shared/api-responses";
 import { Token } from "../models/token";
 
 export class SignInResponse extends APIResponseSuccess {

@@ -1,3 +1,4 @@
+import { AppError, ErrorCode } from "@dasminx/hang-around-contracts";
 import { Request } from "express";
 import { FirebaseError } from "firebase/app";
 import { StatusCodes } from "http-status-codes";
@@ -5,31 +6,6 @@ import { StatusCodes } from "http-status-codes";
 import { isObjectWithAllProperties } from "../utils/functions";
 import { FirebaseProvider } from "./firebase-provider";
 import { ZodIssueMessage } from "./validators/validate-zod-schema";
-
-export enum ErrorCode {
-  UNKNOWN_ERROR = "UNKNOWN_ERROR",
-  BAD_CREDENTIALS = "BAD_CREDENTIALS",
-  NOT_FOUND = "NOT_FOUND",
-  INPUT_VALIDATION_ERROR = "INPUT_VALIDATION_ERROR",
-  EMAIL_NOT_CONFIRMED = "EMAIL_NOT_CONFIRMED",
-  NOT_AUTHENTICATED = "NOT_AUTHENTICATED",
-  TIMEOUT = "TIMEOUT",
-  INTERNAL_ERROR = "INTERNAL_ERROR",
-  ACCOUNT_ALREADY_EXISTS = "ACCOUNT_ALREADY_EXISTS",
-}
-
-export abstract class AppError extends Error {
-  protected constructor(
-    message: string,
-    public readonly httpCode: StatusCodes,
-    public readonly errorCode: ErrorCode = ErrorCode.UNKNOWN_ERROR,
-    public readonly details: unknown = null,
-  ) {
-    super(message);
-
-    Error.captureStackTrace(this, this.constructor);
-  }
-}
 
 export class DataSourceError extends AppError {
   constructor(pickedDataSource: string) {

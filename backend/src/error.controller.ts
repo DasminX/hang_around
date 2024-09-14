@@ -1,6 +1,8 @@
+import { AppError } from "@dasminx/hang-around-contracts";
 import { StatusCodes } from "http-status-codes";
 
-import { AppError, AppFirebaseError, ErrorCode } from "./shared/errors";
+import { APIResponseError } from "./shared/api-responses";
+import { AppFirebaseError } from "./shared/errors";
 import { logger } from "./shared/logger";
 import { ExpressMiddlewareErrorController } from "./utils/types";
 
@@ -10,16 +12,10 @@ export const errorController: ExpressMiddlewareErrorController = (err, _req, res
     err = new AppFirebaseError(err);
   }
 
-  const response = {
-    status: "fail",
-    name: err.name,
-    errorCode: err instanceof AppError ? err.errorCode : ErrorCode.UNKNOWN_ERROR,
-    message: err.message,
-    details: err instanceof AppError ? err.details : undefined,
-  };
+  const response = new APIResponseError(err);
 
   logger.error(`Error occurred...`, {
-    ...response,
+    ...response.error,
     stack: err.stack,
     orgError,
   });

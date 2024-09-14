@@ -1,7 +1,6 @@
+import { PlacesValidationErrors, TYPE_OF_FOOD_ARRAY } from "@dasminx/hang-around-contracts";
 import z from "zod";
 
-import { TYPE_OF_FOOD_ARRAY } from "../../../../libs/hang-around-contracts/src/data";
-import { PlacesValidationErrors } from "../../../../libs/hang-around-contracts/src/messages";
 import { THOUSAND } from "../../utils/constants";
 
 export const FIND_PLACES_SCHEMA = z

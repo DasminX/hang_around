@@ -1,6 +1,4 @@
-import { VisitArgs } from "../../../../libs/hang-around-contracts/src/interfaces";
-import { TimestampBrand } from "../../../../libs/hang-around-contracts/src/types";
-import { LocationVO } from "../../../../libs/hang-around-contracts/src/value-objects";
+import { LocationVO, TimestampBrand, VisitArgs } from "@dasminx/hang-around-contracts";
 
 export class Visit {
   public readonly id: string;

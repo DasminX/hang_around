@@ -1,4 +1,5 @@
-import { VisitArgs } from "../../../../../libs/hang-around-contracts/src/interfaces";
+import { VisitArgs } from "@dasminx/hang-around-contracts";
+
 import { Visit } from "../../models/visit";
 
 export interface VisitsDatabaseI {

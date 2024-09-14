@@ -1,4 +1,4 @@
-import { TimestampBrand } from "../../../../libs/hang-around-contracts/src/types";
+import { TimestampBrand } from "@dasminx/hang-around-contracts";
 
 export class Token {
   constructor(

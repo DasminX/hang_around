@@ -1,6 +1,5 @@
+import { VisitsValidationErrors } from "@dasminx/hang-around-contracts";
 import z from "zod";
-
-import { VisitsValidationErrors } from "../../../../libs/hang-around-contracts/src/messages";
 
 export const GET_VISITS_SCHEMA = z
   .object({
