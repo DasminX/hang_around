@@ -6,9 +6,9 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 
+import { TimestampBrand } from "../../../../../libs/hang-around-contracts/src/types";
 import { EmailNotConfirmedError } from "../../../shared/errors";
 import { ONE_HOUR } from "../../../utils/constants";
-import { TimestampBrand } from "../../../utils/types";
 import { Token } from "../../models/token";
 import { AuthDatabaseI } from "./abstract";
 

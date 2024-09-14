@@ -1,29 +1,8 @@
 import z from "zod";
 
+import { TYPE_OF_FOOD_ARRAY } from "../../../../libs/hang-around-contracts/src/data";
+import { PlacesValidationErrors } from "../../../../libs/hang-around-contracts/src/messages";
 import { THOUSAND } from "../../utils/constants";
-
-//prettier-ignore
-export const TYPE_OF_FOOD_ARRAY = [
-  "pizza", "burger", "asian food", "sushi", "pasta", "hungarian food", "kebab", 
-  "polish food", "czech food", "fish", "mexican food", "indian food", "greek food", 
-  "french food", "italian food", "spanish food", "middle eastern food", "thai food", 
-  "vegan food", "vegetarian food", "bbq", "fast food", "comfort food", "seafood", 
-  "desserts", "breakfast food", "brunch food", "mediterranean food"
-] as const;
-
-export enum PlacesValidationErrors {
-  INVALID_LOCATION = "INVALID_LOCATION",
-  INVALID_TYPES_OF_FOOD = "INVALID_TYPES_OF_FOOD",
-
-  INVALID_DISTANCE = "INVALID_DISTANCE",
-  TOO_BIG_DISTANCE = "TOO_BIG_DISTANCE",
-  UNIT_REQUIRED = "UNIT_REQUIRED",
-  WRONG_UNIT = "WRONG_UNIT",
-
-  INVALID_RATING_TYPE = "INVALID_RATING_TYPE",
-  TOO_SMALL_RATING = "TOO_SMALL_RATING",
-  TOO_BIG_RATING = "TOO_BIG_RATING",
-}
 
 export const FIND_PLACES_SCHEMA = z
   .object({

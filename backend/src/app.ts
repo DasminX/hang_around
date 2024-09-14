@@ -4,6 +4,7 @@ import cors from "cors";
 import express from "express";
 import helmet from "helmet";
 
+import { API_PREFIX } from "../../libs/hang-around-contracts/src/constants";
 import { errorController } from "./error.controller";
 import mainRouter from "./router";
 import { DataSource } from "./shared/data-source";
@@ -11,7 +12,6 @@ import { NotFoundError } from "./shared/errors";
 import { logger } from "./shared/logger";
 import { globalRateLimiter } from "./shared/middlewares/global-rate-limiter";
 import { httpLevelLoggerMiddleware } from "./shared/middlewares/http-level-logger-middleware";
-import { API_PREFIX } from "./utils/constants";
 
 export const getNodeApp = () => {
   try {

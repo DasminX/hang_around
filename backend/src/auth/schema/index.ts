@@ -1,12 +1,6 @@
 import z from "zod";
 
-export enum AuthValidationErrors {
-  INVALID_EMAIL = "INVALID_EMAIL",
-
-  INVALID_PASSWORD_TYPE = "INVALID_PASSWORD_TYPE",
-  WEAK_PASSWORD = "WEAK_PASSWORD",
-  PASSWORD_NOT_EQUAL = "PASSWORD_NOT_EQUAL",
-}
+import { AuthValidationErrors } from "../../../../libs/hang-around-contracts/src/messages";
 
 export const SIGN_IN_SCHEMA = z
   .object({

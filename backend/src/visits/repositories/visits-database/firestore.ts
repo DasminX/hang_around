@@ -1,6 +1,7 @@
 import { Firestore } from "firebase-admin/firestore";
 
-import { Visit, VisitArgs } from "../../models/visit";
+import { VisitArgs } from "../../../../../libs/hang-around-contracts/src/interfaces";
+import { Visit } from "../../models/visit";
 import { VisitsDatabaseI } from "./abstract";
 
 export class VisitsFirestore implements VisitsDatabaseI {

@@ -1,7 +1,7 @@
 import { PlacesClient } from "@googlemaps/places";
 
+import { LocationVO } from "../../../../../libs/hang-around-contracts/src/value-objects";
 import { AppError, PlacesFinderError, PlacesFinderNotInitializedError } from "../../../shared/errors";
-import { LocationVO } from "../../../shared/value-objects/location";
 import { Place } from "../../models/place";
 import { PlacesFindArgs, PlacesFinderI } from "./abstract";
 

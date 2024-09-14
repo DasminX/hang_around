@@ -1,4 +1,5 @@
-import { Visit, VisitArgs } from "../../models/visit";
+import { VisitArgs } from "../../../../../libs/hang-around-contracts/src/interfaces";
+import { Visit } from "../../models/visit";
 
 export interface VisitsDatabaseI {
   getVisitsForUser(userId: string): Promise<Visit[]>;

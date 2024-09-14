@@ -1,7 +1,7 @@
 import { randomUUID } from "crypto";
 
+import { TimestampBrand } from "../../../../../libs/hang-around-contracts/src/types";
 import { AccountAlreadyExistsError, BadCredentialsError } from "../../../shared/errors";
-import { TimestampBrand } from "../../../utils/types";
 import { Token } from "../../models/token";
 import { AuthDatabaseI } from "./abstract";
 

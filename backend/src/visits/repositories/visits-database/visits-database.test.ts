@@ -1,9 +1,10 @@
 import { randomUUID } from "crypto";
 import { beforeEach, describe, expect, it, Mock, vi } from "vitest";
 
-import { LocationVO } from "../../../shared/value-objects/location";
-import { TimestampBrand } from "../../../utils/types";
-import { Visit, VisitArgs } from "../../models/visit";
+import { VisitArgs } from "../../../../../libs/hang-around-contracts/src/interfaces";
+import { TimestampBrand } from "../../../../../libs/hang-around-contracts/src/types";
+import { LocationVO } from "../../../../../libs/hang-around-contracts/src/value-objects";
+import { Visit } from "../../models/visit";
 import { InMemoryVisitsDatabase } from "./in-memory";
 
 vi.mock("crypto", () => ({

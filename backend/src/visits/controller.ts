@@ -1,9 +1,10 @@
 import { StatusCodes } from "http-status-codes";
 
+import { TimestampBrand } from "../../../libs/hang-around-contracts/src/types";
+import { LocationVO } from "../../../libs/hang-around-contracts/src/value-objects";
 import { DataSource } from "../shared/data-source";
 import { parseInputBySchemaOrThrow } from "../shared/validators/validate-zod-schema";
-import { LocationVO } from "../shared/value-objects/location";
-import { ExpressMiddlewareCaught, TimestampBrand } from "../utils/types";
+import { ExpressMiddlewareCaught } from "../utils/types";
 import { CreatevisitResponse, GetAllVisitsForAuthUserResponse, GetVisitResponse } from "./responses";
 import { CREATE_VISIT_SCHEMA, GET_VISITS_SCHEMA } from "./schema";
 

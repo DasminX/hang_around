@@ -1,7 +1,7 @@
 import { GeoPoint } from "firebase-admin/firestore";
 import { describe, expect, it } from "vitest";
 
-import { LocationArgs, LocationVO } from "./location";
+import { LocationArgs, LocationVO } from ".";
 
 describe("LocationVO", () => {
   it("should create an instance from an array", () => {

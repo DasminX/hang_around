@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import { DistanceConverter, HowFar } from "./distance-converter";
+import { HowFar } from "../../../../libs/hang-around-contracts/src/types";
+import { DistanceConverter } from "./distance-converter";
 
 describe("DistanceConverter", () => {
   it("should correctly convert meters to yards", () => {

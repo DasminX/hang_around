@@ -1,7 +1,4 @@
-export type HowFar = {
-  distance: number;
-  unit: "m" | "yd";
-};
+import { HowFar } from "../../../../libs/hang-around-contracts/src/types";
 
 export class DistanceConverter {
   private _distance: HowFar["distance"];

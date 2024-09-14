@@ -1,4 +1,4 @@
-import { APIResponseSuccess } from "../../shared/api-response-success";
+import { APIResponseSuccess } from "../../../../libs/hang-around-contracts/src/classes";
 import { Visit } from "../models/visit";
 
 export class CreatevisitResponse extends APIResponseSuccess {

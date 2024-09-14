@@ -1,20 +1,6 @@
 import z from "zod";
 
-export enum VisitsValidationErrors {
-  INVALID_ID_TYPE = "INVALID_ID_TYPE",
-
-  INVALID_NAME_TYPE = "INVALID_NAME_TYPE",
-  TOO_SHORT_NAME = "TOO_SHORT_NAME",
-
-  INVALID_LOCATION = "INVALID_LOCATION",
-
-  INVALID_RATING_TYPE = "INVALID_RATING_TYPE",
-  TOO_SMALL_RATING = "TOO_SMALL_RATING",
-  TOO_BIG_RATING = "TOO_BIG_RATING",
-
-  INVALID_URL = "INVALID_URL",
-  INVALID_ACCESSIBLE_VALUE = "INVALID_ACCESSIBLE_VALUE",
-}
+import { VisitsValidationErrors } from "../../../../libs/hang-around-contracts/src/messages";
 
 export const GET_VISITS_SCHEMA = z
   .object({

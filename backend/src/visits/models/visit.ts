@@ -1,16 +1,6 @@
-import { LocationVO } from "../../shared/value-objects/location";
-import { TimestampBrand } from "../../utils/types";
-
-export type VisitArgs = {
-  id: string;
-  name: string;
-  location: LocationVO;
-  rating: number;
-  mapsUri: URL | string;
-  isAccessible: boolean;
-  userId: string;
-  happenedAt: TimestampBrand;
-};
+import { VisitArgs } from "../../../../libs/hang-around-contracts/src/interfaces";
+import { TimestampBrand } from "../../../../libs/hang-around-contracts/src/types";
+import { LocationVO } from "../../../../libs/hang-around-contracts/src/value-objects";
 
 export class Visit {
   public readonly id: string;

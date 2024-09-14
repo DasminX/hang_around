@@ -2,11 +2,11 @@ import { StatusCodes } from "http-status-codes";
 import request from "supertest";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 
+import { API_PREFIX } from "../../../../libs/hang-around-contracts/src/constants";
+import { TimestampBrand } from "../../../../libs/hang-around-contracts/src/types";
+import { LocationVO } from "../../../../libs/hang-around-contracts/src/value-objects";
 import { getNodeApp } from "../../app";
 import { DataSource } from "../../shared/data-source";
-import { LocationVO } from "../../shared/value-objects/location";
-import { API_PREFIX } from "../../utils/constants";
-import { TimestampBrand } from "../../utils/types";
 
 // Mock DataSource
 const app = getNodeApp();

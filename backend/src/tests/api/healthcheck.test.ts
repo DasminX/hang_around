@@ -3,7 +3,7 @@ import request from "supertest";
 import { describe, expect, it } from "vitest";
 
 import { getNodeApp } from "../../app";
-import { API_PREFIX } from "../../utils/constants";
+import { API_PREFIX } from "./../../../../libs/hang-around-contracts/src/constants/index";
 
 const app = getNodeApp();
 const HEALTHCHECK_PATH = `${API_PREFIX}/healthcheck`;

@@ -5,7 +5,6 @@ import { beforeAll, describe, expect, it } from "vitest";
 
 import { getNodeApp } from "../../app";
 import { ErrorCode } from "../../shared/errors";
-import { API_PREFIX } from "../../utils/constants";
 import {
   INVALID_EMAIL,
   INVALID_PASSWORD,
@@ -13,6 +12,7 @@ import {
   VALID_SIGN_IN_CREDENTIALS,
   VALID_SIGN_UP_CREDENTIALS,
 } from "../test-data";
+import { API_PREFIX } from "./../../../../libs/hang-around-contracts/src/constants/index";
 
 const app = getNodeApp();
 const AUTH_PATH = `${API_PREFIX}/auth`;

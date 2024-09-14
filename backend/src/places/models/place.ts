@@ -1,13 +1,4 @@
-import { LocationVO } from "../../shared/value-objects/location";
-
-export interface PlaceArgs {
-  id: string;
-  name: string;
-  rating: number;
-  mapsUri: string;
-  location: LocationVO;
-  isAccessible: boolean;
-}
+import { PlaceArgs } from "../../../../libs/hang-around-contracts/src/interfaces";
 
 export class Place {
   public id: PlaceArgs["id"];

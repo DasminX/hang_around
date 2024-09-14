@@ -21,10 +21,9 @@ const formatZodIssues = (issues: ZodIssue[]) =>
   issues.reduce((prev: ZodIssueMessage[], curr: ZodIssue) => [...prev, getZodIssueMessage(curr)], []);
 
 const getZodIssueMessage = (issue: ZodIssue): ZodIssueMessage => {
-  const code = issue.message === "Required" ? "REQUIRED" : issue.message;
   return {
     path: issue.path.at(0) as string,
-    code: code,
+    code: issue.message === "Required" ? "REQUIRED" : issue.message,
     ...("expected" in issue && { expected: issue.expected as string }),
     ...("received" in issue && { received: issue.received as string }),
   };

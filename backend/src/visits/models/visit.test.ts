@@ -1,8 +1,9 @@
 import { describe, expect, it } from "vitest";
 
-import { LocationVO } from "../../shared/value-objects/location";
-import { TimestampBrand } from "../../utils/types";
-import { Visit, VisitArgs } from "./visit";
+import { VisitArgs } from "../../../../libs/hang-around-contracts/src/interfaces";
+import { TimestampBrand } from "../../../../libs/hang-around-contracts/src/types";
+import { LocationVO } from "../../../../libs/hang-around-contracts/src/value-objects";
+import { Visit } from "./visit";
 
 describe("Visit Model", () => {
   const location = new LocationVO([40.7128, -74.006]);

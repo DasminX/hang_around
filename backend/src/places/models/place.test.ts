@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
 
-import { LocationVO } from "../../shared/value-objects/location";
-import { Place, PlaceArgs } from "./place";
+import { PlaceArgs } from "../../../../libs/hang-around-contracts/src/interfaces";
+import { LocationVO } from "../../../../libs/hang-around-contracts/src/value-objects";
+import { Place } from "./place";
 
 describe("Place Model", () => {
   const placeArgs: PlaceArgs = {

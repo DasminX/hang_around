@@ -1,7 +1,7 @@
+import { LocationVO } from "../../../../../libs/hang-around-contracts/src/value-objects";
 import { AppError } from "../../../shared/errors";
-import { LocationVO } from "../../../shared/value-objects/location";
 import { Place } from "../../models/place";
-import { TYPE_OF_FOOD_ARRAY } from "../../schema";
+import { TYPE_OF_FOOD_ARRAY } from "./../../../../../libs/hang-around-contracts/src/data/index";
 
 export type PlacesFindArgs = {
   location: LocationVO;
