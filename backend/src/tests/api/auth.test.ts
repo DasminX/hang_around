@@ -1,4 +1,4 @@
-import { ErrorCode } from "@dasminx/hang-around-contracts";
+import { API_PREFIX, ErrorCode } from "@dasminx/hang-around-contracts";
 import { randomUUID } from "crypto";
 import { StatusCodes } from "http-status-codes";
 import request from "supertest";
@@ -12,7 +12,6 @@ import {
   VALID_SIGN_IN_CREDENTIALS,
   VALID_SIGN_UP_CREDENTIALS,
 } from "../test-data";
-import { API_PREFIX } from "./../../../../libs/hang-around-contracts/src/constants/index";
 
 const app = getNodeApp();
 const AUTH_PATH = `${API_PREFIX}/auth`;
@@ -46,15 +45,15 @@ describe(`Route ${AUTH_PATH}`, () => {
     it("should yield an InputValidationError in res.body if invalid data provided", async () => {
       const response1 = await request(app).post(`${AUTH_PATH}/signin`).send();
       expect(response1.status).toBe(StatusCodes.BAD_REQUEST);
-      expect(response1.body.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
+      expect(response1.body.error.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
 
       const response2 = await request(app).post(`${AUTH_PATH}/signin`).send({ email: INVALID_EMAIL });
       expect(response2.status).toBe(StatusCodes.BAD_REQUEST);
-      expect(response2.body.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
+      expect(response2.body.error.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
 
       const response3 = await request(app).post(`${AUTH_PATH}/signin`).send({ password: INVALID_PASSWORD });
       expect(response3.status).toBe(StatusCodes.BAD_REQUEST);
-      expect(response3.body.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
+      expect(response3.body.error.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
     });
 
     it("should yield a BadCredentialsError in res.body if credentials are invalid", async () => {
@@ -63,13 +62,20 @@ describe(`Route ${AUTH_PATH}`, () => {
         password: INVALID_PASSWORD,
       });
       expect(response.status).toBe(StatusCodes.BAD_REQUEST);
-      expect(response.body.errorCode).toBe(ErrorCode.BAD_CREDENTIALS);
+      expect(response.body.error.errorCode).toBe(ErrorCode.BAD_CREDENTIALS);
     });
   });
 
   describe("POST /signup", () => {
     it("should return 201 when valid sign-up data is provided", async () => {
-      const response = await request(app).post(`${AUTH_PATH}/signup`).send(VALID_SIGN_UP_CREDENTIALS);
+      const response = await request(app)
+        .post(`${AUTH_PATH}/signup`)
+        .send({
+          ...VALID_SIGN_UP_CREDENTIALS,
+          email: "test2" + VALID_SIGN_UP_CREDENTIALS.email,
+        });
+
+      console.log(response);
 
       expect(response.status).toBe(StatusCodes.CREATED);
     });
@@ -77,19 +83,19 @@ describe(`Route ${AUTH_PATH}`, () => {
     it("should return an InputValidationError when invalid sign-up data is provided", async () => {
       const response1 = await request(app).post(`${AUTH_PATH}/signup`).send();
       expect(response1.status).toBe(StatusCodes.BAD_REQUEST);
-      expect(response1.body.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
+      expect(response1.body.error.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
 
       const response2 = await request(app)
         .post(`${AUTH_PATH}/signup`)
         .send({ email: INVALID_EMAIL, password: VALID_SIGN_UP_CREDENTIALS.password });
       expect(response2.status).toBe(StatusCodes.BAD_REQUEST);
-      expect(response2.body.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
+      expect(response2.body.error.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
 
       const response3 = await request(app)
         .post(`${AUTH_PATH}/signup`)
         .send({ email: VALID_EMAIL, password: INVALID_PASSWORD });
       expect(response3.status).toBe(StatusCodes.BAD_REQUEST);
-      expect(response3.body.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
+      expect(response3.body.error.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
     });
   });
 
@@ -104,12 +110,12 @@ describe(`Route ${AUTH_PATH}`, () => {
       const response = await request(app).post(`${AUTH_PATH}/reset-password`).send();
 
       expect(response.status).toBe(StatusCodes.BAD_REQUEST);
-      expect(response.body.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
+      expect(response.body.error.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
 
       const response2 = await request(app).post(`${AUTH_PATH}/reset-password`).send({ email: INVALID_EMAIL });
 
       expect(response2.status).toBe(StatusCodes.BAD_REQUEST);
-      expect(response2.body.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
+      expect(response2.body.error.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
     });
   });
   describe("POST /signout", () => {
@@ -123,14 +129,14 @@ describe(`Route ${AUTH_PATH}`, () => {
       const response = await request(app).get(`${AUTH_PATH}/signout`);
 
       expect(response.status).toBe(StatusCodes.UNAUTHORIZED);
-      expect(response.body.errorCode).toBe(ErrorCode.NOT_AUTHENTICATED);
+      expect(response.body.error.errorCode).toBe(ErrorCode.NOT_AUTHENTICATED);
     });
 
     it("should return 401 when an invalid token is provided", async () => {
       const response = await request(app).get(`${AUTH_PATH}/signout`).set("Authorization", `Bearer invalid-token`);
 
       expect(response.status).toBe(StatusCodes.UNAUTHORIZED);
-      expect(response.body.errorCode).toBe(ErrorCode.NOT_AUTHENTICATED);
+      expect(response.body.error.errorCode).toBe(ErrorCode.NOT_AUTHENTICATED);
     });
   });
 });

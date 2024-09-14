@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { BadCredentialsError } from "../../../shared/errors";
+import { AccountAlreadyExistsError, BadCredentialsError } from "../../../shared/errors";
 import { Token } from "../../models/token";
 import { AuthDatabaseI } from "./abstract";
 import { AuthInMemoryDatabase } from "./in-memory";
@@ -22,11 +22,8 @@ describe("AuthInMemoryDatabase", () => {
 
     it("should not add a user if email already exists", async () => {
       await authDb.signUp("test@example.com", "Password1!");
-      await authDb.signUp("test@example.com", "Password2@");
 
-      const token = await authDb.signIn("test@example.com", "Password1!");
-      expect(token).toBeInstanceOf(Token);
-      await expect(authDb.signIn("test@example.com", "Password2@")).rejects.toThrow(BadCredentialsError);
+      await expect(authDb.signUp("test@example.com", "Password2@")).rejects.toThrow(AccountAlreadyExistsError);
     });
   });
 

@@ -66,7 +66,7 @@ describe(`Route ${PLACES_PATH}`, () => {
       const response = await request(app).post(`${PLACES_PATH}/find`).send(VALID_FIND_PLACES_REQUEST);
 
       expect(response.status).toBe(StatusCodes.UNAUTHORIZED);
-      expect(response.body.errorCode).toBe(ErrorCode.NOT_AUTHENTICATED);
+      expect(response.body.error.errorCode).toBe(ErrorCode.NOT_AUTHENTICATED);
     });
 
     it("should return 401 when an invalid token is provided", async () => {
@@ -76,7 +76,7 @@ describe(`Route ${PLACES_PATH}`, () => {
         .send(VALID_FIND_PLACES_REQUEST);
 
       expect(response.status).toBe(StatusCodes.UNAUTHORIZED);
-      expect(response.body.errorCode).toBe(ErrorCode.NOT_AUTHENTICATED);
+      expect(response.body.error.errorCode).toBe(ErrorCode.NOT_AUTHENTICATED);
     });
 
     it("should return 400 when invalid data is provided", async () => {
@@ -86,7 +86,7 @@ describe(`Route ${PLACES_PATH}`, () => {
         .send(INVALID_FIND_PLACES_REQUEST);
 
       expect(response.status).toBe(StatusCodes.BAD_REQUEST);
-      expect(response.body.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
+      expect(response.body.error.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
     });
 
     it("should handle timeout properly", async () => {
@@ -100,7 +100,7 @@ describe(`Route ${PLACES_PATH}`, () => {
         .send(VALID_FIND_PLACES_REQUEST);
 
       expect(response.status).toBe(StatusCodes.REQUEST_TIMEOUT);
-      expect(response.body.errorCode).toBe(ErrorCode.TIMEOUT);
+      expect(response.body.error.errorCode).toBe(ErrorCode.TIMEOUT);
     });
   });
 });
