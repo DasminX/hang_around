@@ -19,11 +19,6 @@ export const withAuth = (BaseComponent: ElementType) =>
       }
     }, []);
 
-    if (!isKeptTokenValid(token, expirationTime)) {
-      resetTokenCredentials();
-      resetAsyncStorageAuthTokenProps();
-    }
-
     if (!isTokenValid) {
       return <Redirect href={"/auth/login"} />;
     }

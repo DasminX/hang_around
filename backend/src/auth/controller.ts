@@ -32,7 +32,6 @@ export const resetPasswordController: ExpressMiddlewareCaught = async (req, res)
 
 // TODO blacklist tokens
 export const signOutController: ExpressMiddlewareCaught = async (_req, res) => {
-  console.log("wchodzi");
   await DataSource.auth.signOut();
 
   return res.status(StatusCodes.OK).json(new SignOutResponse());

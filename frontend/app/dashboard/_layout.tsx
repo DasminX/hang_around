@@ -1,7 +1,7 @@
 import { DashboardNavigation } from "../../src/navigation/DashboardNavigation";
 import { withAuth } from "../../src/shared/hoc/withAuth";
 
-/* export default */ function DasboardLayout() {
+function DasboardLayout() {
   return <DashboardNavigation />;
 }
 

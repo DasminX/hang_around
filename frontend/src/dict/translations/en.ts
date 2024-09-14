@@ -56,6 +56,10 @@ export default {
     changeForgottenPassword: "Change password",
     forgotPassword: "Forgot password?",
   },
+  dashboard: {
+    search: "Search for places...",
+    notFound: "Places were not found",
+  },
   common: {
     close: "Close",
     clickHere: "Click here",
