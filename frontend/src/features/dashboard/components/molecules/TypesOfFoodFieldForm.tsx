@@ -35,7 +35,7 @@ export const TypesOfFoodFieldForm = () => {
               keyExtractor={(item) => item}
               renderItem={({ item }) => (
                 <TouchableOpacity onPress={() => toggleItem(item)} style={styles.itemContainer}>
-                  <Checkbox status={selectedItems.includes(item) ? "unchecked" : "checked"} />
+                  <Checkbox status={selectedItems.includes(item) ? "checked" : "unchecked"} />
                   <Text style={styles.itemText}>{item}</Text>
                 </TouchableOpacity>
               )}
@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
   modalContent: {
     width: 300,
     maxWidth: "90%",
+    height: "80%",
     backgroundColor: "white",
     borderRadius: 8,
     padding: 20,

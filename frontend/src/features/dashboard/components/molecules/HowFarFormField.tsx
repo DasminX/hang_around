@@ -1,14 +1,11 @@
 // import { useTranslation } from "react-i18next";
 import OutlinedInput from "../../../../shared/ui/input/OutlinedInput";
-import { memo, useState } from "react";
+import { memo } from "react";
 import { usePlacesStore } from "../../slices/DashboardStore";
-import { SegmentedButtons } from "react-native-paper";
 import { StyleSheet, View } from "react-native";
+import { UnitButtons } from "../atoms/UnitButtons";
 
 export const HowFarFormField = memo(() => {
-  // const { t } = useTranslation();
-  const [segmentValue, setSegmentValue] = useState<string>("m");
-
   const howFar = usePlacesStore((state) => state.howFar);
   const setHowFar = usePlacesStore((state) => state.setHowFar);
 
@@ -16,40 +13,18 @@ export const HowFarFormField = memo(() => {
     <View style={styles.root}>
       <OutlinedInput
         keyboardType="number-pad"
-        placeholder=""
+        placeholder="1"
         onChangeText={(distance: string) => setHowFar({ ...howFar, distance: +distance })}
-        style={styles.distance}
+        width="short"
       />
-      <SegmentedButtons
-        buttons={[
-          { value: "m", label: "m" },
-          { value: "yd", label: "yd" },
-        ]}
-        value={segmentValue}
-        onValueChange={(value: string) => {
-          setSegmentValue(value);
-        }}
-        style={styles.unit}
-      />
+      <UnitButtons />
     </View>
   );
 });
 
 const styles = StyleSheet.create({
   root: {
+    columnGap: 12,
     flexDirection: "row",
-    justifyContent: "space-between",
-    marginHorizontal: "auto",
-    gap: 12,
-  },
-  distance: {
-    width: "10%",
-    maxWidth: 105,
-    minWidth: 70,
-  },
-  unit: {
-    width: "10%",
-    maxWidth: 105,
-    minWidth: 70,
   },
 });

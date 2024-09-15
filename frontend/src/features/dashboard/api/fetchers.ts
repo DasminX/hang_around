@@ -1,5 +1,5 @@
 import { HowFar, LocationVO, PlaceArgs, TYPE_OF_FOOD_ARRAY } from "@dasminx/hang-around-common";
-import { fetchData } from "../../../shared/functions";
+import { fetchData } from "../../../shared/fetcher";
 import { BACKEND_API_PATH } from "../../../shared/config";
 
 export type PlacesFindArgs = {

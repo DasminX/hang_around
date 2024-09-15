@@ -1,5 +1,5 @@
 import { BACKEND_API_PATH } from "../../../shared/config";
-import { fetchData } from "../../../shared/functions";
+import { fetchData } from "../../../shared/fetcher";
 
 export const login = async (email: string, password: string) => {
   return await fetchData(`${BACKEND_API_PATH}/auth/signin`, {

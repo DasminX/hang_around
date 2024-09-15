@@ -14,6 +14,7 @@ export const MinRatingFormField = memo(() => {
       keyboardType="number-pad"
       placeholder=""
       onChangeText={(minRating: string) => setMinRating(parseFloat(minRating))}
+      width="short"
     />
   );
 });
