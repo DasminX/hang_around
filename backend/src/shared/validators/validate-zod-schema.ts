@@ -1,13 +1,10 @@
-import z, { ZodIssue, ZodType, ZodTypeDef } from "zod";
+import z, { ZodIssue } from "zod";
 
 import { InputValidationError } from "../errors";
 
 export type ZodIssueMessage = { path: string; code: string; expected?: string; received?: string };
 
-export function parseInputBySchemaOrThrow<T extends ZodType<unknown, ZodTypeDef, unknown>>(
-  input: unknown,
-  schema: T,
-): z.infer<T> {
+export function parseInputBySchemaOrThrow<T>(input: unknown, schema: z.ZodType<T>): T {
   const parsed = schema.safeParse(input);
 
   if (!parsed.success) {

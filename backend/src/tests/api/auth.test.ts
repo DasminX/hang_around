@@ -75,8 +75,6 @@ describe(`Route ${AUTH_PATH}`, () => {
           email: "test2" + VALID_SIGN_UP_CREDENTIALS.email,
         });
 
-      console.log(response);
-
       expect(response.status).toBe(StatusCodes.CREATED);
     });
 

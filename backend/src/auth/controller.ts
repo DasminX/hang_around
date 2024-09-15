@@ -1,10 +1,10 @@
+import { RESET_PASSWORD_SCHEMA, SIGN_IN_SCHEMA, SIGN_UP_SCHEMA } from "@dasminx/hang-around-common";
 import { StatusCodes } from "http-status-codes";
 
 import { DataSource } from "../shared/data-source";
 import { parseInputBySchemaOrThrow } from "../shared/validators/validate-zod-schema";
 import { ExpressMiddlewareCaught } from "../utils/types";
 import { ResetPasswordResponse, SignInResponse, SignOutResponse, SignUpResponse } from "./responses";
-import { RESET_PASSWORD_SCHEMA, SIGN_IN_SCHEMA, SIGN_UP_SCHEMA } from "./schema";
 
 export const signinController: ExpressMiddlewareCaught = async (req, res) => {
   const { email, password } = parseInputBySchemaOrThrow(req.body, SIGN_IN_SCHEMA);
