@@ -1,4 +1,4 @@
-import { PlacesValidationErrors, TYPE_OF_FOOD_ARRAY } from "@dasminx/hang-around-contracts";
+import { PlacesValidationErrors, TYPE_OF_FOOD_ARRAY } from "@dasminx/hang-around-common";
 import z from "zod";
 
 import { THOUSAND } from "../../utils/constants";

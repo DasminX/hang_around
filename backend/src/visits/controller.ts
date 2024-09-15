@@ -1,7 +1,6 @@
-import { LocationVO } from "@dasminx/hang-around-contracts";
+import { LocationVO, TimestampBrand } from "@dasminx/hang-around-common";
 import { StatusCodes } from "http-status-codes";
 
-import { TimestampBrand } from "../../../libs/hang-around-contracts/src/types";
 import { DataSource } from "../shared/data-source";
 import { parseInputBySchemaOrThrow } from "../shared/validators/validate-zod-schema";
 import { ExpressMiddlewareCaught } from "../utils/types";

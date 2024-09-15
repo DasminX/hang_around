@@ -1,4 +1,4 @@
-import { APIResponseErrorI, APIResponseSuccessI, AppError } from "@dasminx/hang-around-contracts";
+import { APIResponseErrorI, APIResponseSuccessI, AppError } from "@dasminx/hang-around-common";
 
 export abstract class APIResponseSuccess implements APIResponseSuccessI {
   public readonly status = "ok";
@@ -9,5 +9,5 @@ export abstract class APIResponseSuccess implements APIResponseSuccessI {
 export class APIResponseError implements APIResponseErrorI {
   public readonly status = "fail";
 
-  public constructor(public readonly error: AppError | Error) {}
+  public constructor(public readonly error: AppError) {}
 }

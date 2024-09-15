@@ -1,4 +1,4 @@
-import { PlaceArgs } from "@dasminx/hang-around-contracts";
+import { PlaceArgs } from "@dasminx/hang-around-common";
 
 export class Place {
   public id: PlaceArgs["id"];

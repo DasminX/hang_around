@@ -1,4 +1,4 @@
-import { HowFar } from "../../../../libs/hang-around-contracts/src/types";
+import { HowFar } from "@dasminx/hang-around-common";
 
 export class DistanceConverter {
   private _distance: HowFar["distance"];

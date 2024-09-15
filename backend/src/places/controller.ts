@@ -1,4 +1,4 @@
-import { AppError, LocationVO } from "@dasminx/hang-around-contracts";
+import { AppError, LocationVO } from "@dasminx/hang-around-common";
 import { StatusCodes } from "http-status-codes";
 
 import { DataSource } from "../shared/data-source";

@@ -1,4 +1,4 @@
-import { LocationVO, PlaceArgs } from "@dasminx/hang-around-contracts";
+import { LocationVO, PlaceArgs } from "@dasminx/hang-around-common";
 import { describe, expect, it } from "vitest";
 
 import { Place } from "./place";

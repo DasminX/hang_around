@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 import OutlinedInput from "../../../../shared/ui/input/OutlinedInput";
 import { memo, useState } from "react";
 import { usePlacesStore } from "../../slices/DashboardStore";
@@ -6,7 +6,7 @@ import { SegmentedButtons } from "react-native-paper";
 import { StyleSheet, View } from "react-native";
 
 export const HowFarFormField = memo(() => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const [segmentValue, setSegmentValue] = useState<string>("m");
 
   const howFar = usePlacesStore((state) => state.howFar);

@@ -1,4 +1,4 @@
-import { LocationVO, TimestampBrand, VisitArgs } from "@dasminx/hang-around-contracts";
+import { LocationVO, TimestampBrand, VisitArgs } from "@dasminx/hang-around-common";
 import { randomUUID } from "crypto";
 import { beforeEach, describe, expect, it, Mock, vi } from "vitest";
 

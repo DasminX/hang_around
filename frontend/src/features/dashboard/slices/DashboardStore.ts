@@ -1,42 +1,35 @@
 import { create } from "zustand";
+import { PlacesFindArgs } from "../api/fetchers";
+import { LocationVO } from "@dasminx/hang-around-common";
 
-type PlacesType = {
-  howFar: {
-    distance: number;
-    unit: "yd" | "m";
-  };
-  location: { lat: number; lng: number };
-  minRating: number;
-  typesOfFood: string;
-};
-
-type PlacesCredentialsType = PlacesType & {
-  setHowFar: (value: PlacesType["howFar"]) => void;
-  setLocation: (value: PlacesType["location"]) => void;
-  setMinRating: (value: PlacesType["minRating"]) => void;
-  setTypesOfFood: (value: PlacesType["typesOfFood"]) => void;
+// TODO CHANGE TO LIB
+type PlacesCredentialsType = PlacesFindArgs & {
+  setHowFar: (value: PlacesFindArgs["howFar"]) => void;
+  setLocation: (value: PlacesFindArgs["location"]) => void;
+  setMinRating: (value: PlacesFindArgs["minRating"]) => void;
+  setTypesOfFood: (value: PlacesFindArgs["typesOfFood"]) => void;
   resetPlacesCredentials: () => void;
 };
 
-const DEFAULT_PLACES_FIELDS: PlacesType = {
+const DEFAULT_PLACES_FIELDS: PlacesFindArgs = {
   howFar: {
     distance: -1,
     unit: "m",
   },
-  location: { lat: 0, lng: 0 },
+  location: new LocationVO([0, 0]),
   minRating: 0,
-  typesOfFood: "",
+  typesOfFood: [],
 };
 
 export const usePlacesStore = create<PlacesCredentialsType>((set) => ({
   ...DEFAULT_PLACES_FIELDS,
-  setHowFar: (howFar: PlacesType["howFar"]) =>
-    set((state: PlacesType) => ({ ...state, ...howFar })),
-  setLocation: (location: PlacesType["location"]) =>
-    set((state: PlacesType) => ({ ...state, ...location })),
-  setMinRating: (minRating: PlacesType["minRating"]) =>
-    set((state: PlacesType) => ({ ...state, minRating })),
-  setTypesOfFood: (typesOfFood: PlacesType["typesOfFood"]) =>
-    set((state: PlacesType) => ({ ...state, typesOfFood })),
+  setHowFar: (howFar: PlacesFindArgs["howFar"]) =>
+    set((state: PlacesFindArgs) => ({ ...state, ...howFar })),
+  setLocation: (location: PlacesFindArgs["location"]) =>
+    set((state: PlacesFindArgs) => ({ ...state, ...location })),
+  setMinRating: (minRating: PlacesFindArgs["minRating"]) =>
+    set((state: PlacesFindArgs) => ({ ...state, minRating })),
+  setTypesOfFood: (typesOfFood: PlacesFindArgs["typesOfFood"]) =>
+    set((state: PlacesFindArgs) => ({ ...state, typesOfFood })),
   resetPlacesCredentials: () => set(() => DEFAULT_PLACES_FIELDS),
 }));

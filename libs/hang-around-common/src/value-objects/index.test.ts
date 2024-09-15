@@ -1,4 +1,4 @@
-import { GeoPoint } from "firebase-admin/firestore";
+import { GeoPoint } from "firebase/firestore";
 import { describe, expect, it } from "vitest";
 
 import { LocationArgs, LocationVO } from ".";

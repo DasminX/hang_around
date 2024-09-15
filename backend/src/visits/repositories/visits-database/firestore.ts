@@ -1,4 +1,4 @@
-import { VisitArgs } from "@dasminx/hang-around-contracts";
+import { VisitArgs } from "@dasminx/hang-around-common";
 import { Firestore } from "firebase-admin/firestore";
 
 import { Visit } from "../../models/visit";

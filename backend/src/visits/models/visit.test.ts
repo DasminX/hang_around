@@ -1,4 +1,4 @@
-import { LocationVO, TimestampBrand, VisitArgs } from "@dasminx/hang-around-contracts";
+import { LocationVO, TimestampBrand, VisitArgs } from "@dasminx/hang-around-common";
 import { describe, expect, it } from "vitest";
 
 import { Visit } from "./visit";

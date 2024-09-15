@@ -1,4 +1,4 @@
-import { AppError, LocationVO, TYPE_OF_FOOD_ARRAY } from "@dasminx/hang-around-contracts";
+import { AppError, LocationVO, TYPE_OF_FOOD_ARRAY } from "@dasminx/hang-around-common";
 
 import { Place } from "../../models/place";
 

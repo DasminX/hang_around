@@ -1,4 +1,4 @@
-import { VisitsValidationErrors } from "@dasminx/hang-around-contracts";
+import { VisitsValidationErrors } from "@dasminx/hang-around-common";
 import z from "zod";
 
 export const GET_VISITS_SCHEMA = z

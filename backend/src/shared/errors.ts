@@ -1,4 +1,4 @@
-import { AppError, ErrorCode } from "@dasminx/hang-around-contracts";
+import { AppError, ErrorCode } from "@dasminx/hang-around-common";
 import { Request } from "express";
 import { FirebaseError } from "firebase/app";
 import { StatusCodes } from "http-status-codes";

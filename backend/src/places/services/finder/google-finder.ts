@@ -1,4 +1,4 @@
-import { AppError, LocationVO } from "@dasminx/hang-around-contracts";
+import { AppError, LocationVO } from "@dasminx/hang-around-common";
 import { PlacesClient } from "@googlemaps/places";
 
 import { PlacesFinderError, PlacesFinderNotInitializedError } from "../../../shared/errors";

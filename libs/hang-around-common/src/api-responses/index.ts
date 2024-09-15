@@ -7,5 +7,5 @@ export interface APIResponseSuccessI {
 
 export interface APIResponseErrorI {
   readonly status: "fail";
-  readonly error: AppError | Error;
+  readonly error: AppError;
 }

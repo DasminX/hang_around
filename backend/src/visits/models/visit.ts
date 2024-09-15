@@ -1,4 +1,4 @@
-import { LocationVO, TimestampBrand, VisitArgs } from "@dasminx/hang-around-contracts";
+import { LocationVO, TimestampBrand, VisitArgs } from "@dasminx/hang-around-common";
 
 export class Visit {
   public readonly id: string;

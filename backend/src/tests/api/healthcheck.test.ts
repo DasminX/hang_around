@@ -1,4 +1,4 @@
-import { API_PREFIX } from "@dasminx/hang-around-contracts";
+import { API_PREFIX } from "@dasminx/hang-around-common";
 import { StatusCodes } from "http-status-codes";
 import request from "supertest";
 import { describe, expect, it } from "vitest";

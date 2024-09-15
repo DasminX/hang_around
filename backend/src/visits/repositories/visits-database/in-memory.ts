@@ -1,4 +1,4 @@
-import { VisitArgs } from "@dasminx/hang-around-contracts";
+import { VisitArgs } from "@dasminx/hang-around-common";
 import { randomUUID } from "crypto";
 
 import { Visit } from "../../models/visit";

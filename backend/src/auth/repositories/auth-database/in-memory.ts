@@ -1,4 +1,4 @@
-import { TimestampBrand } from "@dasminx/hang-around-contracts";
+import { TimestampBrand } from "@dasminx/hang-around-common";
 import { randomUUID } from "crypto";
 
 import { AccountAlreadyExistsError, BadCredentialsError } from "../../../shared/errors";

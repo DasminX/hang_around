@@ -1,10 +1,10 @@
+import { API_PREFIX } from "@dasminx/hang-around-common";
 import compression from "compression";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 import helmet from "helmet";
 
-import { API_PREFIX } from "../../libs/hang-around-contracts/src/constants";
 import { errorController } from "./error.controller";
 import mainRouter from "./router";
 import { DataSource } from "./shared/data-source";

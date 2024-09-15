@@ -3,8 +3,7 @@ import { Modal, View, Text, TouchableOpacity, StyleSheet, FlatList } from "react
 import { Checkbox, Chip } from "react-native-paper";
 import VariantButton from "../../../../shared/ui/button/VariantButton";
 import { useTranslation } from "react-i18next";
-
-const options = ["Kebab", "Pizza", "Burger", "Sushi"];
+import { TYPE_OF_FOOD_ARRAY } from "@dasminx/hang-around-common";
 
 export const TypesOfFoodFieldForm = () => {
   const { t } = useTranslation();
@@ -32,7 +31,7 @@ export const TypesOfFoodFieldForm = () => {
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <FlatList
-              data={options}
+              data={TYPE_OF_FOOD_ARRAY}
               keyExtractor={(item) => item}
               renderItem={({ item }) => (
                 <TouchableOpacity onPress={() => toggleItem(item)} style={styles.itemContainer}>

@@ -1,4 +1,4 @@
-import { AppError } from "@dasminx/hang-around-contracts";
+import { AppError } from "@dasminx/hang-around-common";
 import { StatusCodes } from "http-status-codes";
 
 import { APIResponseError } from "./shared/api-responses";
@@ -12,7 +12,7 @@ export const errorController: ExpressMiddlewareErrorController = (err, _req, res
     err = new AppFirebaseError(err);
   }
 
-  const response = new APIResponseError(err);
+  const response = new APIResponseError(err as AppError);
 
   logger.error(`Error occurred...`, {
     ...response.error,

@@ -1,4 +1,4 @@
-import { API_PREFIX, ErrorCode } from "@dasminx/hang-around-contracts";
+import { API_PREFIX, ErrorCode } from "@dasminx/hang-around-common";
 import { randomUUID } from "crypto";
 import { StatusCodes } from "http-status-codes";
 import request from "supertest";

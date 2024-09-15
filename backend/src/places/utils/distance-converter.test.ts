@@ -1,6 +1,6 @@
+import { HowFar } from "@dasminx/hang-around-common";
 import { describe, expect, it } from "vitest";
 
-import { HowFar } from "../../../../libs/hang-around-contracts/src/types";
 import { DistanceConverter } from "./distance-converter";
 
 describe("DistanceConverter", () => {
