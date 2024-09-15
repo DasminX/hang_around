@@ -1,94 +1,43 @@
 import z from "zod";
 import { VisitsValidationErrors } from "../messages";
+import { location, rating } from "./common";
 
-export const GET_VISITS_SCHEMA = z
-  .object({
-    id: z.string({
-      message: VisitsValidationErrors.INVALID_ID_TYPE,
-    }),
-  })
-  .strict();
-
-export const CREATE_VISIT_SCHEMA = z.object({
-  name: z
-    .string({
-      message: VisitsValidationErrors.INVALID_NAME_TYPE,
-    })
-    .min(1, {
-      message: VisitsValidationErrors.TOO_SHORT_NAME,
-    }),
-  location: z.union(
-    [
-      z.object({
-        lat: z
-          .number({
-            message: VisitsValidationErrors.INVALID_LOCATION,
-          })
-          .gte(-90, {
-            message: VisitsValidationErrors.INVALID_LOCATION,
-          })
-          .lte(90, {
-            message: VisitsValidationErrors.INVALID_LOCATION,
-          }),
-        lng: z
-          .number({
-            message: VisitsValidationErrors.INVALID_LOCATION,
-          })
-          .gte(-180, {
-            message: VisitsValidationErrors.INVALID_LOCATION,
-          })
-          .lte(180, {
-            message: VisitsValidationErrors.INVALID_LOCATION,
-          }),
+// Wrap schemas with z.lazy to avoid circular dependencies
+export const GET_VISITS_SCHEMA = z.lazy(() =>
+  z
+    .object({
+      id: z.string({
+        message: VisitsValidationErrors.INVALID_ID_TYPE,
       }),
-      z.tuple([
-        z
-          .number({
-            message: VisitsValidationErrors.INVALID_LOCATION,
-          })
-          .gte(-90, {
-            message: VisitsValidationErrors.INVALID_LOCATION,
-          })
-          .lte(90, {
-            message: VisitsValidationErrors.INVALID_LOCATION,
-          }),
-        z
-          .number({
-            message: VisitsValidationErrors.INVALID_LOCATION,
-          })
-          .gte(-180, {
-            message: VisitsValidationErrors.INVALID_LOCATION,
-          })
-          .lte(180, {
-            message: VisitsValidationErrors.INVALID_LOCATION,
-          }),
-      ]),
-    ],
-    {
-      message: VisitsValidationErrors.INVALID_LOCATION,
-    }
-  ),
-  rating: z
-    .number({
-      message: VisitsValidationErrors.INVALID_RATING_TYPE,
     })
-    .gte(1, {
-      message: VisitsValidationErrors.TOO_SMALL_RATING,
+    .strict()
+);
+
+export const CREATE_VISIT_SCHEMA = z.lazy(() =>
+  z
+    .object({
+      name: z
+        .string({
+          message: VisitsValidationErrors.INVALID_NAME_TYPE,
+        })
+        .min(1, {
+          message: VisitsValidationErrors.TOO_SHORT_NAME,
+        }),
+      location,
+      rating,
+      mapsUri: z
+        .string({
+          message: VisitsValidationErrors.INVALID_URL,
+        })
+        .url({
+          message: VisitsValidationErrors.INVALID_URL,
+        }),
+      isAccessible: z.boolean({
+        message: VisitsValidationErrors.INVALID_ACCESSIBLE_VALUE,
+      }),
     })
-    .lte(5, {
-      message: VisitsValidationErrors.TOO_BIG_RATING,
-    }),
-  mapsUri: z
-    .string({
-      message: VisitsValidationErrors.INVALID_URL,
-    })
-    .url({
-      message: VisitsValidationErrors.INVALID_URL,
-    }),
-  isAccessible: z.boolean({
-    message: VisitsValidationErrors.INVALID_ACCESSIBLE_VALUE,
-  }),
-});
+    .strict()
+);
 
 export type GetVisitsSchemaType = z.infer<typeof GET_VISITS_SCHEMA>;
 export type CreateVisitSchemaType = z.infer<typeof CREATE_VISIT_SCHEMA>;
