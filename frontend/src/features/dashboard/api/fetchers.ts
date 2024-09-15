@@ -1,15 +1,8 @@
-import { HowFar, LocationVO, PlaceArgs, TYPE_OF_FOOD_ARRAY } from "@dasminx/hang-around-common";
+import { FindPlacesSchemaType, PlaceArgs } from "@dasminx/hang-around-common";
 import { fetchData } from "../../../shared/fetcher";
 import { BACKEND_API_PATH } from "../../../shared/config";
 
-export type PlacesFindArgs = {
-  location: LocationVO;
-  typesOfFood: Array<(typeof TYPE_OF_FOOD_ARRAY)[number]>;
-  howFar: HowFar;
-  minRating: number;
-};
-
-export const findPlaces = async (props: PlacesFindArgs) => {
+export const findPlaces = async (props: FindPlacesSchemaType) => {
   return await fetchData(`${BACKEND_API_PATH}/places/find`, {
     method: "POST",
     send: props,

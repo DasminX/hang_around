@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import { StyleSheet, View } from "react-native";
+import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
 import { Button, Text } from "react-native-paper";
 import { resetAsyncStorageAuthTokenProps } from "../../src/utils/async-storage-helpers";
 import { useTokenStore } from "../../src/shared/slices/tokenStore";
@@ -22,7 +22,10 @@ export default function DashboardIndex() {
   }, []);
 
   return (
-    <View style={styles.root}>
+    <KeyboardAvoidingView
+      style={styles.root}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
       <Text variant="titleLarge">{t("dashboard.findPlace")}</Text>
       <FindPlaceForm onSubmit={onSubmitHandler} />
       <View style={styles.main}>
@@ -42,7 +45,7 @@ export default function DashboardIndex() {
           reset async storage
         </Button>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

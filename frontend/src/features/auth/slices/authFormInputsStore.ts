@@ -1,9 +1,7 @@
+import { SignUpSchemaType } from "@dasminx/hang-around-common";
 import { create } from "zustand";
 
-type InputType = {
-  email: string;
-  password: string;
-  repeatPassword: string;
+type InputType = SignUpSchemaType & {
   privacyPolicy: boolean;
 };
 

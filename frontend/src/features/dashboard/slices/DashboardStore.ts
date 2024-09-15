@@ -1,17 +1,16 @@
+import { FindPlacesSchemaType } from "./../../../../../libs/hang-around-common/src/schema/places";
 import { create } from "zustand";
-import { PlacesFindArgs } from "../api/fetchers";
 import { LocationVO } from "@dasminx/hang-around-common";
 
-// TODO CHANGE TO LIB
-type PlacesCredentialsType = PlacesFindArgs & {
-  setHowFar: (value: PlacesFindArgs["howFar"]) => void;
-  setLocation: (value: PlacesFindArgs["location"]) => void;
-  setMinRating: (value: PlacesFindArgs["minRating"]) => void;
-  setTypesOfFood: (value: PlacesFindArgs["typesOfFood"]) => void;
+type PlacesCredentialsType = FindPlacesSchemaType & {
+  setHowFar: (value: FindPlacesSchemaType["howFar"]) => void;
+  setLocation: (value: FindPlacesSchemaType["location"]) => void;
+  setMinRating: (value: FindPlacesSchemaType["minRating"]) => void;
+  setTypesOfFood: (value: FindPlacesSchemaType["typesOfFood"]) => void;
   resetPlacesCredentials: () => void;
 };
 
-const DEFAULT_PLACES_FIELDS: PlacesFindArgs = {
+const DEFAULT_PLACES_FIELDS: FindPlacesSchemaType = {
   howFar: {
     distance: -1,
     unit: "m",
@@ -23,13 +22,13 @@ const DEFAULT_PLACES_FIELDS: PlacesFindArgs = {
 
 export const usePlacesStore = create<PlacesCredentialsType>((set) => ({
   ...DEFAULT_PLACES_FIELDS,
-  setHowFar: (howFar: PlacesFindArgs["howFar"]) =>
-    set((state: PlacesFindArgs) => ({ ...state, ...howFar })),
-  setLocation: (location: PlacesFindArgs["location"]) =>
-    set((state: PlacesFindArgs) => ({ ...state, ...location })),
-  setMinRating: (minRating: PlacesFindArgs["minRating"]) =>
-    set((state: PlacesFindArgs) => ({ ...state, minRating })),
-  setTypesOfFood: (typesOfFood: PlacesFindArgs["typesOfFood"]) =>
-    set((state: PlacesFindArgs) => ({ ...state, typesOfFood })),
+  setHowFar: (howFar: FindPlacesSchemaType["howFar"]) =>
+    set((state: FindPlacesSchemaType) => ({ ...state, ...howFar })),
+  setLocation: (location: FindPlacesSchemaType["location"]) =>
+    set((state: FindPlacesSchemaType) => ({ ...state, ...location })),
+  setMinRating: (minRating: FindPlacesSchemaType["minRating"]) =>
+    set((state: FindPlacesSchemaType) => ({ ...state, minRating })),
+  setTypesOfFood: (typesOfFood: FindPlacesSchemaType["typesOfFood"]) =>
+    set((state: FindPlacesSchemaType) => ({ ...state, typesOfFood })),
   resetPlacesCredentials: () => set(() => DEFAULT_PLACES_FIELDS),
 }));
