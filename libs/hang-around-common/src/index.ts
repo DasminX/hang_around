@@ -5,5 +5,6 @@ export * from "./enums";
 export * from "./errors";
 export * from "./interfaces";
 export * from "./messages";
+export * from "./schema";
 export * from "./types";
 export * from "./value-objects";

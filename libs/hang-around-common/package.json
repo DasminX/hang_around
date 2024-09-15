@@ -1,6 +1,6 @@
 {
   "name": "@dasminx/hang-around-common",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "firebase": "^10.13.1",
-    "http-status-codes": "^2.3.0"
+    "http-status-codes": "^2.3.0",
+    "zod": "^3.23.8"
   }
 }
