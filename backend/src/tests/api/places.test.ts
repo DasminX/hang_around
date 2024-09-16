@@ -4,7 +4,7 @@ import request from "supertest";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 
 import { getNodeApp } from "../../app";
-import { Place } from "../../places/models/place";
+import { Place } from "../../features/places/models/place";
 import { DataSource } from "../../shared/data-source";
 import {
   INVALID_FIND_PLACES_REQUEST,

@@ -1,4 +1,4 @@
-import { APIResponseSuccess } from "../../shared/api-responses";
+import { APIResponseSuccess } from "../../../shared/api-responses";
 import { Visit } from "../models/visit";
 
 export class GetVisitResponse extends APIResponseSuccess {

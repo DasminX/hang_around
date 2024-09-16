@@ -1,4 +1,4 @@
-import { APIResponseSuccess } from "../../shared/api-responses";
+import { APIResponseSuccess } from "../../../shared/api-responses";
 
 export class SignOutResponse extends APIResponseSuccess {
   constructor() {

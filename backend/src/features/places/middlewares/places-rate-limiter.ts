@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import rateLimit from "express-rate-limit";
 import { StatusCodes } from "http-status-codes";
 
-import { ONE_HOUR } from "../../utils/constants";
+import { ONE_HOUR } from "../../../utils/constants";
 
 export const placesRateLimiter = rateLimit({
   limit: 5,

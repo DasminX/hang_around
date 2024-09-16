@@ -7,8 +7,8 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 
-import { EmailNotConfirmedError } from "../../../shared/errors";
-import { ONE_HOUR } from "../../../utils/constants";
+import { EmailNotConfirmedError } from "../../../../shared/errors";
+import { ONE_HOUR } from "../../../../utils/constants";
 import { Token } from "../../models/token";
 import { AuthDatabaseI } from "./abstract";
 

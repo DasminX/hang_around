@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { AccountAlreadyExistsError, BadCredentialsError } from "../../../shared/errors";
+import { AccountAlreadyExistsError, BadCredentialsError } from "../../../../shared/errors";
 import { Token } from "../../models/token";
 import { AuthDatabaseI } from "./abstract";
 import { AuthInMemoryDatabase } from "./in-memory";

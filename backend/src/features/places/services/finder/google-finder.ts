@@ -1,8 +1,8 @@
 import { AppError, LocationVO } from "@dasminx/hang-around-common";
 import { PlacesClient } from "@googlemaps/places";
 
-import { PlacesFinderError, PlacesFinderNotInitializedError } from "../../../shared/errors";
 import { Place } from "../../models/place";
+import { PlacesFinderError, PlacesFinderNotInitializedError } from "./../../../../shared/errors";
 import { PlacesFindArgs, PlacesFinderI } from "./abstract";
 
 export class GooglePlacesFinder implements PlacesFinderI {

@@ -1,9 +1,9 @@
 import express from "express";
 
-import authRouter from "./auth/router";
-import healthCheckRouter from "./healthcheck/router";
-import placesRouter from "./places/router";
-import visitsRouter from "./visits/router";
+import authRouter from "./features/auth/router";
+import healthCheckRouter from "./features/healthcheck/router";
+import placesRouter from "./features/places/router";
+import visitsRouter from "./features/visits/router";
 
 const router = express.Router();
 

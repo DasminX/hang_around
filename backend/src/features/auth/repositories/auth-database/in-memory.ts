@@ -1,7 +1,7 @@
 import { TimestampBrand } from "@dasminx/hang-around-common";
 import { randomUUID } from "crypto";
 
-import { AccountAlreadyExistsError, BadCredentialsError } from "../../../shared/errors";
+import { AccountAlreadyExistsError, BadCredentialsError } from "../../../../shared/errors";
 import { Token } from "../../models/token";
 import { AuthDatabaseI } from "./abstract";
 

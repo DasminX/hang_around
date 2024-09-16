@@ -1,9 +1,9 @@
 import { CREATE_VISIT_SCHEMA, GET_VISITS_SCHEMA, LocationVO, TimestampBrand } from "@dasminx/hang-around-common";
 import { StatusCodes } from "http-status-codes";
 
-import { DataSource } from "../shared/data-source";
-import { parseInputBySchemaOrThrow } from "../shared/validators/validate-zod-schema";
-import { ExpressMiddlewareCaught } from "../utils/types";
+import { DataSource } from "../../shared/data-source";
+import { parseInputBySchemaOrThrow } from "../../shared/validators/validate-zod-schema";
+import { ExpressMiddlewareCaught } from "../../utils/types";
 import { CreatevisitResponse, GetAllVisitsForAuthUserResponse, GetVisitResponse } from "./responses";
 
 export const getVisitsForAuthUser: ExpressMiddlewareCaught = async (_req, res) => {
