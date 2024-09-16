@@ -59,10 +59,19 @@ export default {
   dashboard: {
     search: "Wyszukaj miejsce...",
     notFound: "Nie znaleziono żadnych miejsc",
+    findPlace: "Znajdź miejsce",
+    distance: "Odległość",
+    coords: "Wprowadź koordynaty",
+    lat: "Latitude",
+    lng: "Longitude",
+    minRating: "Minimalna ocena (1-5)",
+    typeOfFood: "Typ jedzenia",
   },
   common: {
     close: "Zamknij",
     clickHere: "Kliknij tutaj",
     send: "Wyślij",
+    search: "Szukaj",
+    select: "Wybierz",
   },
 };

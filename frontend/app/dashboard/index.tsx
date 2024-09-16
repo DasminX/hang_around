@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
-import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
-import { Button, Text } from "react-native-paper";
+import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from "react-native";
+import { Button, Headline, Text } from "react-native-paper";
 import { resetAsyncStorageAuthTokenProps } from "../../src/utils/async-storage-helpers";
 import { useTokenStore } from "../../src/shared/slices/tokenStore";
 import { useTranslation } from "react-i18next";
@@ -22,30 +22,33 @@ export default function DashboardIndex() {
   }, []);
 
   return (
-    <KeyboardAvoidingView
-      style={styles.root}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
-      <Text variant="titleLarge">{t("dashboard.findPlace")}</Text>
-      <FindPlaceForm onSubmit={onSubmitHandler} />
-      <View style={styles.main}>
-        {wasSearching && (
-          <Text variant="headlineSmall" style={{ color: COLORS.palette.orange }}>
-            {t("dashboard.notFound")}
-          </Text>
-        )}
-        <Button onPress={() => router.replace("/auth/login")}>wróc do auth</Button>
-        <Button
-          onPress={() => {
-            resetAsyncStorageAuthTokenProps();
-            resetTokenCredentials();
-            router.replace("/auth/login");
-          }}
-        >
-          reset async storage
-        </Button>
-      </View>
-    </KeyboardAvoidingView>
+    /* TODO */
+    <ScrollView>
+      <KeyboardAvoidingView
+        style={styles.root}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <Headline style={styles.headline}>{t("dashboard.findPlace")}</Headline>
+        <FindPlaceForm onSubmit={onSubmitHandler} />
+        <View>
+          {wasSearching && (
+            <Text variant="headlineSmall" style={{ color: COLORS.palette.orange }}>
+              {t("dashboard.notFound")}
+            </Text>
+          )}
+          <Button onPress={() => router.replace("/auth/login")}>wróc do auth</Button>
+          <Button
+            onPress={() => {
+              resetAsyncStorageAuthTokenProps();
+              resetTokenCredentials();
+              router.replace("/auth/login");
+            }}
+          >
+            reset async storage
+          </Button>
+        </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 }
 
@@ -55,8 +58,7 @@ const styles = StyleSheet.create({
     marginVertical: 80,
     alignItems: "center",
   },
-  main: {
-    // justifyContent: "center",
-    // alignItems: "center",
+  headline: {
+    color: COLORS.palette.orange,
   },
 });

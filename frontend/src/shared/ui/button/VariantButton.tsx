@@ -12,8 +12,8 @@ export default function VariantButton(props: VariantButtonProps) {
       buttonColor={COLORS.variants[props.variant ?? "blue"]}
       textColor="white"
       uppercase
-      style={styles.button}
       {...props}
+      style={StyleSheet.compose(styles.button, props.style)}
     >
       {props.children}
     </Button>

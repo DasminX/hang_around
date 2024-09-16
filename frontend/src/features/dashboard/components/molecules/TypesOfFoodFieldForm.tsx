@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Modal, View, Text, TouchableOpacity, StyleSheet, FlatList } from "react-native";
-import { Checkbox, Chip } from "react-native-paper";
+import { Modal, View, TouchableOpacity, StyleSheet, FlatList, ScrollView } from "react-native";
+import { Checkbox, Chip, Text } from "react-native-paper";
 import VariantButton from "../../../../shared/ui/button/VariantButton";
 import { useTranslation } from "react-i18next";
 import { TYPE_OF_FOOD_ARRAY } from "@dasminx/hang-around-common";
+import { COLORS } from "../../../../utils/colors";
 
 export const TypesOfFoodFieldForm = () => {
   const { t } = useTranslation();
@@ -18,11 +19,10 @@ export const TypesOfFoodFieldForm = () => {
   };
 
   return (
-    <View>
-      <VariantButton onPress={() => setIsModalVisible(true)} variant="blue">
-        {t("dashboard.selectFoods")}
+    <ScrollView>
+      <VariantButton style={styles.button} onPress={() => setIsModalVisible(true)} variant="blue">
+        {t("dashboard.typeOfFood")}
       </VariantButton>
-
       <Modal
         transparent={true}
         visible={isModalVisible}
@@ -35,23 +35,50 @@ export const TypesOfFoodFieldForm = () => {
               keyExtractor={(item) => item}
               renderItem={({ item }) => (
                 <TouchableOpacity onPress={() => toggleItem(item)} style={styles.itemContainer}>
-                  <Checkbox status={selectedItems.includes(item) ? "checked" : "unchecked"} />
-                  <Text style={styles.itemText}>{item}</Text>
+                  <Checkbox
+                    color={COLORS.palette.orange}
+                    status={selectedItems.includes(item) ? "checked" : "unchecked"}
+                  />
+                  <Text
+                    style={[
+                      styles.itemText,
+                      selectedItems.includes(item) && { color: COLORS.palette.orange },
+                    ]}
+                  >
+                    {item}
+                  </Text>
                 </TouchableOpacity>
               )}
             />
-            <VariantButton onPress={() => setIsModalVisible(false)} variant="blue">
+            <VariantButton
+              style={styles.button}
+              onPress={() => setIsModalVisible(false)}
+              variant="green"
+            >
               {t("common.close")}
             </VariantButton>
           </View>
         </View>
       </Modal>
 
-      <View style={styles.chips}>
+      <ScrollView
+        style={styles.chipsContainer}
+        horizontal
+        contentContainerStyle={styles.chipsContainerContent}
+      >
         {selectedItems.length > 0 &&
-          selectedItems.map((item) => <Chip style={styles.chipsItem}>{item}</Chip>)}
-      </View>
-    </View>
+          selectedItems.map((item) => (
+            <Chip
+              key={item}
+              mode="outlined"
+              style={styles.chip}
+              textStyle={{ color: COLORS.palette.orange }}
+            >
+              {item}
+            </Chip>
+          ))}
+      </ScrollView>
+    </ScrollView>
   );
 };
 
@@ -66,7 +93,9 @@ const styles = StyleSheet.create({
     width: 300,
     maxWidth: "90%",
     height: "80%",
-    backgroundColor: "white",
+    backgroundColor: COLORS.palette.black,
+    borderWidth: 1,
+    borderColor: COLORS.palette.orange,
     borderRadius: 8,
     padding: 20,
     elevation: 5,
@@ -74,22 +103,25 @@ const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 10,
+    paddingVertical: 6,
   },
   itemText: {
     marginLeft: 10,
     fontSize: 16,
   },
-  chips: {
-    flexDirection: "row",
-    gap: 10,
-    flexWrap: "wrap",
+  chipsContainer: {
+    marginHorizontal: "auto",
+    minWidth: 200,
+    maxWidth: 300,
   },
-  chipsItem: {
-    flexBasis: "30%",
-    minWidth: 80,
-    textAlign: "center",
-    justifyContent: "center",
-    alignItems: "center",
+  chipsContainerContent: {
+    gap: 8,
+  },
+  chip: {
+    backgroundColor: COLORS.palette.black,
+    borderColor: COLORS.palette.orange,
+  },
+  button: {
+    marginHorizontal: "auto",
   },
 });

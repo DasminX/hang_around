@@ -13,15 +13,15 @@ export const FindPlaceForm = ({ onSubmit }: { onSubmit: () => unknown }) => {
 
   return (
     <View style={styles.form}>
-      <Text>{t("dashboard.distance")}</Text>
+      <Text variant="titleLarge">{t("dashboard.distance")}</Text>
       <HowFarFormField />
-      <Text>{t("dashboard.coords")}</Text>
+      <Text variant="titleLarge">{t("dashboard.coords")}</Text>
       <LocationFormField />
-      <Text>{t("dashboard.minRating")}</Text>
+      <Text variant="titleLarge">{t("dashboard.minRating")}</Text>
       <MinRatingFormField />
       <TypesOfFoodFieldForm />
       <VariantButton variant="green" onPress={onSubmit}>
-        {t("common.search")}{" "}
+        {t("common.search")}
       </VariantButton>
     </View>
   );

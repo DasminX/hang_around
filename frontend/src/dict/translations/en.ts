@@ -59,10 +59,19 @@ export default {
   dashboard: {
     search: "Search for places...",
     notFound: "Places were not found",
+    findPlace: "find a place",
+    distance: "distance",
+    coords: "Enter coordinates",
+    latitude: "latitude",
+    lng: "Longitude",
+    minRating: "Minimum rating (1-5)",
+    typeOfFood: "Food type",
   },
   common: {
     close: "Close",
     clickHere: "Click here",
     send: "Send",
+    search: "Search",
+    select: "Select",
   },
 };
