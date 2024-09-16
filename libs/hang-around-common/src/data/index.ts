@@ -1,8 +1,8 @@
 //prettier-ignore
 export const TYPE_OF_FOOD_ARRAY = [
-    "pizza", "burger", "asian food", "sushi", "pasta", "hungarian food", "kebab", 
-    "polish food", "czech food", "fish", "mexican food", "indian food", "greek food", 
-    "french food", "italian food", "spanish food", "middle eastern food", "thai food", 
-    "vegan food", "vegetarian food", "bbq", "fast food", "comfort food", "seafood", 
-    "desserts", "breakfast food", "brunch food", "mediterranean food"
+    "pizza", "burger", "asian", "sushi", "pasta", "hungarian", "kebab", 
+    "polish", "czech", "fish", "mexican", "indian", "greek", 
+    "french", "italian", "spanish", "middle eastern", "thai", 
+    "vegan", "vegetarian", "bbq", "fast food", "seafood", 
+    "desserts", "mediterranean"
   ] as const;
