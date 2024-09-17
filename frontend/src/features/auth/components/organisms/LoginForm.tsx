@@ -1,12 +1,12 @@
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
-import { useTranslation } from "react-i18next";
 
 import VariantButton from "../../../../shared/ui/button/VariantButton";
 import { ForgotPasswordLink } from "../atoms/ForgotPasswordLink";
+import { TextWithLink } from "../atoms/TextWithLink";
 import { EmailFormField } from "../molecules/EmailFormField";
 import { PasswordFormField } from "../molecules/PasswordFormField";
-import { TextWithLink } from "../atoms/TextWithLink";
 
 export const LoginForm = ({ onSubmit }: { onSubmit: () => unknown }) => {
   const { t } = useTranslation();

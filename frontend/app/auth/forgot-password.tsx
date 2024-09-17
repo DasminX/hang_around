@@ -1,12 +1,13 @@
+import { router } from "expo-router";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
+
+import { forgotPassword } from "../../src/features/auth/api/fetchers";
 import { AuthHeadline } from "../../src/features/auth/components/atoms/AuthHeadline";
 import { ForgotPasswordForm } from "../../src/features/auth/components/organisms/ForgotPasswordForm";
 import { useAuthFormStore } from "../../src/features/auth/slices/authFormInputsStore";
-import { useEffect } from "react";
 import { useErrorModalStore } from "../../src/shared/components/error-modal/errorModalStore";
-import { router } from "expo-router";
-import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
-import { forgotPassword } from "../../src/features/auth/api/fetchers";
 import { getApiErrorCode } from "../../src/utils/functions";
 
 export default function ForgotPassword() {

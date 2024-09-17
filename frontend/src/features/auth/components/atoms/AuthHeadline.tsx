@@ -1,4 +1,5 @@
 import { Headline, Text } from "react-native-paper";
+
 import { COLORS } from "../../../../utils/colors";
 
 type AuthHeadlineProps = {

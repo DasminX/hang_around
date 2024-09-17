@@ -1,7 +1,8 @@
 import { memo } from "react";
-import { Dialog /* , type DialogProps */, Portal, Text } from "react-native-paper";
 import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
+import { Dialog /* , type DialogProps */, Portal, Text } from "react-native-paper";
+
 import VariantButton from "../../ui/button/VariantButton";
 import { useErrorModalStore } from "./errorModalStore";
 

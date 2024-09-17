@@ -1,8 +1,9 @@
-import { useEffect, type ElementType } from "react";
 import { Redirect } from "expo-router";
-import { useTokenStore } from "../slices/tokenStore";
-import { isKeptTokenValid } from "../../utils/functions";
+import { ElementType, useEffect } from "react";
+
 import { resetAsyncStorageAuthTokenProps } from "../../utils/async-storage-helpers";
+import { isKeptTokenValid } from "../../utils/functions";
+import { useTokenStore } from "../slices/tokenStore";
 
 export const withAuth = (BaseComponent: ElementType) =>
   function authenticateHOC() {

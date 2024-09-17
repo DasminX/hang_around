@@ -1,5 +1,6 @@
-import { Button, type ButtonProps } from "react-native-paper";
 import { StyleSheet } from "react-native";
+import { Button, type ButtonProps } from "react-native-paper";
+
 import { COLORS } from "../../../utils/colors";
 
 interface VariantButtonProps extends ButtonProps {

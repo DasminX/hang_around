@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { TextInput, type TextInputProps } from "react-native-paper";
+
 import { COLORS } from "../../../utils/colors";
 
 interface OutlinedInputProps extends TextInputProps {

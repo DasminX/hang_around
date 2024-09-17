@@ -1,11 +1,11 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
 import { SplashScreen } from "expo-router";
-import { useEffect } from "react";
-
-import { PaperProvider } from "react-native-paper";
-import { initializeI18N } from "../src/dict/initializer";
 import { StatusBar } from "expo-status-bar";
+import { useEffect } from "react";
+import { PaperProvider } from "react-native-paper";
+
+import { initializeI18N } from "../src/dict/initializer";
 import RootNavigation from "../src/navigation/RootNavigation";
 import { ErrorModal } from "../src/shared/components/error-modal/ErrorModal";
 

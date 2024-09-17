@@ -1,6 +1,6 @@
-import { Searchbar as Search } from "react-native-paper";
-import { useTranslation } from "react-i18next";
 import { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Searchbar as Search } from "react-native-paper";
 
 export const Searchbar = ({
   onSearchHandler,

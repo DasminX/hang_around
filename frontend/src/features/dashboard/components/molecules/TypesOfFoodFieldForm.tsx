@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import { Modal, View, TouchableOpacity, StyleSheet, FlatList, ScrollView } from "react-native";
-import { Checkbox, Chip, Text } from "react-native-paper";
-import VariantButton from "../../../../shared/ui/button/VariantButton";
-import { useTranslation } from "react-i18next";
 import { TYPE_OF_FOOD_ARRAY } from "@dasminx/hang-around-common";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { FlatList, Modal, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Checkbox, Chip, Text } from "react-native-paper";
+
+import VariantButton from "../../../../shared/ui/button/VariantButton";
 import { COLORS } from "../../../../utils/colors";
 import { usePlacesStore } from "../../slices/PlacesStore";
 

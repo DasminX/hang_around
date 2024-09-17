@@ -1,7 +1,8 @@
+import { memo } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { Checkbox, Text } from "react-native-paper";
-import { useTranslation } from "react-i18next";
-import { memo } from "react";
+
 import { useAuthFormStore } from "../../slices/authFormInputsStore";
 
 export const PrivacyPolicyFormField = memo(() => {

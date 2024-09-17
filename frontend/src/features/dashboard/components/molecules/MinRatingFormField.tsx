@@ -1,5 +1,6 @@
-import OutlinedInput from "../../../../shared/ui/input/OutlinedInput";
 import { memo } from "react";
+
+import OutlinedInput from "../../../../shared/ui/input/OutlinedInput";
 import { usePlacesStore } from "../../slices/PlacesStore";
 
 export const MinRatingFormField = memo(() => {

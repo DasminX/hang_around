@@ -1,5 +1,6 @@
 import { Href, Link } from "expo-router";
 import { Text } from "react-native-paper";
+
 import { COLORS } from "../../../../utils/colors";
 
 type TextWithLinkProps = {

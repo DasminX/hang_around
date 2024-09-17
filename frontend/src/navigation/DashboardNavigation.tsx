@@ -1,4 +1,5 @@
 import { Stack } from "expo-router";
+
 import { COLORS } from "../utils/colors";
 
 export const DashboardNavigation = () => {
@@ -11,6 +12,7 @@ export const DashboardNavigation = () => {
       initialRouteName="index"
     >
       <Stack.Screen name="index" />
+      <Stack.Screen name="place" />
     </Stack>
   );
 };

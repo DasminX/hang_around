@@ -1,6 +1,6 @@
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
-import { useTranslation } from "react-i18next";
 
 import VariantButton from "../../../../shared/ui/button/VariantButton";
 import { EmailFormField } from "../molecules/EmailFormField";

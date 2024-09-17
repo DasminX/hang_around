@@ -1,9 +1,10 @@
-import OutlinedInput from "../../../../shared/ui/input/OutlinedInput";
 import { memo } from "react";
-import { usePlacesStore } from "../../slices/PlacesStore";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Text } from "react-native-paper";
+
+import OutlinedInput from "../../../../shared/ui/input/OutlinedInput";
 import { COLORS } from "../../../../utils/colors";
+import { usePlacesStore } from "../../slices/PlacesStore";
 
 export const HowFarFormField = memo(() => {
   const howFar = usePlacesStore((state) => state.howFar);

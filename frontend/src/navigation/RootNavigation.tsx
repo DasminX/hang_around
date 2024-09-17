@@ -1,4 +1,5 @@
 import { Stack } from "expo-router";
+
 import { useLoadAuth } from "../shared/hooks/useLoadAuth";
 
 export default function RootNavigation() {

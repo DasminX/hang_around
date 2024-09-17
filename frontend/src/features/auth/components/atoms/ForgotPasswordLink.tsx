@@ -1,7 +1,8 @@
 import { Link } from "expo-router";
-import { Text } from "react-native-paper";
-import { COLORS } from "../../../../utils/colors";
 import { useTranslation } from "react-i18next";
+import { Text } from "react-native-paper";
+
+import { COLORS } from "../../../../utils/colors";
 
 export const ForgotPasswordLink = () => {
   const { t } = useTranslation();

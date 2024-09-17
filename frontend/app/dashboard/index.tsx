@@ -1,15 +1,16 @@
+import { router } from "expo-router";
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from "react-native";
 import { Headline } from "react-native-paper";
-import { useTranslation } from "react-i18next";
-import { COLORS } from "../../src/utils/colors";
-import { useEffect } from "react";
+
+import { findPlaces } from "../../src/features/dashboard/api/fetchers";
 import { FindPlaceForm } from "../../src/features/dashboard/components/organisms/FindPlaceForm";
 import { usePlacesStore } from "../../src/features/dashboard/slices/PlacesStore";
-import { findPlaces } from "../../src/features/dashboard/api/fetchers";
-import { useTokenStore } from "../../src/shared/slices/tokenStore";
 import { useErrorModalStore } from "../../src/shared/components/error-modal/errorModalStore";
+import { useTokenStore } from "../../src/shared/slices/tokenStore";
+import { COLORS } from "../../src/utils/colors";
 import { getApiErrorCode } from "../../src/utils/functions";
-import { router } from "expo-router";
 
 export default function DashboardIndex() {
   const { t } = useTranslation();
@@ -63,11 +64,6 @@ export default function DashboardIndex() {
       >
         <Headline style={styles.headline}>{t("dashboard.findPlace")}</Headline>
         <FindPlaceForm onSubmit={onSubmitHandler} />
-        {/* {wasSearching && (
-            <Text variant="headlineSmall" style={{ color: COLORS.palette.orange }}>
-              {t("dashboard.notFound")}
-            </Text>
-          )} */}
       </KeyboardAvoidingView>
     </ScrollView>
   );

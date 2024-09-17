@@ -1,4 +1,5 @@
 import { Stack } from "expo-router";
+
 import { COLORS } from "../utils/colors";
 
 export const AuthNavigation = () => (

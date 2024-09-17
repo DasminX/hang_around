@@ -1,10 +1,11 @@
-import { useTranslation } from "react-i18next";
-import OutlinedInput from "../../../../shared/ui/input/OutlinedInput";
-import { memo } from "react";
-import { usePlacesStore } from "../../slices/PlacesStore";
 import { LocationVO } from "@dasminx/hang-around-common";
+import { memo } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
+
+import OutlinedInput from "../../../../shared/ui/input/OutlinedInput";
+import { usePlacesStore } from "../../slices/PlacesStore";
 
 export const LocationFormField = memo(() => {
   const { t } = useTranslation();
