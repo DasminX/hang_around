@@ -68,6 +68,12 @@ export class AccountAlreadyExistsError extends AppError {
   }
 }
 
+export class RequestLimitExceededError extends AppError {
+  constructor(message: string) {
+    super(message, StatusCodes.TOO_MANY_REQUESTS, ErrorCode.TOO_MANY_REQUESTS);
+  }
+}
+
 export class AppFirebaseError extends AppError {
   constructor(originalFirebaseError: FirebaseError) {
     const errMsg =
