@@ -1,4 +1,4 @@
-import { FindPlacesSchemaType } from "./../../../../../libs/hang-around-common/src/schema/places";
+import { FindPlacesSchemaType } from "../../../../../libs/hang-around-common/src/schema/places";
 import { create } from "zustand";
 import { LocationVO } from "@dasminx/hang-around-common";
 
@@ -23,9 +23,9 @@ const DEFAULT_PLACES_FIELDS: FindPlacesSchemaType = {
 export const usePlacesStore = create<PlacesCredentialsType>((set) => ({
   ...DEFAULT_PLACES_FIELDS,
   setHowFar: (howFar: FindPlacesSchemaType["howFar"]) =>
-    set((state: FindPlacesSchemaType) => ({ ...state, ...howFar })),
+    set((state: FindPlacesSchemaType) => ({ ...state, howFar })),
   setLocation: (location: FindPlacesSchemaType["location"]) =>
-    set((state: FindPlacesSchemaType) => ({ ...state, ...location })),
+    set((state: FindPlacesSchemaType) => ({ ...state, location })),
   setMinRating: (minRating: FindPlacesSchemaType["minRating"]) =>
     set((state: FindPlacesSchemaType) => ({ ...state, minRating })),
   setTypesOfFood: (typesOfFood: FindPlacesSchemaType["typesOfFood"]) =>

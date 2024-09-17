@@ -10,7 +10,7 @@ export const withAuth = (BaseComponent: ElementType) =>
     const expirationTime = useTokenStore((state) => state.expirationTime);
     const resetTokenCredentials = useTokenStore((state) => state.resetTokenCredentials);
 
-    const isTokenValid = !isKeptTokenValid(token, expirationTime);
+    const isTokenValid = isKeptTokenValid(token, expirationTime);
 
     useEffect(() => {
       if (!isTokenValid) {

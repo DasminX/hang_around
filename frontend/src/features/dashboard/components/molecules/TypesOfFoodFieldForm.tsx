@@ -5,17 +5,18 @@ import VariantButton from "../../../../shared/ui/button/VariantButton";
 import { useTranslation } from "react-i18next";
 import { TYPE_OF_FOOD_ARRAY } from "@dasminx/hang-around-common";
 import { COLORS } from "../../../../utils/colors";
+import { usePlacesStore } from "../../slices/PlacesStore";
 
 export const TypesOfFoodFieldForm = () => {
   const { t } = useTranslation();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
-  const toggleItem = (value: string) => {
-    setSelectedItems((prev) =>
-      prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value],
-    );
+  const typesOfFood = usePlacesStore((state) => state.typesOfFood);
+  const setTypesOfFood = usePlacesStore((state) => state.setTypesOfFood);
+
+  const toggleItem = (value: (typeof TYPE_OF_FOOD_ARRAY)[number]) => {
+    setTypesOfFood([...typesOfFood, value]);
   };
 
   return (
@@ -37,12 +38,12 @@ export const TypesOfFoodFieldForm = () => {
                 <TouchableOpacity onPress={() => toggleItem(item)} style={styles.itemContainer}>
                   <Checkbox
                     color={COLORS.palette.orange}
-                    status={selectedItems.includes(item) ? "checked" : "unchecked"}
+                    status={typesOfFood.includes(item) ? "checked" : "unchecked"}
                   />
                   <Text
                     style={[
                       styles.itemText,
-                      selectedItems.includes(item) && { color: COLORS.palette.orange },
+                      typesOfFood.includes(item) && { color: COLORS.palette.orange },
                     ]}
                   >
                     {item}
@@ -66,8 +67,8 @@ export const TypesOfFoodFieldForm = () => {
         horizontal
         contentContainerStyle={styles.chipsContainerContent}
       >
-        {selectedItems.length > 0 &&
-          selectedItems.map((item) => (
+        {typesOfFood.length > 0 &&
+          typesOfFood.map((item) => (
             <Chip
               key={item}
               mode="outlined"

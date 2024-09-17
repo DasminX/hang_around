@@ -9,7 +9,8 @@ import { useTokenStore } from "../../src/shared/slices/tokenStore";
 import { useEffect } from "react";
 import { useErrorModalStore } from "../../src/shared/components/error-modal/errorModalStore";
 import { setAsyncStorageAuthTokenProps } from "../../src/utils/async-storage-helpers";
-import { getApiErrorCode } from "../../src/utils/functions";
+import { getApiErrorCode, isObjectWithAllProperties } from "../../src/utils/functions";
+import { TimestampBrand } from "@dasminx/hang-around-common";
 
 export default function Login() {
   const { t } = useTranslation();
@@ -37,23 +38,27 @@ export default function Login() {
     }
 
     switch (res.status) {
-      case "ok":
-        await setAsyncStorageAuthTokenProps(
-          res.data.token as string,
-          res.data.expirationTime as number,
-        );
-
-        setTokenCredentials({
-          token: res.data.token as string,
-          expirationTime: res.data.expirationTime as number,
-        });
-
-        return router.push("/dashboard");
       case "fail":
-        console.log(res);
         return setError({
           title: t("errors.occured"),
           description: t(getApiErrorCode(res)),
+        });
+      case "ok":
+        if (isObjectWithAllProperties(res.data, "token", "expirationTime")) {
+          await setAsyncStorageAuthTokenProps(
+            res.data.token as string,
+            res.data.expirationTime as TimestampBrand,
+          );
+
+          setTokenCredentials({
+            token: res.data.token as string,
+            expirationTime: res.data.expirationTime as TimestampBrand,
+          });
+          return router.push("/dashboard");
+        }
+        return setError({
+          title: t("errors.occured"),
+          description: t("errors.unknown"),
         });
     }
   }

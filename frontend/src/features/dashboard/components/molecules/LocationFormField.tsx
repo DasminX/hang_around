@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import OutlinedInput from "../../../../shared/ui/input/OutlinedInput";
 import { memo } from "react";
-import { usePlacesStore } from "../../slices/DashboardStore";
+import { usePlacesStore } from "../../slices/PlacesStore";
 import { LocationVO } from "@dasminx/hang-around-common";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
