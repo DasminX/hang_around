@@ -2,11 +2,11 @@ import { PlaceArgs } from "@dasminx/hang-around-common";
 
 export class Place {
   public id: PlaceArgs["id"];
-  public name: string;
+  public name: PlaceArgs["name"];
   public location: PlaceArgs["location"];
   public rating: PlaceArgs["rating"];
   public mapsUri: PlaceArgs["mapsUri"];
-  public isAccessible: boolean;
+  public isAccessible: PlaceArgs["isAccessible"];
 
   constructor(_place: PlaceArgs) {
     this.id = _place.id;
