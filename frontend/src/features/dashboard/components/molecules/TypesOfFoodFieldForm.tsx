@@ -19,7 +19,7 @@ export const TypesOfFoodFieldForm = () => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={styles.root}>
       <VariantButton style={styles.button} onPress={() => setIsModalVisible(true)} variant="blue">
         {t("dashboard.typeOfFood")}
       </VariantButton>
@@ -53,7 +53,7 @@ export const TypesOfFoodFieldForm = () => {
             <VariantButton
               style={styles.button}
               onPress={() => setIsModalVisible(false)}
-              variant="green"
+              variant="blue"
             >
               {t("common.close")}
             </VariantButton>
@@ -83,6 +83,9 @@ export const TypesOfFoodFieldForm = () => {
 };
 
 const styles = StyleSheet.create({
+  root: {
+    rowGap: 16,
+  },
   modalContainer: {
     flex: 1,
     justifyContent: "center",

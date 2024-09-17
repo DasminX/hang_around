@@ -20,7 +20,7 @@ export const FindPlaceForm = ({ onSubmit }: { onSubmit: () => unknown }) => {
       <Text variant="titleLarge">{t("dashboard.minRating")}</Text>
       <MinRatingFormField />
       <TypesOfFoodFieldForm />
-      <VariantButton variant="green" onPress={onSubmit}>
+      <VariantButton variant="green" onPress={onSubmit} style={styles.submitButton}>
         {t("common.search")}
       </VariantButton>
     </View>
@@ -30,7 +30,11 @@ export const FindPlaceForm = ({ onSubmit }: { onSubmit: () => unknown }) => {
 const styles = StyleSheet.create({
   form: {
     alignItems: "center",
-    marginTop: "10%",
-    rowGap: 8,
+    marginVertical: 16,
+    rowGap: 4,
+  },
+  submitButton: {
+    marginVertical: 4,
+    width: 200,
   },
 });
