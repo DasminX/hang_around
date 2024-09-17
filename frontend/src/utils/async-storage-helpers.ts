@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { AUTH_TOKEN, AUTH_TOKEN_EXP } from "./constants";
 
 export const getAsyncStorageAuthTokenProps = async (): Promise<[string, number]> => {

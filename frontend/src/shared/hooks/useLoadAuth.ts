@@ -1,8 +1,9 @@
+import { TimestampBrand } from "@dasminx/hang-around-common";
 import { useEffect, useState } from "react";
+
+import { getAsyncStorageAuthTokenProps } from "../../utils/async-storage-helpers";
 import { isKeptTokenValid as isTokenValid } from "../../utils/functions";
 import { useTokenStore } from "../slices/tokenStore";
-import { getAsyncStorageAuthTokenProps } from "../../utils/async-storage-helpers";
-import { TimestampBrand } from "@dasminx/hang-around-common";
 
 export const useLoadAuth = () => {
   const [isAsyncStorageLoaded, setIsAsyncStorageLoaded] = useState(false);

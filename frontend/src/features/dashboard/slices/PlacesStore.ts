@@ -1,6 +1,7 @@
-import { FindPlacesSchemaType } from "../../../../../libs/hang-around-common/src/schema/places";
-import { create } from "zustand";
 import { LocationVO } from "@dasminx/hang-around-common";
+import { create } from "zustand";
+
+import { FindPlacesSchemaType } from "../../../../../libs/hang-around-common/src/schema/places";
 
 type PlacesCredentialsType = FindPlacesSchemaType & {
   setHowFar: (value: FindPlacesSchemaType["howFar"]) => void;

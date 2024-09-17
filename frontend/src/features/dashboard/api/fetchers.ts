@@ -1,6 +1,7 @@
 import { FindPlacesSchemaType, PlaceArgs } from "@dasminx/hang-around-common";
-import { fetchData } from "../../../shared/fetcher";
+
 import { BACKEND_API_PATH } from "../../../shared/config";
+import { fetchData } from "../../../shared/fetcher";
 
 export const findPlaces = async (props: FindPlacesSchemaType, authToken: string) => {
   return await fetchData(`${BACKEND_API_PATH}/places/find`, {
