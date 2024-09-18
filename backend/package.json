@@ -18,7 +18,7 @@
   "author": "DasminX",
   "license": "ISC",
   "dependencies": {
-    "@dasminx/hang-around-common": "^1.0.15",
+    "@dasminx/hang-around-common": "^1.0.16",
     "@googlemaps/places": "1.4.0",
     "compression": "1.7.4",
     "cookie-parser": "^1.4.6",

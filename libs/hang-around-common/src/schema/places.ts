@@ -3,9 +3,11 @@ import { PlacesValidationErrors } from "../messages";
 import { TYPE_OF_FOOD_ARRAY } from "../data";
 import { location, rating } from "./common";
 
-const typesOfFood = z.array(z.enum(TYPE_OF_FOOD_ARRAY), {
-  message: PlacesValidationErrors.INVALID_TYPES_OF_FOOD,
-});
+const typesOfFood = z
+  .array(z.enum(TYPE_OF_FOOD_ARRAY), {
+    message: PlacesValidationErrors.INVALID_TYPES_OF_FOOD,
+  })
+  .nonempty();
 
 const howFar = z.object({
   distance: z
