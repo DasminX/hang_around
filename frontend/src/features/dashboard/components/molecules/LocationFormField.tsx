@@ -22,6 +22,7 @@ export const LocationFormField = memo(() => {
           placeholder=""
           onChangeText={(lat: string) => setLocation(new LocationVO({ ...location, lat: +lat }))}
           width="short"
+          defaultValue={(Array.isArray(location) ? location[0] : location.lat).toString()}
         />
       </View>
       <View>
@@ -31,6 +32,7 @@ export const LocationFormField = memo(() => {
           placeholder=""
           onChangeText={(lng: string) => setLocation(new LocationVO({ ...location, lng: +lng }))}
           width="short"
+          defaultValue={(Array.isArray(location) ? location[1] : location.lng).toString()}
         />
       </View>
     </View>

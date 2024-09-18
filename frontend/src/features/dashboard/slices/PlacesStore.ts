@@ -13,7 +13,7 @@ type PlacesCredentialsType = FindPlacesSchemaType & {
 
 const DEFAULT_PLACES_FIELDS: FindPlacesSchemaType = {
   howFar: {
-    distance: -1,
+    distance: 0,
     unit: "m",
   },
   location: new LocationVO([0, 0]),

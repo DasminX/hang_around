@@ -7,7 +7,10 @@ const typesOfFood = z
   .array(z.enum(TYPE_OF_FOOD_ARRAY), {
     message: PlacesValidationErrors.INVALID_TYPES_OF_FOOD,
   })
-  .nonempty();
+  .optional()
+  .refine((arr) => arr && arr.length > 0, {
+    message: PlacesValidationErrors.INVALID_TYPES_OF_FOOD,
+  });
 
 const howFar = z.object({
   distance: z

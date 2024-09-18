@@ -17,6 +17,7 @@ export const HowFarFormField = memo(() => {
         placeholder="1"
         onChangeText={(distance: string) => setHowFar({ ...howFar, distance: +distance })}
         width="short"
+        defaultValue={"0"}
       />
       <View style={styles.segmentContainer}>
         <TouchableOpacity
