@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
 
 import { forgotPassword } from "../../src/features/auth/api/fetchers";
-import { AuthHeadline } from "../../src/features/auth/components/atoms/AuthHeadline";
-import { ForgotPasswordForm } from "../../src/features/auth/components/organisms/ForgotPasswordForm";
+import { AuthHeadline } from "../../src/features/auth/components/common/AuthHeadline";
+import { ForgotPasswordForm } from "../../src/features/auth/components/forgot-password/ForgotPasswordForm";
 import { useAuthFormStore } from "../../src/features/auth/slices/authFormInputsStore";
 import { useErrorModalStore } from "../../src/shared/components/error-modal/errorModalStore";
 import { getApiErrorCode } from "../../src/utils/functions";

@@ -16,7 +16,7 @@ const DEFAULT_PLACES_FIELDS: FindPlacesSchemaType = {
     distance: 0,
     unit: "m",
   },
-  location: new LocationVO([0, 0]),
+  location: new LocationVO([-181, -181]),
   minRating: 0,
   typesOfFood: [],
 };

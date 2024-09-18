@@ -1,16 +1,16 @@
 // import { router } from "expo-router";
-import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from "react-native";
-import { Headline, Text } from "react-native-paper";
 
 // import { findPlaces } from "../../src/features/dashboard/api/fetchers";
 // import { FindPlaceForm } from "../../src/features/dashboard/components/organisms/FindPlaceForm";
 // import { useErrorModalStore } from "../../src/shared/components/error-modal/errorModalStore";
-import { COLORS } from "../../src/utils/colors";
+import { FoundPlaces } from "../../src/features/dashboard/components/place/FoundPlaces";
+import { NoPlacesFound } from "../../src/features/dashboard/components/place/NoPlacesFound";
+import { useFoundPlaceStore } from "../../src/features/dashboard/slices/FoundPlaceStore";
 // import { getApiErrorCode } from "../../src/utils/functions";
 
 export default function PlaceView() {
-  const { t } = useTranslation();
+  const places = useFoundPlaceStore((state) => state.places);
 
   // const _setError = useErrorModalStore((state) => state.setError);
 
@@ -22,11 +22,8 @@ export default function PlaceView() {
         style={styles.root}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <Text variant="headlineSmall" style={{ color: COLORS.palette.orange }}>
-          {t("dashboard.notFound")}
-        </Text>
-
-        <Headline style={styles.headline}>{t("dashboard.searchedPlaces")}</Headline>
+        {!places?.length && <NoPlacesFound />}
+        {places?.length && <FoundPlaces places={places} />}
       </KeyboardAvoidingView>
     </ScrollView>
   );
@@ -37,8 +34,5 @@ const styles = StyleSheet.create({
     flex: 1,
     marginVertical: 80,
     alignItems: "center",
-  },
-  headline: {
-    color: COLORS.palette.orange,
   },
 });

@@ -29,6 +29,7 @@ export default {
     TIMEOUT: "The request timed out.",
     INTERNAL_ERROR: "Server error. Please try again.",
     ACCOUNT_ALREADY_EXISTS: "Account already exists.",
+    TOO_MANY_REQUESTS: "Too many requests. Try again later.",
   },
   errors: {
     occured: "Error occured",
@@ -66,6 +67,15 @@ export default {
     lng: "Longitude",
     minRating: "Minimum rating (1-5)",
     typeOfFood: "Food type",
+    foundPlaces: "Found places:",
+  },
+  place: {
+    accessible: "Has facilities for people with disabilities",
+    notAccessible: "Does not have facilities for people with disabilities",
+    visit: "Visit",
+    wannaVisit:
+      "Do you want visit this place? Confirming redirects you to the localisation of the place in Google Place App.",
+    rating: "Rating",
   },
   common: {
     close: "Close",
@@ -73,5 +83,8 @@ export default {
     send: "Send",
     search: "Search",
     select: "Select",
+    goBack: "Go back",
+    warning: "Warning",
+    cancel: "Cancel",
   },
 };

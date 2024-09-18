@@ -3,12 +3,18 @@ import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
 import VariantButton from "../../../../shared/ui/button/VariantButton";
-import { HowFarFormField } from "../molecules/HowFarFormField";
-import { LocationFormField } from "../molecules/LocationFormField";
-import { MinRatingFormField } from "../molecules/MinRatingFormField";
-import { TypesOfFoodFieldForm } from "../molecules/TypesOfFoodFieldForm";
+import { HowFarFormField } from "./HowFarFormField";
+import { LocationFormField } from "./LocationFormField";
+import { MinRatingFormField } from "./MinRatingFormField";
+import { TypesOfFoodFieldForm } from "./TypesOfFoodFieldForm";
 
-export const FindPlaceForm = ({ onSubmit }: { onSubmit: () => unknown }) => {
+export const FindPlaceForm = ({
+  onSubmit,
+  isLoading,
+}: {
+  onSubmit: () => unknown;
+  isLoading: boolean;
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -20,7 +26,12 @@ export const FindPlaceForm = ({ onSubmit }: { onSubmit: () => unknown }) => {
       <Text variant="titleLarge">{t("dashboard.minRating")}</Text>
       <MinRatingFormField />
       <TypesOfFoodFieldForm />
-      <VariantButton variant="green" onPress={onSubmit} style={styles.submitButton}>
+      <VariantButton
+        variant="green"
+        onPress={onSubmit}
+        style={styles.submitButton}
+        loading={isLoading}
+      >
         {t("common.search")}
       </VariantButton>
     </View>

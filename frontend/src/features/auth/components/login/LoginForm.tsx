@@ -3,10 +3,10 @@ import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
 import VariantButton from "../../../../shared/ui/button/VariantButton";
-import { ForgotPasswordLink } from "../atoms/ForgotPasswordLink";
-import { TextWithLink } from "../atoms/TextWithLink";
-import { EmailFormField } from "../molecules/EmailFormField";
-import { PasswordFormField } from "../molecules/PasswordFormField";
+import { EmailFormField } from "../common/EmailFormField";
+import { PasswordFormField } from "../common/PasswordFormField";
+import { TextWithLink } from "../common/TextWithLink";
+import { ForgotPasswordLink } from "../forgot-password/ForgotPasswordLink";
 
 export const LoginForm = ({ onSubmit }: { onSubmit: () => unknown }) => {
   const { t } = useTranslation();

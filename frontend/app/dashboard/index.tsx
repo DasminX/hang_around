@@ -1,11 +1,12 @@
 import { router } from "expo-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from "react-native";
 import { Headline } from "react-native-paper";
 
 import { findPlaces } from "../../src/features/dashboard/api/fetchers";
-import { FindPlaceForm } from "../../src/features/dashboard/components/organisms/FindPlaceForm";
+import { FindPlaceForm } from "../../src/features/dashboard/components/index/FindPlaceForm";
+import { useFoundPlaceStore } from "../../src/features/dashboard/slices/FoundPlaceStore";
 import { usePlacesStore } from "../../src/features/dashboard/slices/PlacesStore";
 import { useErrorModalStore } from "../../src/shared/components/error-modal/errorModalStore";
 import { useTokenStore } from "../../src/shared/slices/tokenStore";
@@ -14,6 +15,7 @@ import { getApiErrorCode } from "../../src/utils/functions";
 
 export default function DashboardIndex() {
   const { t } = useTranslation();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const token = useTokenStore((state) => state.token);
   const howFar = usePlacesStore((state) => state.howFar);
@@ -25,11 +27,14 @@ export default function DashboardIndex() {
 
   const setError = useErrorModalStore((state) => state.setError);
 
+  const setPlaces = useFoundPlaceStore((state) => state.setPlaces);
+
   useEffect(() => {
     resetInputs();
   }, []);
 
   const onSubmitHandler = async () => {
+    setIsLoading(true);
     const res = await findPlaces({ howFar, location, minRating, typesOfFood }, token);
     if (res instanceof Error) {
       return setError({
@@ -38,6 +43,7 @@ export default function DashboardIndex() {
       });
     }
 
+    setIsLoading(false);
     switch (res.status) {
       case "fail":
         return setError({
@@ -46,7 +52,8 @@ export default function DashboardIndex() {
         });
       case "ok":
         if (Array.isArray(res.data)) {
-          router.push("/dashboard/place");
+          setPlaces(res.data);
+          return router.push("/dashboard/place");
         }
 
         return setError({
@@ -63,7 +70,7 @@ export default function DashboardIndex() {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <Headline style={styles.headline}>{t("dashboard.findPlace")}</Headline>
-        <FindPlaceForm onSubmit={onSubmitHandler} />
+        <FindPlaceForm onSubmit={onSubmitHandler} isLoading={isLoading} />
       </KeyboardAvoidingView>
     </ScrollView>
   );

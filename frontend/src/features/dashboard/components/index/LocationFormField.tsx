@@ -15,24 +15,22 @@ export const LocationFormField = memo(() => {
 
   return (
     <View style={styles.root}>
-      <View>
+      <View style={styles.input}>
         <Text>{t("dashboard.lat")}</Text>
         <OutlinedInput
           keyboardType="number-pad"
-          placeholder=""
+          placeholder="0"
           onChangeText={(lat: string) => setLocation(new LocationVO({ ...location, lat: +lat }))}
           width="short"
-          defaultValue={(Array.isArray(location) ? location[0] : location.lat).toString()}
         />
       </View>
-      <View>
+      <View style={styles.input}>
         <Text>{t("dashboard.lat")}</Text>
         <OutlinedInput
           keyboardType="number-pad"
-          placeholder=""
+          placeholder="0"
           onChangeText={(lng: string) => setLocation(new LocationVO({ ...location, lng: +lng }))}
           width="short"
-          defaultValue={(Array.isArray(location) ? location[1] : location.lng).toString()}
         />
       </View>
     </View>
@@ -42,7 +40,12 @@ export const LocationFormField = memo(() => {
 const styles = StyleSheet.create({
   root: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    gap: 32,
+    gap: 12,
+    marginVertical: 6,
+  },
+  input: {
+    marginVertical: 12,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

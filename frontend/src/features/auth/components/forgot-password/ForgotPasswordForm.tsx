@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
 import VariantButton from "../../../../shared/ui/button/VariantButton";
-import { EmailFormField } from "../molecules/EmailFormField";
+import { EmailFormField } from "../common/EmailFormField";
 
 export const ForgotPasswordForm = ({ onSubmit }: { onSubmit: () => void }) => {
   const { t } = useTranslation();

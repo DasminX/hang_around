@@ -4,11 +4,11 @@ import { Text } from "react-native-paper";
 
 import VariantButton from "../../../../shared/ui/button/VariantButton";
 import { COLORS } from "../../../../utils/colors";
-import { TextWithLink } from "../atoms/TextWithLink";
-import { EmailFormField } from "../molecules/EmailFormField";
-import { PasswordFormField } from "../molecules/PasswordFormField";
-import { PrivacyPolicyFormField } from "../molecules/PrivacyPolicyFormField";
-import { RepeatPasswordFormField } from "../molecules/RepeatPasswordFormField";
+import { EmailFormField } from "../common/EmailFormField";
+import { PasswordFormField } from "../common/PasswordFormField";
+import { TextWithLink } from "../common/TextWithLink";
+import { PrivacyPolicyFormField } from "./PrivacyPolicyFormField";
+import { RepeatPasswordFormField } from "./RepeatPasswordFormField";
 
 export const RegisterForm = ({ onSubmit }: { onSubmit: () => unknown }) => {
   const { t } = useTranslation();

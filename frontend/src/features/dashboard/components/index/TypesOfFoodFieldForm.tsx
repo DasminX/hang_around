@@ -17,7 +17,15 @@ export const TypesOfFoodFieldForm = () => {
   const setTypesOfFood = usePlacesStore((state) => state.setTypesOfFood);
 
   const toggleItem = (value: (typeof TYPE_OF_FOOD_ARRAY)[number]) => {
-    setTypesOfFood([...typesOfFood, value]);
+    let newTypesOfFood: (typeof TYPE_OF_FOOD_ARRAY)[number][];
+    if (!typesOfFood) {
+      newTypesOfFood = [value];
+    } else {
+      newTypesOfFood = typesOfFood.includes(value)
+        ? typesOfFood.filter((type) => type !== value)
+        : [...typesOfFood, value];
+    }
+    setTypesOfFood(newTypesOfFood);
   };
 
   return (
@@ -39,12 +47,12 @@ export const TypesOfFoodFieldForm = () => {
                 <TouchableOpacity onPress={() => toggleItem(item)} style={styles.itemContainer}>
                   <Checkbox
                     color={COLORS.palette.orange}
-                    status={typesOfFood.includes(item) ? "checked" : "unchecked"}
+                    status={typesOfFood?.includes(item) ? "checked" : "unchecked"}
                   />
                   <Text
                     style={[
                       styles.itemText,
-                      typesOfFood.includes(item) && { color: COLORS.palette.orange },
+                      typesOfFood?.includes(item) && { color: COLORS.palette.orange },
                     ]}
                   >
                     {item}
@@ -62,24 +70,25 @@ export const TypesOfFoodFieldForm = () => {
           </View>
         </View>
       </Modal>
-
-      <ScrollView
-        style={styles.chipsContainer}
-        horizontal
-        contentContainerStyle={styles.chipsContainerContent}
-      >
-        {typesOfFood.length > 0 &&
-          typesOfFood.map((item) => (
-            <Chip
-              key={item}
-              mode="outlined"
-              style={styles.chip}
-              textStyle={{ color: COLORS.palette.orange }}
-            >
-              {item}
-            </Chip>
+      {Array.isArray(typesOfFood) && typesOfFood.length > 0 && (
+        <ScrollView
+          style={styles.chipsContainer}
+          horizontal
+          contentContainerStyle={styles.chipsContainerContent}
+        >
+          {typesOfFood.map((item) => (
+            <React.Fragment key={item}>
+              <Chip
+                mode="outlined"
+                style={styles.chip}
+                textStyle={{ color: COLORS.palette.orange }}
+              >
+                {item}
+              </Chip>
+            </React.Fragment>
           ))}
-      </ScrollView>
+        </ScrollView>
+      )}
     </ScrollView>
   );
 };

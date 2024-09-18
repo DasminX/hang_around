@@ -14,10 +14,9 @@ export const HowFarFormField = memo(() => {
     <View style={styles.root}>
       <OutlinedInput
         keyboardType="number-pad"
-        placeholder="1"
+        placeholder="1000"
         onChangeText={(distance: string) => setHowFar({ ...howFar, distance: +distance })}
         width="short"
-        defaultValue={"0"}
       />
       <View style={styles.segmentContainer}>
         <TouchableOpacity

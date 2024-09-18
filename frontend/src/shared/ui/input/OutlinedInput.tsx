@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   short: {
-    width: 60,
+    width: 80,
   },
   long: {
     width: 300,

@@ -29,6 +29,7 @@ export default {
     TIMEOUT: "Limit czasu żądania został przekroczony.",
     INTERNAL_ERROR: "Błąd serwera. Spróbuj ponownie.",
     ACCOUNT_ALREADY_EXISTS: "Konto już istnieje dla tego adresu e-mail.",
+    TOO_MANY_REQUESTS: "Wykonałeś zbyt dużo zapytań. Spróbuj ponownie później.",
   },
   errors: {
     occured: "Wystąpił błąd",
@@ -66,6 +67,15 @@ export default {
     lng: "Longitude",
     minRating: "Minimalna ocena (1-5)",
     typeOfFood: "Typ jedzenia",
+    foundPlaces: "Wyszukane miejsca:",
+  },
+  place: {
+    accessible: "Posiada udogodnienia dla osób niepełnosprawnych",
+    notAccessible: "Nie posiada udogodnień dla osób niepełnosprawnych",
+    visit: "Odwiedź",
+    wannaVisit:
+      "Czy na pewno chcesz odwiedzić to miejse? Potwierdzenie przenosi do lokalizacji miejsca w aplikacji Google Maps.",
+    rating: "Ocena",
   },
   common: {
     close: "Zamknij",
@@ -73,5 +83,8 @@ export default {
     send: "Wyślij",
     search: "Szukaj",
     select: "Wybierz",
+    goBack: "Wróć",
+    warning: "Ostrzeżenie",
+    cancel: "Anuluj",
   },
 };

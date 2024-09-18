@@ -5,8 +5,8 @@ import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
 
 import { login } from "../../src/features/auth/api/fetchers";
-import { AuthHeadline } from "../../src/features/auth/components/atoms/AuthHeadline";
-import { LoginForm } from "../../src/features/auth/components/organisms/LoginForm";
+import { AuthHeadline } from "../../src/features/auth/components/common/AuthHeadline";
+import { LoginForm } from "../../src/features/auth/components/login/LoginForm";
 import { useAuthFormStore } from "../../src/features/auth/slices/authFormInputsStore";
 import { useErrorModalStore } from "../../src/shared/components/error-modal/errorModalStore";
 import { useTokenStore } from "../../src/shared/slices/tokenStore";
