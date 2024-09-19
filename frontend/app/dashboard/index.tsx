@@ -52,7 +52,6 @@ export default function DashboardIndex() {
         });
       case "ok":
         if (Array.isArray(res.data)) {
-          console.log(res.data);
           setPlaces(res.data);
           return router.push("/dashboard/place");
         }
