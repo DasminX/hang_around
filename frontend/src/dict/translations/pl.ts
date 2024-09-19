@@ -76,6 +76,9 @@ export default {
     wannaVisit:
       "Czy na pewno chcesz odwiedzić to miejse? Potwierdzenie przenosi do lokalizacji miejsca w aplikacji Google Maps.",
     rating: "Ocena",
+    localisationRequired: "Lokalizacja musi być włączona, aby wybrać miejsce na mapie",
+    enterLocalisationManually: "Wpisz ręcznie",
+    chooseOnMap: "Wybierz na mapie",
   },
   common: {
     close: "Zamknij",

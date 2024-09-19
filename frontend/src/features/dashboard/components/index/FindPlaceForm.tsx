@@ -19,11 +19,17 @@ export const FindPlaceForm = ({
 
   return (
     <View style={styles.form}>
-      <Text variant="titleLarge">{t("dashboard.distance")}</Text>
+      <Text style={styles.formText} variant="titleLarge">
+        {t("dashboard.distance")}
+      </Text>
       <HowFarFormField />
-      <Text variant="titleLarge">{t("dashboard.coords")}</Text>
+      <Text style={styles.formText} variant="titleLarge">
+        {t("dashboard.coords")}
+      </Text>
       <LocationFormField />
-      <Text variant="titleLarge">{t("dashboard.minRating")}</Text>
+      <Text style={styles.formText} variant="titleLarge">
+        {t("dashboard.minRating")}
+      </Text>
       <MinRatingFormField />
       <TypesOfFoodFieldForm />
       <VariantButton
@@ -42,10 +48,12 @@ const styles = StyleSheet.create({
   form: {
     alignItems: "center",
     marginVertical: 16,
-    rowGap: 4,
+    rowGap: 8,
+  },
+  formText: {
+    marginVertical: 8,
   },
   submitButton: {
-    marginVertical: 4,
     width: 200,
   },
 });

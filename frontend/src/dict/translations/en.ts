@@ -76,6 +76,9 @@ export default {
     wannaVisit:
       "Do you want visit this place? Confirming redirects you to the localisation of the place in Google Place App.",
     rating: "Rating",
+    localisationRequired: "Location must be enabled to select a place on the map",
+    enterLocalisationManually: "Enter manually",
+    chooseOnMap: "Choose on map",
   },
   common: {
     close: "Close",

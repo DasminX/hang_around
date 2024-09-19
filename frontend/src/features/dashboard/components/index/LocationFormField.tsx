@@ -1,51 +1,66 @@
 import { LocationVO } from "@dasminx/hang-around-common";
-import { memo } from "react";
-import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
-import { Text } from "react-native-paper";
+import * as Location from "expo-location";
+import { memo, ReactNode, useCallback, useEffect, useState } from "react";
 
-import OutlinedInput from "../../../../shared/ui/input/OutlinedInput";
 import { usePlacesStore } from "../../slices/PlacesStore";
+import { ManualCoordsInputs } from "./ManualCoordsInputs";
+import { Map } from "./Map";
+import { MapPlaceholder } from "./MapPlaceholder";
 
 export const LocationFormField = memo(() => {
-  const { t } = useTranslation();
+  const [wasLoaded, setWasLoaded] = useState<boolean>(false);
+  const [isLocalisationActivated, setIsLocalisationActivated] = useState(false);
+  const [enterManually, setEnterManually] = useState(false);
 
-  const location = usePlacesStore((state) => state.location);
   const setLocation = usePlacesStore((state) => state.setLocation);
 
-  return (
-    <View style={styles.root}>
-      <View style={styles.input}>
-        <Text>{t("dashboard.lat")}</Text>
-        <OutlinedInput
-          keyboardType="number-pad"
-          placeholder="0"
-          onChangeText={(lat: string) => setLocation(new LocationVO({ ...location, lat: +lat }))}
-          width="short"
-        />
-      </View>
-      <View style={styles.input}>
-        <Text>{t("dashboard.lat")}</Text>
-        <OutlinedInput
-          keyboardType="number-pad"
-          placeholder="0"
-          onChangeText={(lng: string) => setLocation(new LocationVO({ ...location, lng: +lng }))}
-          width="short"
-        />
-      </View>
-    </View>
-  );
-});
+  const onEnterManuallyPress = useCallback(() => {
+    setEnterManually(true);
+  }, []);
 
-const styles = StyleSheet.create({
-  root: {
-    flexDirection: "row",
-    gap: 12,
-    marginVertical: 6,
-  },
-  input: {
-    marginVertical: 12,
-    justifyContent: "center",
-    alignItems: "center",
-  },
+  const onChooseOnMap = useCallback(() => {
+    setEnterManually(false);
+  }, []);
+
+  useEffect(() => {
+    if (enterManually) return;
+    (async () => {
+      try {
+        const permission = await Location.requestForegroundPermissionsAsync();
+        if (permission.granted) {
+          const detectedLocation = (await Location.getCurrentPositionAsync()).coords;
+          const currentLocation = new LocationVO([
+            detectedLocation.latitude,
+            detectedLocation.longitude,
+          ]);
+          setLocation(currentLocation);
+          setIsLocalisationActivated(true);
+        } else {
+          setIsLocalisationActivated(false);
+        }
+      } catch (error) {
+        setIsLocalisationActivated(false);
+      } finally {
+        if (!wasLoaded) {
+          setWasLoaded(true);
+        }
+      }
+    })();
+  }, [enterManually]);
+
+  let Outlet: ReactNode | null = null;
+
+  if (wasLoaded) {
+    if (enterManually) {
+      Outlet = <ManualCoordsInputs onChooseOnMap={onChooseOnMap} />;
+    } else if (isLocalisationActivated) {
+      Outlet = <Map />;
+    } else {
+      Outlet = <MapPlaceholder onEnterManuallyPress={onEnterManuallyPress} />;
+    }
+  } else {
+    Outlet = <MapPlaceholder onEnterManuallyPress={onEnterManuallyPress} />;
+  }
+
+  return <>{Outlet}</>;
 });

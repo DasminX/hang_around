@@ -64,25 +64,29 @@ export default function DashboardIndex() {
   };
 
   return (
-    <ScrollView>
-      <KeyboardAvoidingView
-        style={styles.root}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
+    <KeyboardAvoidingView
+      style={styles.root}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <ScrollView style={styles.scrollView}>
         <Headline style={styles.headline}>{t("dashboard.findPlace")}</Headline>
         <FindPlaceForm onSubmit={onSubmitHandler} isLoading={isLoading} />
-      </KeyboardAvoidingView>
-    </ScrollView>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    marginVertical: 80,
-    alignItems: "center",
+    marginTop: 64,
+    marginBottom: 32,
+  },
+  scrollView: {
+    flex: 1,
   },
   headline: {
     color: COLORS.palette.orange,
+    textAlign: "center",
   },
 });
