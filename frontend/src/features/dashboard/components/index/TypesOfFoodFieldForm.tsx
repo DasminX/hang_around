@@ -8,6 +8,7 @@ import VariantButton from "../../../../shared/ui/button/VariantButton";
 import { COLORS } from "../../../../utils/colors";
 import { usePlacesStore } from "../../slices/PlacesStore";
 
+// TODO add translations for labels incoming from TYPE_OF_FOOD_ARRAY
 export const TypesOfFoodFieldForm = () => {
   const { t } = useTranslation();
 

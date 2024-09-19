@@ -56,7 +56,7 @@ export class GooglePlacesFinder implements PlacesFinderI {
       const res = await this._client.searchNearby(
         {
           includedTypes: ["restaurant"],
-          maxResultCount: 20,
+          maxResultCount: 1,
           locationRestriction: {
             circle: {
               center: {
@@ -70,13 +70,16 @@ export class GooglePlacesFinder implements PlacesFinderI {
 
           languageCode: "en-GB",
           rankPreference: "DISTANCE", // TODO to be selected
+          // TODO filter if open here
           // TODO minRating to be removed or filtered down here \/
+          // TODO add new fields from fieldMask (paymentOptions, priceLevel) to model
+          // TODO get main photo and display
         },
         {
           otherArgs: {
             headers: {
               "X-Goog-FieldMask":
-                "places.id,places.accessibilityOptions,places.businessStatus,places.displayName,places.formattedAddress,places.googleMapsUri,places.iconBackgroundColor,places.iconMaskBaseUri,places.location,places.primaryType,places.shortFormattedAddress,places.types,places.utcOffsetMinutes,places.rating",
+                "places.id,places.accessibilityOptions,places.businessStatus,places.displayName,places.formattedAddress,places.googleMapsUri,places.iconBackgroundColor,places.iconMaskBaseUri,places.location,places.primaryType,places.shortFormattedAddress,places.types,places.utcOffsetMinutes,places.rating,places.priceLevel,places.paymentOptions",
               // "*",
             },
           },
@@ -86,6 +89,8 @@ export class GooglePlacesFinder implements PlacesFinderI {
       if (!Array.isArray(res[0].places) || !res[0].places.length) {
         return [];
       }
+
+      console.log(res[0].places);
 
       return res[0].places.map(
         (place) =>

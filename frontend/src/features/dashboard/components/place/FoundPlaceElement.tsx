@@ -13,6 +13,7 @@ export const FoundPlaceElement = ({ placeDetails }: { placeDetails: PlaceArgs })
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
 
+  // TODO display image, priceLevel, paymentOptions, navigate button instead of visit button
   return (
     <ScrollView>
       <Surface style={styles.surface} elevation={1}>
@@ -60,7 +61,7 @@ export const FoundPlaceElement = ({ placeDetails }: { placeDetails: PlaceArgs })
             <VariantButton variant="red" onPress={() => setVisible(false)}>
               {t("common.cancel")}
             </VariantButton>
-            <VariantButton /* TODO DODAĆ DODANIE DO ODWIEDZONYCH MIEJSC */
+            <VariantButton /* TODO if clicked add to VisitedPlacesStore (doesnt exist yet) */
               variant="green"
               onPress={() => {
                 setVisible(false);
