@@ -8,6 +8,7 @@ import { FoundPlaceElement } from "./FoundPlaceElement";
 
 export const FoundPlaces = ({ places }: { places: PlaceArgs[] }) => {
   const { t } = useTranslation();
+
   return (
     <ScrollView>
       <Headline style={styles.headline}>{t("dashboard.foundPlaces")}</Headline>

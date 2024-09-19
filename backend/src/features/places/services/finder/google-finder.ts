@@ -25,9 +25,39 @@ export class GooglePlacesFinder implements PlacesFinderI {
     const [lat, lng] = args.location.toTuple();
 
     try {
-      const res = await this._client.searchText(
+      // const res = await this._client.searchText(
+      //   {
+      //     locationBias: {
+      //       circle: {
+      //         center: {
+      //           latitude: lat,
+      //           longitude: lng,
+      //         },
+      //         radius: args.radius,
+      //       },
+      //     },
+      //     textQuery: args.typesOfFood.join(","),
+      //     includedType: "restaurant",
+      //     maxResultCount: 20,
+      //     openNow: true,
+      //     minRating: args.minRating,
+      //   },
+      //   {
+      //     otherArgs: {
+      //       headers: {
+      //         "X-Goog-FieldMask":
+      //           "places.id,places.accessibilityOptions,places.businessStatus,places.displayName,places.formattedAddress,places.googleMapsUri,places.iconBackgroundColor,places.iconMaskBaseUri,places.location,places.primaryType,places.shortFormattedAddress,places.types,places.utcOffsetMinutes,places.rating",
+      //         // "*",
+      //       },
+      //     },
+      //   },
+      // );
+
+      const res = await this._client.searchNearby(
         {
-          locationBias: {
+          includedTypes: ["restaurant"],
+          maxResultCount: 20,
+          locationRestriction: {
             circle: {
               center: {
                 latitude: lat,
@@ -36,11 +66,11 @@ export class GooglePlacesFinder implements PlacesFinderI {
               radius: args.radius,
             },
           },
-          textQuery: args.typesOfFood.join(","),
-          includedType: "restaurant",
-          maxResultCount: 20,
-          openNow: true,
-          minRating: args.minRating,
+          includedPrimaryTypes: args.typesOfFood,
+
+          languageCode: "en-GB",
+          rankPreference: "DISTANCE", // TODO to be selected
+          // TODO minRating to be removed or filtered down here \/
         },
         {
           otherArgs: {

@@ -7,7 +7,6 @@ import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from "react-na
 import { FoundPlaces } from "../../src/features/dashboard/components/place/FoundPlaces";
 import { NoPlacesFound } from "../../src/features/dashboard/components/place/NoPlacesFound";
 import { useFoundPlaceStore } from "../../src/features/dashboard/slices/FoundPlaceStore";
-// import { getApiErrorCode } from "../../src/utils/functions";
 
 export default function PlaceView() {
   const places = useFoundPlaceStore((state) => state.places);
@@ -16,14 +15,14 @@ export default function PlaceView() {
 
   // const onSubmitHandler = async () => {};
 
+  console.log(places);
   return (
     <ScrollView>
       <KeyboardAvoidingView
         style={styles.root}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        {!places?.length && <NoPlacesFound />}
-        {places?.length && <FoundPlaces places={places} />}
+        {!places?.length ? <NoPlacesFound /> : <FoundPlaces places={places} />}
       </KeyboardAvoidingView>
     </ScrollView>
   );

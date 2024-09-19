@@ -20,7 +20,7 @@ const howFar = z.object({
     .positive({
       message: PlacesValidationErrors.INVALID_DISTANCE,
     })
-    .lte(10 * 1000, {
+    .lte(10 * 5000, {
       message: PlacesValidationErrors.TOO_BIG_DISTANCE,
     }),
   unit: z.enum(["m", "yd"], {
