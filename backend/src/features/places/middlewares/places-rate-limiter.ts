@@ -5,7 +5,7 @@ import { RequestLimitExceededError } from "../../../shared/errors";
 import { ONE_HOUR } from "../../../utils/constants";
 
 export const placesRateLimiter = rateLimit({
-  limit: 5,
+  limit: process.env.HA_APP_DATA_SOURCE === "IN_MEMORY" ? 5 : 10,
   windowMs: ONE_HOUR,
   keyGenerator: (req: Request, res: Response) => res.locals.user?.uid ?? req.ip,
   handler: (_req, _res, next) =>

@@ -16,7 +16,9 @@ export const NoPlacesFound = () => {
       </Text>
       <VariantButton
         style={styles.button}
-        onPress={() => (router.canGoBack() ? router.back() : router.replace("/dashboard"))}
+        onPress={() =>
+          router.canGoBack() ? router.back() : router.replace("/dashboard/places/find")
+        }
       >
         {t("common.goBack")}
       </VariantButton>

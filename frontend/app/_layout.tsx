@@ -15,7 +15,7 @@ export {
 } from "expo-router";
 
 export const unstable_settings = {
-  initialRouteName: "/dashboard/index",
+  initialRouteName: "/dashboard/places/find",
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.

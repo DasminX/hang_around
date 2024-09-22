@@ -55,7 +55,7 @@ export default function Login() {
             token: res.data.token as string,
             expirationTime: res.data.expirationTime as TimestampBrand,
           });
-          return router.push("/dashboard");
+          return router.push("/dashboard/places/find");
         }
         return setError({
           title: t("errors.occured"),

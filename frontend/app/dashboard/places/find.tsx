@@ -4,16 +4,16 @@ import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from "react-native";
 import { Headline } from "react-native-paper";
 
-import { findPlaces } from "../../src/features/dashboard/api/fetchers";
-import { FindPlaceForm } from "../../src/features/dashboard/components/index/FindPlaceForm";
-import { useFoundPlaceStore } from "../../src/features/dashboard/slices/FoundPlaceStore";
-import { usePlacesStore } from "../../src/features/dashboard/slices/PlacesStore";
-import { useErrorModalStore } from "../../src/shared/components/error-modal/errorModalStore";
-import { useTokenStore } from "../../src/shared/slices/tokenStore";
-import { COLORS } from "../../src/utils/colors";
-import { getApiErrorCode } from "../../src/utils/functions";
+import { findPlaces } from "../../../src/features/dashboard/api/fetchers";
+import { FindPlaceForm } from "../../../src/features/dashboard/components/index/FindPlaceForm";
+import { useFoundPlaceStore } from "../../../src/features/dashboard/slices/FoundPlaceStore";
+import { usePlacesStore } from "../../../src/features/dashboard/slices/PlacesStore";
+import { useErrorModalStore } from "../../../src/shared/components/error-modal/errorModalStore";
+import { useTokenStore } from "../../../src/shared/slices/tokenStore";
+import { COLORS } from "../../../src/utils/colors";
+import { getApiErrorCode } from "../../../src/utils/functions";
 
-export default function DashboardIndex() {
+export default function FindPlaceIndex() {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -53,7 +53,7 @@ export default function DashboardIndex() {
       case "ok":
         if (Array.isArray(res.data)) {
           setPlaces(res.data);
-          return router.push("/dashboard/place");
+          return router.push("/dashboard/places/place");
         }
 
         return setError({
