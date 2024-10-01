@@ -1,6 +1,9 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Text } from "react-native-paper";
+
+import { APP_PREFERRED_LANG } from "../../../../utils/constants";
 
 const LANGS = {
   pl: "🇵🇱",
@@ -10,7 +13,10 @@ const LANGS = {
 export const LangChangeField = () => {
   const { i18n, t } = useTranslation();
 
-  const changeLangHandler = (lang: keyof typeof LANGS) => i18n.changeLanguage(lang);
+  const changeLangHandler = async (lang: keyof typeof LANGS) => {
+    i18n.changeLanguage(lang);
+    await AsyncStorage.setItem(APP_PREFERRED_LANG, lang);
+  };
 
   return (
     <View style={styles.root}>

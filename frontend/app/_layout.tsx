@@ -5,7 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { PaperProvider } from "react-native-paper";
 
-import { initializeI18N } from "../src/dict/initializer";
+import { useAppTranslation } from "../src/dict/initializer";
 import RootNavigation from "../src/navigation/RootNavigation";
 import { ErrorModal } from "../src/shared/components/error-modal/ErrorModal";
 
@@ -26,6 +26,7 @@ export default function RootLayout() {
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
   });
+  const isTranslationLoaded = useAppTranslation();
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
@@ -38,11 +39,10 @@ export default function RootLayout() {
     }
   }, [loaded]);
 
-  if (!loaded) {
+  if (!loaded || !isTranslationLoaded) {
     return null;
   }
 
-  initializeI18N();
   return (
     <PaperProvider>
       <StatusBar style="light" />
