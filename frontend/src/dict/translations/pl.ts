@@ -135,5 +135,6 @@ export default {
   },
   settings: {
     change_lang: "Zmień język",
+    logout: "Wyloguj się",
   },
 };
