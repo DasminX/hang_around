@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
-import VariantButton from "../../../../shared/ui/button/VariantButton";
+import VariantButton from "../../../../../shared/ui/button/VariantButton";
 import { HowFarFormField } from "./HowFarFormField";
 import { LocationFormField } from "./LocationFormField";
 import { MinRatingFormField } from "./MinRatingFormField";

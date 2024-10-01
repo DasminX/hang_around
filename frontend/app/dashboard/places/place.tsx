@@ -1,8 +1,8 @@
 // import { router } from "expo-router";
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from "react-native";
 
-import { FoundPlaces } from "../../../src/features/dashboard/components/place/FoundPlaces";
-import { NoPlacesFound } from "../../../src/features/dashboard/components/place/NoPlacesFound";
+import { FoundPlaces } from "../../../src/features/dashboard/components/places/place/FoundPlaces";
+import { NoPlacesFound } from "../../../src/features/dashboard/components/places/place/NoPlacesFound";
 import { useFoundPlaceStore } from "../../../src/features/dashboard/slices/FoundPlaceStore";
 
 export default function PlaceView() {

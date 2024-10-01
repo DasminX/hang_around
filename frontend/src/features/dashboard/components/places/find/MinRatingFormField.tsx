@@ -1,7 +1,7 @@
 import { memo } from "react";
 
-import OutlinedInput from "../../../../shared/ui/input/OutlinedInput";
-import { usePlacesStore } from "../../slices/PlacesStore";
+import OutlinedInput from "../../../../../shared/ui/input/OutlinedInput";
+import { usePlacesStore } from "../../../slices/PlacesStore";
 
 export const MinRatingFormField = memo(() => {
   const setMinRating = usePlacesStore((state) => state.setMinRating);

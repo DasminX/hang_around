@@ -5,8 +5,8 @@ import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Dialog, Icon, Portal, Surface, Text } from "react-native-paper";
 
-import VariantButton from "../../../../shared/ui/button/VariantButton";
-import { COLORS } from "../../../../utils/colors";
+import VariantButton from "../../../../../shared/ui/button/VariantButton";
+import { COLORS } from "../../../../../utils/colors";
 
 // TODO change placesArgs to models common
 export const FoundPlaceElement = ({ placeDetails }: { placeDetails: PlaceArgs }) => {

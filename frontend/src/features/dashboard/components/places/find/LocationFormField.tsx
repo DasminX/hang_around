@@ -2,7 +2,7 @@ import { LocationVO } from "@dasminx/hang-around-common";
 import * as Location from "expo-location";
 import { memo, ReactNode, useCallback, useEffect, useState } from "react";
 
-import { usePlacesStore } from "../../slices/PlacesStore";
+import { usePlacesStore } from "../../../slices/PlacesStore";
 import { ManualCoordsInputs } from "./ManualCoordsInputs";
 import { Map } from "./Map";
 import { MapPlaceholder } from "./MapPlaceholder";

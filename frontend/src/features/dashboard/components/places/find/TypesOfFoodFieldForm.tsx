@@ -4,9 +4,9 @@ import { useTranslation } from "react-i18next";
 import { FlatList, Modal, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Checkbox, Chip, Text } from "react-native-paper";
 
-import VariantButton from "../../../../shared/ui/button/VariantButton";
-import { COLORS } from "../../../../utils/colors";
-import { usePlacesStore } from "../../slices/PlacesStore";
+import VariantButton from "../../../../../shared/ui/button/VariantButton";
+import { COLORS } from "../../../../../utils/colors";
+import { usePlacesStore } from "../../../slices/PlacesStore";
 
 export const TypesOfFoodFieldForm = () => {
   const { t } = useTranslation();

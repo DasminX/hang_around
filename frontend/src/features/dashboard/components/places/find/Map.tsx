@@ -3,7 +3,7 @@ import { memo } from "react";
 import { StyleSheet } from "react-native";
 import MapView, { MapPressEvent, Marker } from "react-native-maps";
 
-import { usePlacesStore } from "../../slices/PlacesStore";
+import { usePlacesStore } from "../../../slices/PlacesStore";
 
 export const Map = memo(() => {
   const location = usePlacesStore((state) => state.location);

@@ -4,9 +4,9 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
-import VariantButton from "../../../../shared/ui/button/VariantButton";
-import OutlinedInput from "../../../../shared/ui/input/OutlinedInput";
-import { usePlacesStore } from "../../slices/PlacesStore";
+import VariantButton from "../../../../../shared/ui/button/VariantButton";
+import OutlinedInput from "../../../../../shared/ui/input/OutlinedInput";
+import { usePlacesStore } from "../../../slices/PlacesStore";
 
 export const ManualCoordsInputs = memo(({ onChooseOnMap }: { onChooseOnMap: () => void }) => {
   const { t } = useTranslation();

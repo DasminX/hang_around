@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet } from "react-native";
 import { Headline } from "react-native-paper";
 
-import { COLORS } from "../../../../utils/colors";
+import { COLORS } from "../../../../../utils/colors";
 import { FoundPlaceElement } from "./FoundPlaceElement";
 
 export const FoundPlaces = ({ places }: { places: PlaceArgs[] }) => {

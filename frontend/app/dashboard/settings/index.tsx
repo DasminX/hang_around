@@ -1,5 +1,7 @@
 import { KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
-import { Text } from "react-native-paper";
+import { Divider } from "react-native-paper";
+
+import { LangChangeField } from "../../../src/features/dashboard/components/settings/LangChangeField";
 
 export default function SettingsIndex() {
   return (
@@ -7,17 +9,17 @@ export default function SettingsIndex() {
       style={styles.root}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <Text>elo</Text>
+      <LangChangeField />
+      <Divider />
     </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   root: {
-    top: "10%",
-    height: "65%",
+    flex: 1,
+    marginHorizontal: "auto",
+    marginTop: 64,
     width: "90%",
-    alignSelf: "center",
-    justifyContent: "space-evenly",
   },
 });

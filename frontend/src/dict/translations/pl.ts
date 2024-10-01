@@ -133,4 +133,7 @@ export default {
     vegetarian_restaurant: "Wegetariańska",
     vietnamese_restaurant: "Wietnamska",
   },
+  settings: {
+    change_lang: "Zmień język",
+  },
 };

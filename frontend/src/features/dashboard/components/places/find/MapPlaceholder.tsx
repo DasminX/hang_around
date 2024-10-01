@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
-import VariantButton from "../../../../shared/ui/button/VariantButton";
-import { COLORS } from "../../../../utils/colors";
+import VariantButton from "../../../../../shared/ui/button/VariantButton";
+import { COLORS } from "../../../../../utils/colors";
 
 export const MapPlaceholder = memo(
   ({ onEnterManuallyPress }: { onEnterManuallyPress: () => void }) => {

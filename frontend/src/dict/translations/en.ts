@@ -60,10 +60,10 @@ export default {
   dashboard: {
     search: "Search for places...",
     notFound: "Places were not found",
-    findPlace: "find a place",
-    distance: "distance",
+    findPlace: "Find a place",
+    distance: "Distance",
     coords: "Enter coordinates",
-    latitude: "latitude",
+    latitude: "Latitude",
     lng: "Longitude",
     minRating: "Minimum rating (1-5)",
     typeOfFood: "Food type",
@@ -132,5 +132,8 @@ export default {
     vegan_restaurant: "Vegan",
     vegetarian_restaurant: "Vegetarian",
     vietnamese_restaurant: "Vietnamese",
+  },
+  settings: {
+    change_lang: "Change language",
   },
 };

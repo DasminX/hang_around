@@ -5,7 +5,7 @@ import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from "react-na
 import { Headline } from "react-native-paper";
 
 import { findPlaces } from "../../../src/features/dashboard/api/fetchers";
-import { FindPlaceForm } from "../../../src/features/dashboard/components/index/FindPlaceForm";
+import { FindPlaceForm } from "../../../src/features/dashboard/components/places/find/FindPlaceForm";
 import { useFoundPlaceStore } from "../../../src/features/dashboard/slices/FoundPlaceStore";
 import { usePlacesStore } from "../../../src/features/dashboard/slices/PlacesStore";
 import { useErrorModalStore } from "../../../src/shared/components/error-modal/errorModalStore";
