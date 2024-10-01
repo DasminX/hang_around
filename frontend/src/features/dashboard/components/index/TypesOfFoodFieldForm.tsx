@@ -8,7 +8,6 @@ import VariantButton from "../../../../shared/ui/button/VariantButton";
 import { COLORS } from "../../../../utils/colors";
 import { usePlacesStore } from "../../slices/PlacesStore";
 
-// TODO add translations for labels incoming from TYPE_OF_FOOD_ARRAY
 export const TypesOfFoodFieldForm = () => {
   const { t } = useTranslation();
 
@@ -56,7 +55,7 @@ export const TypesOfFoodFieldForm = () => {
                       typesOfFood?.includes(item) && { color: COLORS.palette.orange },
                     ]}
                   >
-                    {item}
+                    {t(`types_of_food.${item}`)}
                   </Text>
                 </TouchableOpacity>
               )}
@@ -84,7 +83,7 @@ export const TypesOfFoodFieldForm = () => {
                 style={styles.chip}
                 textStyle={{ color: COLORS.palette.orange }}
               >
-                {item}
+                {t(`types_of_food.${item}`)}
               </Chip>
             </React.Fragment>
           ))}
