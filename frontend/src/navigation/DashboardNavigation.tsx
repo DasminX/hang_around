@@ -46,7 +46,7 @@ export default function DashboardNavigation() {
         }}
       />
       <Tabs.Screen
-        name="visits"
+        name="visits/index"
         options={{
           tabBarLabel: ({ focused }) => (
             <Text variant="bodySmall" style={{ color: focused ? COLORS.palette.orange : "white" }}>
@@ -63,7 +63,7 @@ export default function DashboardNavigation() {
         }}
       />
       <Tabs.Screen
-        name="settings"
+        name="settings/index"
         options={{
           tabBarLabel: ({ focused }) => (
             <Text variant="bodySmall" style={{ color: focused ? COLORS.palette.orange : "white" }}>

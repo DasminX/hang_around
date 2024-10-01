@@ -1,7 +1,7 @@
 import { KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
 
-export const SettingsIndex = () => {
+export default function SettingsIndex() {
   return (
     <KeyboardAvoidingView
       style={styles.root}
@@ -10,7 +10,7 @@ export const SettingsIndex = () => {
       <Text>elo</Text>
     </KeyboardAvoidingView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   root: {
