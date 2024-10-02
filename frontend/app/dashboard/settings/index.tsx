@@ -36,6 +36,7 @@ export default function SettingsIndex() {
       <ScrollView>
         <LangChangeField />
         <Divider />
+        {/* More later */}
       </ScrollView>
       <View style={styles.logoutArea}>
         <VariantButton

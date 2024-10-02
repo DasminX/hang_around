@@ -137,4 +137,8 @@ export default {
     change_lang: "Zmień język",
     logout: "Wyloguj się",
   },
+  visits: {
+    visitsList: "Lista wizyt",
+    notFound: "Nie znaleziono żadnych wizyt",
+  },
 };

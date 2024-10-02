@@ -1,38 +1,29 @@
-import { PlaceArgs, VisitArgs } from "@dasminx/hang-around-common";
-import * as Linking from "expo-linking";
+import { VisitArgs } from "@dasminx/hang-around-common";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Dialog, Icon, Portal, Surface, Text } from "react-native-paper";
 
-import { useTokenStore } from "../../../../../shared/slices/tokenStore";
-import VariantButton from "../../../../../shared/ui/button/VariantButton";
-import { COLORS } from "../../../../../utils/colors";
-import { createVisit } from "../../../api/fetchers";
-import { useVisitsStore } from "../../../slices/VisitsStore";
+import VariantButton from "../../../../shared/ui/button/VariantButton";
+import { COLORS } from "../../../../utils/colors";
 
 // TODO change placesArgs to models common
-export const FoundPlaceElement = ({ placeDetails }: { placeDetails: PlaceArgs }) => {
+export const Visit = ({ visit }: { visit: VisitArgs }) => {
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const storeVisits = useVisitsStore((state) => state.setVisits);
-
-  const token = useTokenStore((state) => state.token);
 
   // TODO display image, priceLevel, paymentOptions, navigate button instead of visit button
   return (
     <ScrollView>
       <Surface style={styles.surface} elevation={1}>
         <Text variant="titleLarge" style={{ textAlign: "center" }}>
-          {placeDetails.name}
+          {visit.name}
         </Text>
         <View style={{ flexDirection: "row" }}>
           <Text>
-            {t("place.rating")}: {placeDetails.rating}{" "}
+            {t("place.rating")}: {visit.rating}{" "}
           </Text>
-          {new Array(Math.round(placeDetails.rating)).fill(null).map((_, index) => (
+          {new Array(Math.round(visit.rating)).fill(null).map((_, index) => (
             <Icon key={index} source={"star"} size={24} color={COLORS.palette.orange} />
           ))}
         </View>
@@ -40,11 +31,11 @@ export const FoundPlaceElement = ({ placeDetails }: { placeDetails: PlaceArgs })
         <View style={styles.accessible}>
           <Icon
             size={24}
-            source={placeDetails.isAccessible ? "wheelchair-accessibility" : "alert-box"}
-            color={placeDetails.isAccessible ? COLORS.variants.green : COLORS.variants.red}
+            source={visit.isAccessible ? "wheelchair-accessibility" : "alert-box"}
+            color={visit.isAccessible ? COLORS.variants.green : COLORS.variants.red}
           />
           <Text variant="labelMedium">
-            {t(placeDetails.isAccessible ? "place.accessible" : "place.notAccessible")}
+            {t(visit.isAccessible ? "place.accessible" : "place.notAccessible")}
           </Text>
         </View>
         <View>
@@ -69,20 +60,8 @@ export const FoundPlaceElement = ({ placeDetails }: { placeDetails: PlaceArgs })
             <VariantButton variant="red" onPress={() => setVisible(false)}>
               {t("common.cancel")}
             </VariantButton>
-            <VariantButton
+            <VariantButton /* TODO if clicked add to VisitedPlacesStore (doesnt exist yet) */
               variant="green"
-              loading={loading}
-              onPress={async () => {
-                setLoading(true);
-                const { id: _, ...detailsWithoutId } = placeDetails;
-                const newlyCreatedVisit = await createVisit(detailsWithoutId, token);
-                if (!(newlyCreatedVisit instanceof Error) && newlyCreatedVisit.status == "ok") {
-                  storeVisits(newlyCreatedVisit.data as VisitArgs);
-                }
-                Linking.openURL(placeDetails.mapsUri);
-                setVisible(false);
-                setLoading(false);
-              }}
             >
               {t("place.visit")}
             </VariantButton>
