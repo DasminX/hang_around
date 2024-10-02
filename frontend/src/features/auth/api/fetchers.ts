@@ -22,6 +22,12 @@ export const forgotPassword = async (email: string) => {
   });
 };
 
+export const signOut = async () => {
+  return await fetchData(`${BACKEND_API_PATH}/auth/signout`, {
+    method: "GET",
+  });
+};
+
 // export const changeForgottenPassword = async (email: string) => {
 //   return await fetchData(`${BACKEND_API_PATH}/auth/reset-password`, {
 //     method: "POST",

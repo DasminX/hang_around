@@ -1,11 +1,14 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from "react-native";
 import { Divider } from "react-native-paper";
 
+import { signOut } from "../../../src/features/auth/api/fetchers";
 import { LangChangeField } from "../../../src/features/dashboard/components/settings/LangChangeField";
 import VariantButton from "../../../src/shared/ui/button/VariantButton";
+import { AUTH_TOKEN, AUTH_TOKEN_EXP } from "../../../src/utils/constants";
 
 export default function SettingsIndex() {
   const { t } = useTranslation();
@@ -15,8 +18,8 @@ export default function SettingsIndex() {
     setIsLoggingOut(true);
 
     try {
-      // Log out (await logout() handler)
-      // Clear async storage for token and exp
+      await signOut();
+      await AsyncStorage.multiRemove([AUTH_TOKEN, AUTH_TOKEN_EXP]);
       router.push("/auth/login");
     } catch (_err) {
       /* empty */
@@ -36,7 +39,7 @@ export default function SettingsIndex() {
       </ScrollView>
       <View style={styles.logoutArea}>
         <VariantButton
-          variant="green"
+          variant="red"
           style={styles.logoutButton}
           onPress={logoutHandler}
           loading={isLoggingOut}
