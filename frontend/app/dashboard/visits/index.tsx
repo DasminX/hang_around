@@ -22,14 +22,11 @@ export default function VisitsIndex() {
 
   const token = useTokenStore((state) => state.token);
 
-  console.log(visits);
-
   useEffect(() => {
     if (Date.now() >= refreshedAt + MINUTE) {
       (async () => {
         const refreshed = await getVisits(token);
         if (!(refreshed instanceof Error) && refreshed.status == "ok") {
-          setVisits(refreshed.data as VisitArgs[]);
           storeVisits(refreshed.data as VisitArgs[]);
         } else {
           setVisits(storedVisits);

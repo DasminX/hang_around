@@ -1,19 +1,18 @@
 import { VisitArgs } from "@dasminx/hang-around-common";
-import { useTranslation } from "react-i18next";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView } from "react-native";
+import { Divider } from "react-native-paper";
 
 import { Visit } from "./Visit";
 
 export const VisitsList = ({ visits }: { visits: VisitArgs[] }) => {
-  const { t } = useTranslation();
-
   return (
     <ScrollView>
-      {visits.map((visit) => (
-        <Visit key={visit.id} visit={visit} />
+      {visits.map((visit, key, arr) => (
+        <>
+          <Visit key={visit.id} visit={visit} />
+          {key !== arr.length - 1 && <Divider />}
+        </>
       ))}
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({});

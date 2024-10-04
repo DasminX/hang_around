@@ -1,16 +1,17 @@
 import { VisitArgs } from "@dasminx/hang-around-common";
+import * as Linking from "expo-linking";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, View } from "react-native";
-import { Dialog, Icon, Portal, Surface, Text } from "react-native-paper";
+import { Dialog, Portal, Surface, Text } from "react-native-paper";
 
 import VariantButton from "../../../../shared/ui/button/VariantButton";
 import { COLORS } from "../../../../utils/colors";
 
-// TODO change placesArgs to models common
 export const Visit = ({ visit }: { visit: VisitArgs }) => {
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // TODO display image, priceLevel, paymentOptions, navigate button instead of visit button
   return (
@@ -19,27 +20,14 @@ export const Visit = ({ visit }: { visit: VisitArgs }) => {
         <Text variant="titleLarge" style={{ textAlign: "center" }}>
           {visit.name}
         </Text>
-        <View style={{ flexDirection: "row" }}>
-          <Text>
-            {t("place.rating")}: {visit.rating}{" "}
+        <Text variant="bodyLarge">
+          {t("visits.visitedAt")}:{" "}
+          <Text variant="labelLarge" style={{ color: COLORS.palette.orange }}>
+            {new Date(visit.happenedAt).toLocaleString()}
           </Text>
-          {new Array(Math.round(visit.rating)).fill(null).map((_, index) => (
-            <Icon key={index} source={"star"} size={24} color={COLORS.palette.orange} />
-          ))}
-        </View>
-
-        <View style={styles.accessible}>
-          <Icon
-            size={24}
-            source={visit.isAccessible ? "wheelchair-accessibility" : "alert-box"}
-            color={visit.isAccessible ? COLORS.variants.green : COLORS.variants.red}
-          />
-          <Text variant="labelMedium">
-            {t(visit.isAccessible ? "place.accessible" : "place.notAccessible")}
-          </Text>
-        </View>
+        </Text>
         <View>
-          <VariantButton onPress={() => setVisible(true)}>{t("place.visit")}</VariantButton>
+          <VariantButton onPress={() => setVisible(true)}>{t("visits.seeOnMap")}</VariantButton>
         </View>
       </Surface>
       <Portal>
@@ -53,17 +41,24 @@ export const Visit = ({ visit }: { visit: VisitArgs }) => {
           </Dialog.Title>
           <Dialog.Content>
             <Text style={{ textAlign: "center" }} variant="bodyMedium">
-              {t("place.wannaVisit")}
+              {t("visits.leavingApp")}
             </Text>
           </Dialog.Content>
           <Dialog.Actions style={{ flexDirection: "column" }}>
             <VariantButton variant="red" onPress={() => setVisible(false)}>
               {t("common.cancel")}
             </VariantButton>
-            <VariantButton /* TODO if clicked add to VisitedPlacesStore (doesnt exist yet) */
+            <VariantButton
               variant="green"
+              loading={loading}
+              onPress={async () => {
+                setLoading(true);
+                Linking.openURL(visit.mapsUri as string);
+                setVisible(false);
+                setLoading(false);
+              }}
             >
-              {t("place.visit")}
+              {t("visits.see")}
             </VariantButton>
           </Dialog.Actions>
         </Dialog>
@@ -76,18 +71,15 @@ const styles = StyleSheet.create({
   surface: {
     marginVertical: 16,
     marginHorizontal: "auto",
-    paddingHorizontal: 16,
-    paddingVertical: 32,
-    gap: 16,
+    paddingHorizontal: 8,
+    paddingVertical: 16,
+    gap: 8,
     alignItems: "center",
     justifyContent: "center",
-    maxWidth: "95%",
+    maxWidth: "85%",
     width: 360,
-    borderRadius: 16,
+    borderRadius: 8,
     borderColor: COLORS.palette.orange,
     borderWidth: 1,
-  },
-  accessible: {
-    flexDirection: "row",
   },
 });

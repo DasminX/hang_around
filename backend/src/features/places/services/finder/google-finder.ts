@@ -25,38 +25,10 @@ export class GooglePlacesFinder implements PlacesFinderI {
     const [lat, lng] = args.location.toTuple();
 
     try {
-      // const res = await this._client.searchText(
-      //   {
-      //     locationBias: {
-      //       circle: {
-      //         center: {
-      //           latitude: lat,
-      //           longitude: lng,
-      //         },
-      //         radius: args.radius,
-      //       },
-      //     },
-      //     textQuery: args.typesOfFood.join(","),
-      //     includedType: "restaurant",
-      //     maxResultCount: 20,
-      //     openNow: true,
-      //     minRating: args.minRating,
-      //   },
-      //   {
-      //     otherArgs: {
-      //       headers: {
-      //         "X-Goog-FieldMask":
-      //           "places.id,places.accessibilityOptions,places.businessStatus,places.displayName,places.formattedAddress,places.googleMapsUri,places.iconBackgroundColor,places.iconMaskBaseUri,places.location,places.primaryType,places.shortFormattedAddress,places.types,places.utcOffsetMinutes,places.rating",
-      //         // "*",
-      //       },
-      //     },
-      //   },
-      // );
-
       const res = await this._client.searchNearby(
         {
           includedTypes: ["restaurant"],
-          maxResultCount: 1,
+          maxResultCount: 20,
           locationRestriction: {
             circle: {
               center: {
@@ -67,9 +39,8 @@ export class GooglePlacesFinder implements PlacesFinderI {
             },
           },
           includedPrimaryTypes: args.typesOfFood,
-
           languageCode: "en-GB",
-          rankPreference: "DISTANCE", // TODO to be selected
+          rankPreference: "POPULARITY",
           // TODO filter if open here
           // TODO minRating to be removed or filtered down here \/
           // TODO add new fields from fieldMask (paymentOptions, priceLevel) to model
@@ -90,7 +61,7 @@ export class GooglePlacesFinder implements PlacesFinderI {
         return [];
       }
 
-      console.log(res[0].places);
+      // console.log(res[0].places);
 
       return res[0].places.map(
         (place) =>

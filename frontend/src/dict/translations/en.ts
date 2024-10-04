@@ -140,5 +140,10 @@ export default {
   visits: {
     visitsList: "Visits list",
     notFound: "Visits were not found",
+    visitedAt: "Visited at",
+    seeOnMap: "See on map",
+    leavingApp:
+      "Do you see the place on a map? Confirming redirects you to the localisation of the place in Google Place App.",
+    see: "See",
   },
 };

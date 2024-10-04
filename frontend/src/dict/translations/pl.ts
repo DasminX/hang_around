@@ -140,5 +140,10 @@ export default {
   visits: {
     visitsList: "Lista wizyt",
     notFound: "Nie znaleziono żadnych wizyt",
+    visitedAt: "Odwiedzono",
+    seeOnMap: "Zobacz na mapie",
+    leavingApp:
+      "Czy na pewno chcesz zobaczyć to miejse na mapie? Potwierdzenie przenosi do lokalizacji miejsca w aplikacji Google Maps.",
+    see: "Zobacz",
   },
 };
