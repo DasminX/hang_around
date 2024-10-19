@@ -2,6 +2,7 @@ import { AppError, Location } from "@dasminx/hang-around-common";
 import { PlacesClient } from "@googlemaps/places";
 
 import { Place } from "../../models/place";
+import { getPriceLevelNumeric } from "../../utils/price-level-numeric";
 import { PlacesFinderError, PlacesFinderNotInitializedError } from "./../../../../shared/errors";
 import { PlacesFindArgs, PlacesFinderI } from "./abstract";
 
@@ -41,16 +42,13 @@ export class GooglePlacesFinder implements PlacesFinderI {
           includedPrimaryTypes: args.typesOfFood,
           languageCode: "en-GB",
           rankPreference: "POPULARITY",
-          // TODO filter if open here
-          // TODO minRating to be removed or filtered down here \/
-          // TODO add new fields from fieldMask (paymentOptions, priceLevel) to model
           // TODO get main photo and display
         },
         {
           otherArgs: {
             headers: {
               "X-Goog-FieldMask":
-                "places.id,places.accessibilityOptions,places.businessStatus,places.displayName,places.formattedAddress,places.googleMapsUri,places.iconBackgroundColor,places.iconMaskBaseUri,places.location,places.primaryType,places.shortFormattedAddress,places.types,places.utcOffsetMinutes,places.rating,places.priceLevel,places.paymentOptions",
+                "places.id,places.accessibilityOptions,places.displayName,places.googleMapsUri,places.location,places.types,places.rating,places.priceLevel",
               // "*",
             },
           },
@@ -61,22 +59,46 @@ export class GooglePlacesFinder implements PlacesFinderI {
         return [];
       }
 
-      // console.log(res[0].places);
+      return res[0].places
+        .filter((place) => {
+          if (
+            typeof args.isOpen === "boolean" &&
+            !(place.currentOpeningHours?.openNow || place.regularOpeningHours?.openNow)
+          ) {
+            return false;
+          }
 
-      return res[0].places.map(
-        (place) =>
-          new Place({
-            id: place.id ?? "Not specified",
-            name: place.displayName?.text ?? "Not specified",
-            location: new Location({
-              lat: place.location?.latitude ?? Number.NaN,
-              lng: place.location?.longitude ?? Number.NaN,
+          if (typeof place.rating !== "number" || place.rating < args.minRating) {
+            return false;
+          }
+
+          const placePriceLevelNumeric = getPriceLevelNumeric(place.priceLevel);
+
+          if (
+            typeof placePriceLevelNumeric !== "number" ||
+            placePriceLevelNumeric < args.priceLevels[0] ||
+            placePriceLevelNumeric > args.priceLevels[1]
+          ) {
+            return false;
+          }
+
+          return true;
+        })
+        .map(
+          (place) =>
+            new Place({
+              id: place.id ?? "Not specified",
+              name: place.displayName?.text ?? "Not specified",
+              location: new Location({
+                lat: place.location?.latitude ?? Number.NaN,
+                lng: place.location?.longitude ?? Number.NaN,
+              }),
+              rating: place.rating ?? Number.NaN,
+              mapsUri: place.googleMapsUri ?? "",
+              isAccessible: Boolean(place.accessibilityOptions?.wheelchairAccessibleEntrance),
+              priceLevel: getPriceLevelNumeric(place.priceLevel),
             }),
-            rating: place.rating ?? Number.NaN,
-            mapsUri: place.googleMapsUri ?? "",
-            isAccessible: Boolean(place.accessibilityOptions?.wheelchairAccessibleEntrance),
-          }),
-      );
+        );
     } catch (e) {
       console.log(e);
       return new PlacesFinderError(e);

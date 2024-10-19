@@ -7,6 +7,7 @@ export class Place {
   public rating: PlaceArgs["rating"];
   public mapsUri: PlaceArgs["mapsUri"];
   public isAccessible: PlaceArgs["isAccessible"];
+  public priceLevel: PlaceArgs["priceLevel"];
 
   constructor(_place: PlaceArgs) {
     this.id = _place.id;
@@ -15,5 +16,6 @@ export class Place {
     this.rating = _place.rating;
     this.mapsUri = _place.mapsUri;
     this.isAccessible = _place.isAccessible;
+    this.priceLevel = _place.priceLevel;
   }
 }

@@ -29,7 +29,6 @@ const howFar = z.object({
   }),
 });
 
-// Wrap the schema with z.lazy to avoid circular dependencies
 export const FIND_PLACES_SCHEMA = z.lazy(() =>
   z
     .object({
@@ -37,6 +36,43 @@ export const FIND_PLACES_SCHEMA = z.lazy(() =>
       typesOfFood,
       howFar,
       minRating: rating,
+      isOpen: z
+        .boolean({
+          message: PlacesValidationErrors.INVALID_ISOPEN_TYPE,
+        })
+        .optional(),
+      priceLevels: z
+        .tuple(
+          [
+            z
+              .number({
+                message: PlacesValidationErrors.INVALID_PRICE_LEVELS,
+              })
+              .min(-1, {
+                message: PlacesValidationErrors.INVALID_PRICE_LEVELS,
+              })
+              .max(4, {
+                message: PlacesValidationErrors.INVALID_PRICE_LEVELS,
+              }),
+            z
+              .number({
+                message: PlacesValidationErrors.INVALID_PRICE_LEVELS,
+              })
+              .min(-1, {
+                message: PlacesValidationErrors.INVALID_PRICE_LEVELS,
+              })
+              .max(4, {
+                message: PlacesValidationErrors.INVALID_PRICE_LEVELS,
+              }),
+          ],
+          {
+            message: PlacesValidationErrors.INVALID_PRICE_LEVELS,
+          }
+        )
+        .refine((data) => data[0] > data[1], {
+          message: PlacesValidationErrors.INVALID_PRICE_LEVELS,
+          path: ["priceLevels"],
+        }),
     })
     .strict()
 );

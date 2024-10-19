@@ -1,6 +1,6 @@
 {
   "name": "@dasminx/hang-around-common",
-  "version": "1.0.20",
+  "version": "1.0.26",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [

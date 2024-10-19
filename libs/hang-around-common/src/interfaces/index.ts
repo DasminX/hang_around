@@ -8,6 +8,7 @@ export interface PlaceArgs {
   mapsUri: string;
   location: Location;
   isAccessible: boolean;
+  priceLevel: number;
 }
 
 export interface VisitArgs {

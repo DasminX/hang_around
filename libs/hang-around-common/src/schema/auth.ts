@@ -1,8 +1,6 @@
 import z from "zod";
 import { AuthValidationErrors } from "../messages";
 
-// Wrap schemas with z.lazy to avoid circular dependencies
-
 const email = z
   .string({
     message: AuthValidationErrors.INVALID_EMAIL,

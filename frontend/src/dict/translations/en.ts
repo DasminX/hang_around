@@ -30,6 +30,7 @@ export default {
     INTERNAL_ERROR: "Server error. Please try again.",
     ACCOUNT_ALREADY_EXISTS: "Account already exists.",
     TOO_MANY_REQUESTS: "Too many requests. Try again later.",
+    INVALID_PRICE_LEVELS: "Given price levels are invalid.",
   },
   errors: {
     occured: "Error occured",

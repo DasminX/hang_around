@@ -13,6 +13,9 @@ export enum PlacesValidationErrors {
   TOO_BIG_DISTANCE = "TOO_BIG_DISTANCE",
   UNIT_REQUIRED = "UNIT_REQUIRED",
   WRONG_UNIT = "WRONG_UNIT",
+  INVALID_ISOPEN_TYPE = "INVALID_ISOPEN_TYPE",
+
+  INVALID_PRICE_LEVELS = "INVALID_PRICE_LEVELS",
 }
 
 export enum VisitsValidationErrors {

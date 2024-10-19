@@ -30,6 +30,7 @@ export default {
     INTERNAL_ERROR: "Błąd serwera. Spróbuj ponownie.",
     ACCOUNT_ALREADY_EXISTS: "Konto już istnieje dla tego adresu e-mail.",
     TOO_MANY_REQUESTS: "Wykonałeś zbyt dużo zapytań. Spróbuj ponownie później.",
+    INVALID_PRICE_LEVELS: "Podano nieprawidłowy zakres cen.",
   },
   errors: {
     occured: "Wystąpił błąd",
