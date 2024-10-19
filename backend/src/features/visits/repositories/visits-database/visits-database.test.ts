@@ -1,4 +1,4 @@
-import { LocationVO, TimestampBrand, VisitArgs } from "@dasminx/hang-around-common";
+import { Location, Timestamp, VisitArgs } from "@dasminx/hang-around-common";
 import { randomUUID } from "crypto";
 import { beforeEach, describe, expect, it, Mock, vi } from "vitest";
 
@@ -15,12 +15,12 @@ describe("InMemoryVisitsDatabase", () => {
 
   const visitArgs: Omit<VisitArgs, "id"> = {
     name: "Visit Name",
-    location: new LocationVO([40.7128, -74.006]),
+    location: new Location([40.7128, -74.006]),
     rating: 5,
     mapsUri: new URL("http://example.com"),
     isAccessible: true,
     userId,
-    happenedAt: Date.now() as TimestampBrand,
+    happenedAt: Date.now() as Timestamp,
   };
 
   beforeEach(() => {

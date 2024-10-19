@@ -1,4 +1,4 @@
-import { LocationVO } from "@dasminx/hang-around-common";
+import { Location } from "@dasminx/hang-around-common";
 import { memo } from "react";
 import { StyleSheet } from "react-native";
 import MapView, { MapPressEvent, Marker } from "react-native-maps";
@@ -10,7 +10,7 @@ export const Map = memo(() => {
   const setLocation = usePlacesStore((state) => state.setLocation);
 
   const handleMapPress = (e: MapPressEvent) => {
-    const coords = new LocationVO([
+    const coords = new Location([
       e.nativeEvent.coordinate.latitude,
       e.nativeEvent.coordinate.longitude,
     ]);

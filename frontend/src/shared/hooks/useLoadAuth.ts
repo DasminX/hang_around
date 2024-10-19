@@ -1,4 +1,4 @@
-import { TimestampBrand } from "@dasminx/hang-around-common";
+import { Timestamp } from "@dasminx/hang-around-common";
 import { useEffect, useState } from "react";
 
 import { getAsyncStorageAuthTokenProps } from "../../utils/async-storage-helpers";
@@ -17,7 +17,7 @@ export const useLoadAuth = () => {
         const [token, expirationTime] = await getAsyncStorageAuthTokenProps();
 
         if (isTokenValid(token, expirationTime)) {
-          setTokenCredentials({ token, expirationTime: expirationTime as TimestampBrand });
+          setTokenCredentials({ token, expirationTime: expirationTime as Timestamp });
         }
       } catch (e) {
         console.log(`Error in getting auth token properties: ${e}`);

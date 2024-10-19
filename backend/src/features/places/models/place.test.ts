@@ -1,4 +1,4 @@
-import { LocationVO, PlaceArgs } from "@dasminx/hang-around-common";
+import { Location, PlaceArgs } from "@dasminx/hang-around-common";
 import { describe, expect, it } from "vitest";
 
 import { Place } from "./place";
@@ -9,7 +9,7 @@ describe("Place Model", () => {
     name: "Central Park",
     rating: 4.5,
     mapsUri: "http://maps.google.com/centralpark",
-    location: new LocationVO([40.7128, -74.006]),
+    location: new Location([40.7128, -74.006]),
     isAccessible: true,
   };
 
@@ -32,7 +32,7 @@ describe("Place Model", () => {
     expect(typeof place.name).toBe("string");
     expect(typeof place.rating).toBe("number");
     expect(typeof place.mapsUri).toBe("string");
-    expect(place.location).toBeInstanceOf(LocationVO);
+    expect(place.location).toBeInstanceOf(Location);
     expect(typeof place.isAccessible).toBe("boolean");
   });
 });

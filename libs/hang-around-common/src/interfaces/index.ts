@@ -1,22 +1,22 @@
-import { TimestampBrand } from "../types";
-import { LocationVO } from "../value-objects";
+import { Timestamp } from "../types";
+import { Location } from "../value-objects";
 
 export interface PlaceArgs {
   id: string;
   name: string;
   rating: number;
   mapsUri: string;
-  location: LocationVO;
+  location: Location;
   isAccessible: boolean;
 }
 
 export interface VisitArgs {
   id: string;
   name: string;
-  location: LocationVO;
+  location: Location;
   rating: number;
   mapsUri: URL | string;
   isAccessible: boolean;
   userId: string;
-  happenedAt: TimestampBrand;
+  happenedAt: Timestamp;
 }

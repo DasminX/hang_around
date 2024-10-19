@@ -1,4 +1,4 @@
-import { TimestampBrand } from "@dasminx/hang-around-common";
+import { Timestamp } from "@dasminx/hang-around-common";
 import { randomUUID } from "crypto";
 
 import { AccountAlreadyExistsError, BadCredentialsError } from "../../../../shared/errors";
@@ -17,7 +17,7 @@ export class AuthInMemoryDatabase implements AuthDatabaseI {
       throw new BadCredentialsError();
     }
 
-    return new Token(randomUUID(), Date.now() as TimestampBrand);
+    return new Token(randomUUID(), Date.now() as Timestamp);
   }
   async signUp(email: string, password: string): Promise<void> {
     if (!this._db.find((account) => account.email === email)) {

@@ -1,9 +1,9 @@
-import { AppError, LocationVO, TYPE_OF_FOOD_ARRAY } from "@dasminx/hang-around-common";
+import { AppError, Location, TYPE_OF_FOOD_ARRAY } from "@dasminx/hang-around-common";
 
 import { Place } from "../../models/place";
 
 export type PlacesFindArgs = {
-  location: LocationVO;
+  location: Location;
   typesOfFood: Array<(typeof TYPE_OF_FOOD_ARRAY)[number]>;
   radius: number;
   minRating: number;

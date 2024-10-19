@@ -1,4 +1,4 @@
-import { LocationVO } from "@dasminx/hang-around-common";
+import { Location } from "@dasminx/hang-around-common";
 import * as Location from "expo-location";
 import { memo, ReactNode, useCallback, useEffect, useState } from "react";
 
@@ -29,7 +29,7 @@ export const LocationFormField = memo(() => {
         const permission = await Location.requestForegroundPermissionsAsync();
         if (permission.granted) {
           const detectedLocation = (await Location.getCurrentPositionAsync()).coords;
-          const currentLocation = new LocationVO([
+          const currentLocation = new Location([
             detectedLocation.latitude,
             detectedLocation.longitude,
           ]);

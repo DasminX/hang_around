@@ -3,10 +3,10 @@ import { GeoPoint } from "firebase/firestore";
 export type LocationArgs =
   | [number, number]
   | GeoPoint
-  | LocationVO
+  | Location
   | { lat: number; lng: number };
 
-export class LocationVO {
+export class Location {
   public readonly lat: number;
   public readonly lng: number;
 
@@ -23,7 +23,7 @@ export class LocationVO {
     }
   }
 
-  public equals(other: LocationVO) {
+  public equals(other: Location) {
     return this.lat === other.lat && this.lng === other.lng;
   }
 

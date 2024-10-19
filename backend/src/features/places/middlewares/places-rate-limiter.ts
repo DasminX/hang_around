@@ -1,8 +1,8 @@
+import { ONE_HOUR } from "@dasminx/hang-around-common";
 import { Request, Response } from "express";
 import rateLimit from "express-rate-limit";
 
 import { RequestLimitExceededError } from "../../../shared/errors";
-import { ONE_HOUR } from "../../../utils/constants";
 
 export const placesRateLimiter = rateLimit({
   limit: process.env.HA_APP_DATA_SOURCE === "IN_MEMORY" ? 5 : 10,

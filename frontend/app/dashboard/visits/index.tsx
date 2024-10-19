@@ -1,4 +1,4 @@
-import { VisitArgs } from "@dasminx/hang-around-common";
+import { ONE_MINUTE, VisitArgs } from "@dasminx/hang-around-common";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from "react-native";
@@ -10,7 +10,6 @@ import { VisitsHeadline } from "../../../src/features/dashboard/components/visit
 import { VisitsList } from "../../../src/features/dashboard/components/visits/VisitsList";
 import { useVisitsStore } from "../../../src/features/dashboard/slices/VisitsStore";
 import { useTokenStore } from "../../../src/shared/slices/tokenStore";
-import { MINUTE } from "../../../src/utils/constants";
 
 export default function VisitsIndex() {
   const { t } = useTranslation();
@@ -23,7 +22,7 @@ export default function VisitsIndex() {
   const token = useTokenStore((state) => state.token);
 
   useEffect(() => {
-    if (Date.now() >= refreshedAt + MINUTE) {
+    if (Date.now() >= refreshedAt + ONE_MINUTE) {
       (async () => {
         const refreshed = await getVisits(token);
         if (!(refreshed instanceof Error) && refreshed.status == "ok") {

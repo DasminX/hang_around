@@ -1,4 +1,4 @@
-import { AppError, LocationVO } from "@dasminx/hang-around-common";
+import { AppError, Location } from "@dasminx/hang-around-common";
 import { PlacesClient } from "@googlemaps/places";
 
 import { Place } from "../../models/place";
@@ -68,7 +68,7 @@ export class GooglePlacesFinder implements PlacesFinderI {
           new Place({
             id: place.id ?? "Not specified",
             name: place.displayName?.text ?? "Not specified",
-            location: new LocationVO({
+            location: new Location({
               lat: place.location?.latitude ?? Number.NaN,
               lng: place.location?.longitude ?? Number.NaN,
             }),

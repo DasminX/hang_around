@@ -1,4 +1,4 @@
-import { LocationVO } from "@dasminx/hang-around-common";
+import { Location } from "@dasminx/hang-around-common";
 import { create } from "zustand";
 
 import { FindPlacesSchemaType } from "../../../../../libs/hang-around-common/src/schema/places";
@@ -16,7 +16,7 @@ const DEFAULT_PLACES_FIELDS: FindPlacesSchemaType = {
     distance: 0,
     unit: "m",
   },
-  location: new LocationVO([-181, -181]),
+  location: new Location([-181, -181]),
   minRating: 0,
   typesOfFood: [],
 };

@@ -4,4 +4,4 @@ export type HowFar = {
 };
 
 export type Brand<K, T> = K & { __brand: T };
-export type TimestampBrand = Brand<number, "timestamp">;
+export type Timestamp = Brand<number, "timestamp">;

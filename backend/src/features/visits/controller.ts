@@ -1,4 +1,4 @@
-import { CREATE_VISIT_SCHEMA, GET_VISITS_SCHEMA, LocationVO, TimestampBrand } from "@dasminx/hang-around-common";
+import { CREATE_VISIT_SCHEMA, GET_VISITS_SCHEMA, Location, Timestamp } from "@dasminx/hang-around-common";
 import { StatusCodes } from "http-status-codes";
 
 import { DataSource } from "../../shared/data-source";
@@ -29,8 +29,8 @@ export const createVisit: ExpressMiddlewareCaught = async (req, res) => {
     mapsUri,
     isAccessible,
     userId: res.locals.user.uid,
-    location: new LocationVO(location),
-    happenedAt: Date.now() as TimestampBrand,
+    location: new Location(location),
+    happenedAt: Date.now() as Timestamp,
   });
 
   return res.status(StatusCodes.CREATED).json(new CreatevisitResponse(createdVisit));

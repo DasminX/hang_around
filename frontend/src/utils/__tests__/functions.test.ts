@@ -1,14 +1,14 @@
 import { isKeptTokenValid } from "../functions";
 
-const MOCK_10_SECONDS_AHEAD = Date.now() + 10000;
+const TEN_SECONDS_AHEAD = Date.now() + 10000;
 
 describe("isKeptTokenValid function", () => {
   it("should be truthy if trimmed string is empty", () => {
     const t = "";
     const t2 = "        ";
 
-    const tIsValid = isKeptTokenValid(t, MOCK_10_SECONDS_AHEAD);
-    const t2IsValid = isKeptTokenValid(t2, MOCK_10_SECONDS_AHEAD);
+    const tIsValid = isKeptTokenValid(t, TEN_SECONDS_AHEAD);
+    const t2IsValid = isKeptTokenValid(t2, TEN_SECONDS_AHEAD);
 
     expect(tIsValid).toBeFalsy();
     expect(t2IsValid).toBeFalsy();
@@ -17,7 +17,7 @@ describe("isKeptTokenValid function", () => {
   it("should be truthy if token is not empty", () => {
     const t = "abc";
 
-    const tIsValid = isKeptTokenValid(t, MOCK_10_SECONDS_AHEAD);
+    const tIsValid = isKeptTokenValid(t, TEN_SECONDS_AHEAD);
 
     expect(tIsValid).toBeTruthy();
   });

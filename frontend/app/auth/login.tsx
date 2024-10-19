@@ -1,4 +1,4 @@
-import { TimestampBrand } from "@dasminx/hang-around-common";
+import { Timestamp } from "@dasminx/hang-around-common";
 import { router } from "expo-router";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -48,12 +48,12 @@ export default function Login() {
         if (isObjectWithAllProperties(res.data, "token", "expirationTime")) {
           await setAsyncStorageAuthTokenProps(
             res.data.token as string,
-            res.data.expirationTime as TimestampBrand,
+            res.data.expirationTime as Timestamp,
           );
 
           setTokenCredentials({
             token: res.data.token as string,
-            expirationTime: res.data.expirationTime as TimestampBrand,
+            expirationTime: res.data.expirationTime as Timestamp,
           });
           return router.push("/dashboard/places/find");
         }

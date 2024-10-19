@@ -1,4 +1,4 @@
-import { LocationVO } from "@dasminx/hang-around-common";
+import { Location } from "@dasminx/hang-around-common";
 import { memo } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
@@ -21,7 +21,7 @@ export const ManualCoordsInputs = memo(({ onChooseOnMap }: { onChooseOnMap: () =
           <OutlinedInput
             keyboardType="number-pad"
             placeholder="0"
-            onChangeText={(lat: string) => setLocation(new LocationVO({ ...location, lat: +lat }))}
+            onChangeText={(lat: string) => setLocation(new Location({ ...location, lat: +lat }))}
             width="short"
           />
         </View>
@@ -30,7 +30,7 @@ export const ManualCoordsInputs = memo(({ onChooseOnMap }: { onChooseOnMap: () =
           <OutlinedInput
             keyboardType="number-pad"
             placeholder="0"
-            onChangeText={(lng: string) => setLocation(new LocationVO({ ...location, lng: +lng }))}
+            onChangeText={(lng: string) => setLocation(new Location({ ...location, lng: +lng }))}
             width="short"
           />
         </View>

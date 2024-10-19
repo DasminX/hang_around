@@ -1,11 +1,11 @@
-import { LocationVO, TimestampBrand, VisitArgs } from "@dasminx/hang-around-common";
+import { Location, Timestamp, VisitArgs } from "@dasminx/hang-around-common";
 import { describe, expect, it } from "vitest";
 
 import { Visit } from "./visit";
 
 describe("Visit Model", () => {
-  const location = new LocationVO([40.7128, -74.006]);
-  const timestamp: TimestampBrand = Date.now() as TimestampBrand;
+  const location = new Location([40.7128, -74.006]);
+  const timestamp: Timestamp = Date.now() as Timestamp;
 
   const visitArgs: VisitArgs = {
     id: "123",
@@ -50,7 +50,7 @@ describe("Visit Model", () => {
   });
 
   it("should handle edge cases for happenedAt", () => {
-    const visitArgsWithEdgeCaseTimestamp: VisitArgs = { ...visitArgs, happenedAt: 0 as TimestampBrand };
+    const visitArgsWithEdgeCaseTimestamp: VisitArgs = { ...visitArgs, happenedAt: 0 as Timestamp };
     const visit = new Visit(visitArgsWithEdgeCaseTimestamp);
     expect(visit.happenedAt).toBe(0);
   });

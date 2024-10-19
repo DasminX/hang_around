@@ -1,4 +1,4 @@
-import { TimestampBrand } from "@dasminx/hang-around-common";
+import { ONE_HOUR, Timestamp } from "@dasminx/hang-around-common";
 import {
   Auth,
   createUserWithEmailAndPassword,
@@ -8,7 +8,6 @@ import {
 } from "firebase/auth";
 
 import { EmailNotConfirmedError } from "../../../../shared/errors";
-import { ONE_HOUR } from "../../../../utils/constants";
 import { Token } from "../../models/token";
 import { AuthDatabaseI } from "./abstract";
 
@@ -24,8 +23,8 @@ export class AuthFirebase implements AuthDatabaseI {
 
     const idTokenResult = await user.getIdTokenResult();
     const timestamp = Number.isNaN(Number(idTokenResult.claims.exp))
-      ? ((Date.now() + ONE_HOUR) as TimestampBrand)
-      : (Number(idTokenResult.claims.exp) as TimestampBrand);
+      ? ((Date.now() + ONE_HOUR) as Timestamp)
+      : (Number(idTokenResult.claims.exp) as Timestamp);
 
     return new Token(idTokenResult.token, timestamp);
   }

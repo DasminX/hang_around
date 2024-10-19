@@ -1,4 +1,4 @@
-import { API_PREFIX, ErrorCode, LocationVO } from "@dasminx/hang-around-common";
+import { API_PREFIX, ErrorCode, Location } from "@dasminx/hang-around-common";
 import { StatusCodes } from "http-status-codes";
 import request from "supertest";
 import { beforeAll, describe, expect, it, vi } from "vitest";
@@ -35,7 +35,7 @@ describe(`Route ${PLACES_PATH}`, () => {
                 new Place({
                   id: "123",
                   isAccessible: true,
-                  location: new LocationVO([1, 2]),
+                  location: new Location([1, 2]),
                   mapsUri: "https://hav1.com",
                   name: "Mock place",
                   rating: 4,
@@ -55,7 +55,7 @@ describe(`Route ${PLACES_PATH}`, () => {
 
       expect(response.body.data[0].id).toEqual("123");
       expect(response.body.data[0].isAccessible).toBeTruthy();
-      expect(new LocationVO(response.body.data[0].location).equals(new LocationVO([1, 2]))).toBeTruthy();
+      expect(new Location(response.body.data[0].location).equals(new Location([1, 2]))).toBeTruthy();
 
       expect(response.body.data[0].mapsUri).toMatch(/^https?:\/\/[\w.-]+\.[a-zA-Z]{2,}(?:\/[\w.-]*)*$/);
       expect(response.body.data[0].name).toEqual("Mock place");

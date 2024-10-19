@@ -1,6 +1,6 @@
+import { ONE_HOUR } from "@dasminx/hang-around-common";
 import rateLimit from "express-rate-limit";
 
-import { ONE_HOUR } from "../../utils/constants";
 import { RequestLimitExceededError } from "../errors";
 
 export const globalRateLimiter = rateLimit({
