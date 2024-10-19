@@ -23,5 +23,3 @@ export const TextWithLink = ({ text, link }: TextWithLinkProps) => {
     </Text>
   );
 };
-
-//TODO

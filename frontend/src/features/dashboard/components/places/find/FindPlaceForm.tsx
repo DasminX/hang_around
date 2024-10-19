@@ -20,18 +20,20 @@ export const FindPlaceForm = ({
   return (
     <View style={styles.form}>
       <Text style={styles.formText} variant="titleLarge">
-        {t("dashboard.distance")}
-      </Text>
-      <HowFarFormField />
-      <Text style={styles.formText} variant="titleLarge">
         {t("dashboard.coords")}
       </Text>
       <LocationFormField />
+      <Text style={styles.formText} variant="titleLarge">
+        {t("dashboard.distance")}
+      </Text>
+      <HowFarFormField />
       <Text style={styles.formText} variant="titleLarge">
         {t("dashboard.minRating")}
       </Text>
       <MinRatingFormField />
       <TypesOfFoodFieldForm />
+      {/* IsOpen */}
+      {/* Zakres cen */}
       <VariantButton
         variant="green"
         onPress={onSubmit}

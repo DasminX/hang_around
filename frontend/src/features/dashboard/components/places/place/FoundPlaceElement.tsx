@@ -78,6 +78,7 @@ export const FoundPlaceElement = ({ placeDetails }: { placeDetails: PlaceArgs })
                 const newlyCreatedVisit = await createVisit(detailsWithoutId, token);
                 if (!(newlyCreatedVisit instanceof Error) && newlyCreatedVisit.status == "ok") {
                   storeVisits(newlyCreatedVisit.data as VisitArgs);
+                  /* TODO store in Async Storage also */
                 }
                 Linking.openURL(placeDetails.mapsUri);
                 setVisible(false);

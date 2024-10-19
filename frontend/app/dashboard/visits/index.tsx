@@ -21,6 +21,7 @@ export default function VisitsIndex() {
 
   const token = useTokenStore((state) => state.token);
 
+  /* TODO read from Async Storage also */
   useEffect(() => {
     if (Date.now() >= refreshedAt + ONE_MINUTE) {
       (async () => {
