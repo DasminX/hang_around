@@ -1,5 +1,5 @@
 import { Location } from "@dasminx/hang-around-common";
-import * as Location from "expo-location";
+import * as ExpoLocation from "expo-location";
 import { memo, ReactNode, useCallback, useEffect, useState } from "react";
 
 import { usePlacesStore } from "../../../slices/PlacesStore";
@@ -26,9 +26,9 @@ export const LocationFormField = memo(() => {
     if (enterManually) return;
     (async () => {
       try {
-        const permission = await Location.requestForegroundPermissionsAsync();
+        const permission = await ExpoLocation.requestForegroundPermissionsAsync();
         if (permission.granted) {
-          const detectedLocation = (await Location.getCurrentPositionAsync()).coords;
+          const detectedLocation = (await ExpoLocation.getCurrentPositionAsync()).coords;
           const currentLocation = new Location([
             detectedLocation.latitude,
             detectedLocation.longitude,
