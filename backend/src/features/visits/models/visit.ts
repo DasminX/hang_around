@@ -5,6 +5,7 @@ export class Visit {
   public readonly name: string;
   public readonly location: Location;
   public readonly rating: number;
+  public readonly priceLevel: number;
   public readonly mapsUri: URL | string;
   public readonly isAccessible: boolean;
   public readonly userId: string;
@@ -15,6 +16,7 @@ export class Visit {
     this.name = _args.name;
     this.location = _args.location;
     this.rating = _args.rating;
+    this.priceLevel = _args.priceLevel;
     this.mapsUri = _args.mapsUri;
     this.isAccessible = _args.isAccessible;
     this.userId = _args.userId;

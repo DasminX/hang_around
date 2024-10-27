@@ -26,6 +26,8 @@ export enum VisitsValidationErrors {
 
   INVALID_URL = "INVALID_URL",
   INVALID_ACCESSIBLE_VALUE = "INVALID_ACCESSIBLE_VALUE",
+
+  INVALID_PRICE_LEVEL = "INVALID_PRICE_LEVEL",
 }
 
 export enum CommonValidationErrors {

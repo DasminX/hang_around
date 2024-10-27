@@ -75,13 +75,15 @@ export const FoundPlaceElement = ({ placeDetails }: { placeDetails: PlaceArgs })
               onPress={async () => {
                 setLoading(true);
                 const { id: _, ...detailsWithoutId } = placeDetails;
+
                 const newlyCreatedVisit = await createVisit(detailsWithoutId, token);
+                console.log(newlyCreatedVisit);
                 if (!(newlyCreatedVisit instanceof Error) && newlyCreatedVisit.status == "ok") {
                   storeVisits(newlyCreatedVisit.data as VisitArgs);
                   /* TODO store in Async Storage also */
+                  Linking.openURL(placeDetails.mapsUri);
+                  setVisible(false);
                 }
-                Linking.openURL(placeDetails.mapsUri);
-                setVisible(false);
                 setLoading(false);
               }}
             >

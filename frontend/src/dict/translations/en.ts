@@ -31,6 +31,7 @@ export default {
     ACCOUNT_ALREADY_EXISTS: "Account already exists.",
     TOO_MANY_REQUESTS: "Too many requests. Try again later.",
     INVALID_PRICE_LEVELS: "Given price levels are invalid.",
+    INVALID_PRICE_LEVEL: "Given price is invalid.",
   },
   errors: {
     occured: "Error occured",
@@ -71,6 +72,8 @@ export default {
     foundPlaces: "Found places:",
     settings: "Settings",
     visits: "Visits",
+    isOpen: "Open now only",
+    priceLevels: "Price range",
   },
   place: {
     accessible: "Has facilities for people with disabilities",
@@ -92,6 +95,7 @@ export default {
     goBack: "Go back",
     warning: "Warning",
     cancel: "Cancel",
+    unspecified: "Unspecified",
   },
   types_of_food: {
     american_restaurant: "American",

@@ -35,6 +35,16 @@ export const CREATE_VISIT_SCHEMA = z.lazy(() =>
       isAccessible: z.boolean({
         message: VisitsValidationErrors.INVALID_ACCESSIBLE_VALUE,
       }),
+      priceLevel: z
+        .number({
+          message: VisitsValidationErrors.INVALID_PRICE_LEVEL,
+        })
+        .min(-1, {
+          message: VisitsValidationErrors.INVALID_PRICE_LEVEL,
+        })
+        .max(4, {
+          message: VisitsValidationErrors.INVALID_PRICE_LEVEL,
+        }),
     })
     .strict()
 );

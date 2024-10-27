@@ -42,7 +42,6 @@ export class GooglePlacesFinder implements PlacesFinderI {
           includedPrimaryTypes: args.typesOfFood,
           languageCode: "en-GB",
           rankPreference: "POPULARITY",
-          // TODO get main photo and display
         },
         {
           otherArgs: {

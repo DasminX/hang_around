@@ -4,7 +4,7 @@ import { StatusCodes } from "http-status-codes";
 import { DataSource } from "../../shared/data-source";
 import { parseInputBySchemaOrThrow } from "../../shared/validators/validate-zod-schema";
 import { ExpressMiddlewareCaught } from "../../utils/types";
-import { CreatevisitResponse, GetAllVisitsForAuthUserResponse, GetVisitResponse } from "./responses";
+import { CreateVisitResponse, GetAllVisitsForAuthUserResponse, GetVisitResponse } from "./responses";
 
 export const getVisitsForAuthUser: ExpressMiddlewareCaught = async (_req, res) => {
   const visits = await DataSource.visits.getVisitsForUser(res.locals.user.uid);
@@ -21,17 +21,21 @@ export const getVisit: ExpressMiddlewareCaught = async (req, res) => {
 };
 
 export const createVisit: ExpressMiddlewareCaught = async (req, res) => {
-  const { name, location, rating, mapsUri, isAccessible } = parseInputBySchemaOrThrow(req.body, CREATE_VISIT_SCHEMA);
+  const { name, location, rating, mapsUri, isAccessible, priceLevel } = parseInputBySchemaOrThrow(
+    req.body,
+    CREATE_VISIT_SCHEMA,
+  );
 
   const createdVisit = await DataSource.visits.createVisit({
     name,
     rating,
     mapsUri,
     isAccessible,
+    priceLevel,
     userId: res.locals.user.uid,
     location: new Location(location),
     happenedAt: Date.now() as Timestamp,
   });
 
-  return res.status(StatusCodes.CREATED).json(new CreatevisitResponse(createdVisit));
+  return res.status(StatusCodes.CREATED).json(new CreateVisitResponse(createdVisit));
 };

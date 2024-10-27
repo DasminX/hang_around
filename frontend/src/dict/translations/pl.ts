@@ -31,6 +31,7 @@ export default {
     ACCOUNT_ALREADY_EXISTS: "Konto już istnieje dla tego adresu e-mail.",
     TOO_MANY_REQUESTS: "Wykonałeś zbyt dużo zapytań. Spróbuj ponownie później.",
     INVALID_PRICE_LEVELS: "Podano nieprawidłowy zakres cen.",
+    INVALID_PRICE_LEVEL: "Podano nieprawidłową cenę.",
   },
   errors: {
     occured: "Wystąpił błąd",
@@ -71,6 +72,8 @@ export default {
     foundPlaces: "Wyszukane miejsca:",
     settings: "Ustawienia",
     visits: "Wizyty",
+    isOpen: "Tylko otwarte teraz",
+    priceLevels: "Zakres cen",
   },
   place: {
     accessible: "Posiada udogodnienia dla osób niepełnosprawnych",
@@ -92,6 +95,7 @@ export default {
     goBack: "Wróć",
     warning: "Ostrzeżenie",
     cancel: "Anuluj",
+    unspecified: "Nieokreślono",
   },
   types_of_food: {
     american_restaurant: "Amerykańska",
@@ -103,7 +107,7 @@ export default {
     brunch_restaurant: "Brunch",
     cafe: "Kawiarnia",
     chinese_restaurant: "Chińska",
-    coffee_shop: "Kawiarnia",
+    coffee_shop: "Sklep z kawą",
     fast_food_restaurant: "Fast food",
     french_restaurant: "Francuska",
     greek_restaurant: "Grecka",

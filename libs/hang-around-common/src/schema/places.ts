@@ -69,7 +69,7 @@ export const FIND_PLACES_SCHEMA = z.lazy(() =>
             message: PlacesValidationErrors.INVALID_PRICE_LEVELS,
           }
         )
-        .refine((data) => data[0] > data[1], {
+        .refine((data) => data[0] <= data[1], {
           message: PlacesValidationErrors.INVALID_PRICE_LEVELS,
           path: ["priceLevels"],
         }),

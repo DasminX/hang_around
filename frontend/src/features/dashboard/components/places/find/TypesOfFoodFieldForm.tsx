@@ -41,7 +41,9 @@ export const TypesOfFoodFieldForm = () => {
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <FlatList
-              data={TYPE_OF_FOOD_ARRAY}
+              data={TYPE_OF_FOOD_ARRAY.slice().sort((a, b) =>
+                t(`types_of_food.${a}`).localeCompare(t(`types_of_food.${b}`)),
+              )}
               keyExtractor={(item) => item}
               renderItem={({ item }) => (
                 <TouchableOpacity onPress={() => toggleItem(item)} style={styles.itemContainer}>
@@ -76,17 +78,20 @@ export const TypesOfFoodFieldForm = () => {
           horizontal
           contentContainerStyle={styles.chipsContainerContent}
         >
-          {typesOfFood.map((item) => (
-            <React.Fragment key={item}>
-              <Chip
-                mode="outlined"
-                style={styles.chip}
-                textStyle={{ color: COLORS.palette.orange }}
-              >
-                {t(`types_of_food.${item}`)}
-              </Chip>
-            </React.Fragment>
-          ))}
+          {typesOfFood
+            .slice()
+            .sort((a, b) => t(`types_of_food.${a}`).localeCompare(t(`types_of_food.${b}`)))
+            .map((item) => (
+              <React.Fragment key={item}>
+                <Chip
+                  mode="outlined"
+                  style={styles.chip}
+                  textStyle={{ color: COLORS.palette.orange }}
+                >
+                  {t(`types_of_food.${item}`)}
+                </Chip>
+              </React.Fragment>
+            ))}
         </ScrollView>
       )}
     </ScrollView>

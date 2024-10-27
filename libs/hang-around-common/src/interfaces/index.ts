@@ -16,6 +16,7 @@ export interface VisitArgs {
   name: string;
   location: Location;
   rating: number;
+  priceLevel: number;
   mapsUri: URL | string;
   isAccessible: boolean;
   userId: string;

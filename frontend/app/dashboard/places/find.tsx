@@ -22,6 +22,8 @@ export default function FindPlaceIndex() {
   const location = usePlacesStore((state) => state.location);
   const minRating = usePlacesStore((state) => state.minRating);
   const typesOfFood = usePlacesStore((state) => state.typesOfFood);
+  const priceLevels = usePlacesStore((state) => state.priceLevels);
+  const isOpen = usePlacesStore((state) => state.isOpen);
 
   const resetInputs = usePlacesStore((state) => state.resetPlacesCredentials);
 
@@ -35,7 +37,10 @@ export default function FindPlaceIndex() {
 
   const onSubmitHandler = async () => {
     setIsLoading(true);
-    const res = await findPlaces({ howFar, location, minRating, typesOfFood }, token);
+    const res = await findPlaces(
+      { howFar, location, minRating, typesOfFood, priceLevels, isOpen },
+      token,
+    );
     if (res instanceof Error) {
       return setError({
         title: t("errors.occured"),
