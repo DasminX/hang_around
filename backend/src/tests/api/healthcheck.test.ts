@@ -3,9 +3,9 @@ import { StatusCodes } from "http-status-codes";
 import request from "supertest";
 import { describe, expect, it } from "vitest";
 
-import { getNodeApp } from "../../app";
+import { getApp } from "../../app";
 
-const app = getNodeApp();
+const app = getApp();
 const HEALTHCHECK_PATH = `${API_PREFIX}/healthcheck`;
 
 describe(`Route ${HEALTHCHECK_PATH}`, () => {

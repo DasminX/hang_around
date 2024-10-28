@@ -4,7 +4,7 @@ import { StatusCodes } from "http-status-codes";
 import request from "supertest";
 import { beforeAll, describe, expect, it } from "vitest";
 
-import { getNodeApp } from "../../app";
+import { getApp } from "../../app";
 import {
   INVALID_EMAIL,
   INVALID_PASSWORD,
@@ -13,7 +13,7 @@ import {
   VALID_SIGN_UP_CREDENTIALS,
 } from "../test-data";
 
-const app = getNodeApp();
+const app = getApp();
 const AUTH_PATH = `${API_PREFIX}/auth`;
 
 describe(`Route ${AUTH_PATH}`, () => {

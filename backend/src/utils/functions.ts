@@ -12,13 +12,3 @@ export const isObjectWithAllProperties = <K extends string>(
   }
   return false;
 };
-
-export const _delay = async (ms: number) =>
-  await new Promise<void>((resolve) =>
-    setTimeout(
-      () => {
-        resolve();
-      },
-      Math.max(0, ms),
-    ),
-  );

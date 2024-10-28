@@ -12,6 +12,11 @@ import { TokenVerifierI } from "./services/token-verifier/abstract";
 import { FirebaseTokenVerifier } from "./services/token-verifier/firebase-token-verifier";
 import { InMemoryTokenVerifier } from "./services/token-verifier/in-memory";
 
+enum DataSourceEnum {
+  IN_MEMORY = "IN_MEMORY",
+  FIREBASE = "FIREBASE",
+}
+
 export class DataSource {
   public static visits: VisitsDatabaseI;
   public static places: PlacesFinderI;
@@ -21,9 +26,9 @@ export class DataSource {
   public static setup(): void {
     const pickedDataSource = process.env.HA_APP_DATA_SOURCE as string;
 
-    if (pickedDataSource == "IN_MEMORY") {
+    if (pickedDataSource == DataSourceEnum.IN_MEMORY) {
       this._setInMemory();
-    } else if (pickedDataSource == "FIREBASE") {
+    } else if (pickedDataSource == DataSourceEnum.FIREBASE) {
       this._setFromFirebase();
     } else {
       throw new DataSourceError(pickedDataSource);

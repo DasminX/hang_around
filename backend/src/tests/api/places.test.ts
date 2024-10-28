@@ -3,7 +3,7 @@ import { StatusCodes } from "http-status-codes";
 import request from "supertest";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 
-import { getNodeApp } from "../../app";
+import { getApp } from "../../app";
 import { Place } from "../../features/places/models/place";
 import { DataSource } from "../../shared/data-source";
 import {
@@ -13,7 +13,7 @@ import {
   VALID_SIGN_UP_CREDENTIALS,
 } from "../test-data";
 
-const app = getNodeApp();
+const app = getApp();
 const PLACES_PATH = `${API_PREFIX}/places`;
 
 describe(`Route ${PLACES_PATH}`, () => {

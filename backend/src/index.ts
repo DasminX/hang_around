@@ -1,4 +1,4 @@
-import { getNodeApp } from "./app";
+import { getApp } from "./app";
 import { logger } from "./shared/logger";
 import { loadEnvConfig } from "./utils/config";
 
@@ -11,7 +11,7 @@ import { loadEnvConfig } from "./utils/config";
   loadEnvConfig();
 
   const port = process.env.PORT || 3000;
-  const server = getNodeApp().listen(port, () => {
+  const server = getApp().listen(port, () => {
     logger.info(`App running on port ${port}...`);
   });
 

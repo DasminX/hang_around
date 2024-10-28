@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 import helmet from "helmet";
+import morgan from "morgan";
 
 import { errorController } from "./error.controller";
 import mainRouter from "./router";
@@ -11,9 +12,8 @@ import { DataSource } from "./shared/data-source";
 import { NotFoundError } from "./shared/errors";
 import { logger } from "./shared/logger";
 import { globalRateLimiter } from "./shared/middlewares/global-rate-limiter";
-import { httpLevelLoggerMiddleware } from "./shared/middlewares/http-level-logger-middleware";
 
-export const getNodeApp = () => {
+export const getApp = () => {
   try {
     DataSource.setup();
     logger.info("Datasource set up.");
@@ -28,7 +28,13 @@ export const getNodeApp = () => {
   app.use(helmet());
   app.use(cookieParser());
 
-  app.use(httpLevelLoggerMiddleware);
+  app.use(
+    morgan(":method :url :status :res[content-length] - :response-time ms", {
+      stream: {
+        write: (message) => logger.http(message.trim()),
+      },
+    }),
+  );
   app.use(globalRateLimiter);
 
   app.use(express.json({ limit: "10kb" }));

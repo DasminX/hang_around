@@ -3,11 +3,11 @@ import { StatusCodes } from "http-status-codes";
 import request from "supertest";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 
-import { getNodeApp } from "../../app";
+import { getApp } from "../../app";
 import { DataSource } from "../../shared/data-source";
 
 // Mock DataSource
-const app = getNodeApp();
+const app = getApp();
 const VISITS_PATH = `${API_PREFIX}/visits`;
 
 describe(`Route ${VISITS_PATH}`, () => {
