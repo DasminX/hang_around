@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from "express";
 import { DataSource } from "../data-source";
 import { NotAuthenticatedError } from "../errors";
 
-const isAuthenticatedMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = getFromBearer(req.headers);
     if (!token) {
@@ -25,4 +25,4 @@ const getFromBearer = (headers: Request["headers"]): string | null => {
   return headers.authorization.split(" ").at(-1) || null;
 };
 
-export { isAuthenticatedMiddleware as default, isAuthenticatedMiddleware };
+export { authMiddleware,authMiddleware as default };

@@ -70,7 +70,7 @@ export default function Login() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <View>
-        <AuthHeadline headlineText={t("auth.loginTo")} showAppName={true} />
+        <AuthHeadline headlineText={t("auth.welcomeTo")} showAppName={true} />
         <LoginForm onSubmit={loginHandler} />
       </View>
     </KeyboardAvoidingView>

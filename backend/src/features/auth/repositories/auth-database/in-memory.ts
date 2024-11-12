@@ -8,7 +8,12 @@ import { AuthDatabaseI } from "./abstract";
 type MockUser = { email: string; password: string };
 
 export class AuthInMemoryDatabase implements AuthDatabaseI {
-  private _db: MockUser[] = [];
+  private _db: MockUser[] = [
+    {
+      email: "wojtas@ha.com",
+      password: "Aaaaaa1!",
+    },
+  ];
 
   async signIn(email: string, password: string): Promise<Token> {
     const isValidCredentials = this._db.find((account) => account.email === email && account.password === password);

@@ -26,6 +26,7 @@ describe(`Route ${VISITS_PATH}`, () => {
         rating: 5,
         mapsUri: "http://example.com",
         isAccessible: true,
+        priceLevel: 3,
       };
 
       const mockCreatedVisit = {
@@ -37,6 +38,7 @@ describe(`Route ${VISITS_PATH}`, () => {
         isAccessible: true,
         userId,
         happenedAt: Date.now() as Timestamp,
+        priceLevel: 3,
       };
 
       vi.spyOn(DataSource.visits, "createVisit").mockImplementation(
@@ -71,6 +73,7 @@ describe(`Route ${VISITS_PATH}`, () => {
           isAccessible: true,
           userId,
           happenedAt: Date.now() as Timestamp,
+          priceLevel: 3,
         },
         {
           id: "visit-id-2",
@@ -81,6 +84,7 @@ describe(`Route ${VISITS_PATH}`, () => {
           isAccessible: false,
           userId,
           happenedAt: Date.now() as Timestamp,
+          priceLevel: 3,
         },
       ];
 
@@ -112,6 +116,7 @@ describe(`Route ${VISITS_PATH}`, () => {
         isAccessible: true,
         userId,
         happenedAt: Date.now() as Timestamp,
+        priceLevel: 3,
       };
 
       vi.spyOn(DataSource.visits, "getVisitById").mockImplementation(

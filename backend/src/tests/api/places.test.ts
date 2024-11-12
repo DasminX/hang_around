@@ -39,6 +39,7 @@ describe(`Route ${PLACES_PATH}`, () => {
                   mapsUri: "https://hav1.com",
                   name: "Mock place",
                   rating: 4,
+                  priceLevel: 3,
                 }),
               ]);
             }, 0),
@@ -60,6 +61,7 @@ describe(`Route ${PLACES_PATH}`, () => {
       expect(response.body.data[0].mapsUri).toMatch(/^https?:\/\/[\w.-]+\.[a-zA-Z]{2,}(?:\/[\w.-]*)*$/);
       expect(response.body.data[0].name).toEqual("Mock place");
       expect(response.body.data[0].rating).toEqual(4);
+      expect(response.body.data[0].priceLevel).toEqual(3);
     });
 
     it("should return 401 when no token is provided", async () => {

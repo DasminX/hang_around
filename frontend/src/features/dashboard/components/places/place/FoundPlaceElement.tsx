@@ -21,7 +21,7 @@ export const FoundPlaceElement = ({ placeDetails }: { placeDetails: PlaceArgs })
 
   const token = useTokenStore((state) => state.token);
 
-  // TODO display image, priceLevel, paymentOptions, navigate button instead of visit button
+  // TODO  paymentOptions, navigate button instead of visit button
   return (
     <ScrollView>
       <Surface style={styles.surface} elevation={1}>
@@ -47,6 +47,13 @@ export const FoundPlaceElement = ({ placeDetails }: { placeDetails: PlaceArgs })
             {t(placeDetails.isAccessible ? "place.accessible" : "place.notAccessible")}
           </Text>
         </View>
+        {/* TODO */}
+        <View style={styles.accessible}>
+          <Text variant="labelMedium">
+            {placeDetails.priceLevel > 0 ? "$".repeat(placeDetails.priceLevel) : "no $"}
+          </Text>
+        </View>
+        {/* /TODO */}
         <View>
           <VariantButton onPress={() => setVisible(true)}>{t("place.visit")}</VariantButton>
         </View>
@@ -77,7 +84,6 @@ export const FoundPlaceElement = ({ placeDetails }: { placeDetails: PlaceArgs })
                 const { id: _, ...detailsWithoutId } = placeDetails;
 
                 const newlyCreatedVisit = await createVisit(detailsWithoutId, token);
-                console.log(newlyCreatedVisit);
                 if (!(newlyCreatedVisit instanceof Error) && newlyCreatedVisit.status == "ok") {
                   storeVisits(newlyCreatedVisit.data as VisitArgs);
                   /* TODO store in Async Storage also */

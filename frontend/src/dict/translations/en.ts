@@ -39,7 +39,6 @@ export default {
   },
   auth: {
     welcomeTo: "Welcome to ",
-    loginTo: "Log in to ",
     email: "Email",
     password: "Password",
     repeatPassword: "Repeat Password",
