@@ -10,7 +10,7 @@ type MockUser = { email: string; password: string };
 export class AuthInMemoryDatabase implements AuthDatabaseI {
   private _db: MockUser[] = [
     {
-      email: "wojtas@ha.com",
+      email: "wojtas@hademoapp.com",
       password: "Aaaaaa1!",
     },
   ];
