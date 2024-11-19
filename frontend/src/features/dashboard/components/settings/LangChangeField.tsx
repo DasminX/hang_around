@@ -7,7 +7,7 @@ import { APP_PREFERRED_LANG } from "../../../../utils/constants";
 
 const LANGS = {
   pl: "🇵🇱",
-  en: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+  en: "🇬🇧",
 };
 
 export const LangChangeField = () => {

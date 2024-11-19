@@ -1,5 +1,5 @@
-import { ONE_MINUTE, VisitArgs } from "@dasminx/hang-around-common";
-import { useEffect, useState } from "react";
+import { /* ONE_MINUTE, */ VisitArgs } from "@dasminx/hang-around-common";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from "react-native";
 import { Divider } from "react-native-paper";
@@ -13,29 +13,23 @@ import { useTokenStore } from "../../../src/shared/slices/tokenStore";
 
 export default function VisitsIndex() {
   const { t } = useTranslation();
-  const [visits, setVisits] = useState<VisitArgs[] | null>(null);
 
   const storedVisits = useVisitsStore((state) => state.visits);
   const storeVisits = useVisitsStore((state) => state.setVisits);
-  const refreshedAt = useVisitsStore((state) => state.refreshedAt);
+  const resetVisits = useVisitsStore((state) => state.resetVisits);
 
   const token = useTokenStore((state) => state.token);
 
-  /* TODO read from Async Storage also */
   useEffect(() => {
-    if (Date.now() >= refreshedAt + ONE_MINUTE) {
-      (async () => {
-        const refreshed = await getVisits(token);
-        if (!(refreshed instanceof Error) && refreshed.status == "ok") {
-          storeVisits(refreshed.data as VisitArgs[]);
-        } else {
-          setVisits(storedVisits);
-        }
-      })();
-    } else {
-      setVisits(storedVisits);
-    }
-  }, [storedVisits, visits]);
+    (async () => {
+      const refreshed = await getVisits(token);
+      if (!(refreshed instanceof Error) && refreshed.status == "ok") {
+        storeVisits(refreshed.data as VisitArgs[]);
+      }
+    })();
+
+    return () => resetVisits();
+  }, []);
 
   return (
     <KeyboardAvoidingView
@@ -45,7 +39,7 @@ export default function VisitsIndex() {
       <ScrollView>
         <VisitsHeadline>{t("visits.visitsList")}</VisitsHeadline>
         <Divider />
-        {!visits?.length ? <NoVisitsFound /> : <VisitsList visits={visits} />}
+        {!storedVisits?.length ? <NoVisitsFound /> : <VisitsList visits={storedVisits} />}
       </ScrollView>
     </KeyboardAvoidingView>
   );

@@ -7,6 +7,7 @@ import { Divider } from "react-native-paper";
 
 import { signOut } from "../../../src/features/auth/api/fetchers";
 import { LangChangeField } from "../../../src/features/dashboard/components/settings/LangChangeField";
+import { useTokenStore } from "../../../src/shared/slices/tokenStore";
 import VariantButton from "../../../src/shared/ui/button/VariantButton";
 import { AUTH_TOKEN, AUTH_TOKEN_EXP } from "../../../src/utils/constants";
 
@@ -14,12 +15,15 @@ export default function SettingsIndex() {
   const { t } = useTranslation();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
+  const resetTokenCredentials = useTokenStore((state) => state.resetTokenCredentials);
+
   const logoutHandler = async () => {
     setIsLoggingOut(true);
 
     try {
       await signOut();
       await AsyncStorage.multiRemove([AUTH_TOKEN, AUTH_TOKEN_EXP]);
+      resetTokenCredentials();
       router.push("/auth/login");
     } catch (_err) {
       /* empty */

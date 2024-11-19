@@ -22,6 +22,8 @@ export class InMemoryVisitsDatabase implements VisitsDatabaseI {
   }
 
   async getVisitsForUser(userId: string): Promise<Visit[]> {
-    return this._db.filter((visits) => visits.userId === userId);
+    return [...this._db.filter((visits) => visits.userId === userId)].sort(
+      (a: Visit, b: Visit) => b.happenedAt - a.happenedAt,
+    );
   }
 }

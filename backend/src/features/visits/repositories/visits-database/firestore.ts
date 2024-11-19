@@ -10,7 +10,7 @@ export class VisitsFirestore implements VisitsDatabaseI {
   async createVisit(visitArgs: Omit<VisitArgs, "id">): Promise<Visit> {
     const addedVisit = await this._db.collection("visits").add({
       ...visitArgs,
-      location: visitArgs.location.toGeoPoint(),
+      location: visitArgs.location.toTuple(),
     });
 
     return new Visit({
@@ -39,6 +39,8 @@ export class VisitsFirestore implements VisitsDatabaseI {
   async getVisitsForUser(userId: string): Promise<Visit[]> {
     const visitsDocuments = await this._db.collection("visits").where("userId", "==", userId).get();
 
-    return visitsDocuments.docs.map((visit) => new Visit({ id: visit.id, ...(visit.data() as Omit<VisitArgs, "id">) }));
+    return [
+      ...visitsDocuments.docs.map((visit) => new Visit({ id: visit.id, ...(visit.data() as Omit<VisitArgs, "id">) })),
+    ].sort((a: Visit, b: Visit) => b.happenedAt - a.happenedAt);
   }
 }

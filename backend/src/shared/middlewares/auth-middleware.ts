@@ -25,4 +25,4 @@ const getFromBearer = (headers: Request["headers"]): string | null => {
   return headers.authorization.split(" ").at(-1) || null;
 };
 
-export { authMiddleware,authMiddleware as default };
+export { authMiddleware, authMiddleware as default };

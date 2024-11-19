@@ -17,6 +17,9 @@ export const Map = memo(() => {
     setLocation(coords);
   };
 
+  if (!location) return null;
+
+  /* TODO naprawic mapke - cos nie dziala (nie zaznacza markera i nie dziala onPress) */
   return (
     <MapView
       style={styles.map}
@@ -31,16 +34,15 @@ export const Map = memo(() => {
       showsCompass
       onPress={handleMapPress}
     >
-      {(Array.isArray(location) && location[0] >= -180) ||
-        ("lat" in location && location.lat >= -181 && (
-          <Marker
-            pinColor="red"
-            coordinate={{
-              latitude: Array.isArray(location) ? location[0] : location.lat,
-              longitude: Array.isArray(location) ? location[1] : location.lng,
-            }}
-          />
-        ))}
+      {location && (
+        <Marker
+          pinColor="red"
+          coordinate={{
+            latitude: Array.isArray(location) ? location[0] : location.lat,
+            longitude: Array.isArray(location) ? location[1] : location.lng,
+          }}
+        />
+      )}
     </MapView>
   );
 });

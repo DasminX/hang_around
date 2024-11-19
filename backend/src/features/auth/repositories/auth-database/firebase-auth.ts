@@ -24,7 +24,7 @@ export class AuthFirebase implements AuthDatabaseI {
     const idTokenResult = await user.getIdTokenResult();
     const timestamp = Number.isNaN(Number(idTokenResult.claims.exp))
       ? ((Date.now() + ONE_HOUR) as Timestamp)
-      : (Number(idTokenResult.claims.exp) as Timestamp);
+      : ((Number(idTokenResult.claims.exp) * 1000) as Timestamp);
 
     return new Token(idTokenResult.token, timestamp);
   }

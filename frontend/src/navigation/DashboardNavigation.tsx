@@ -16,9 +16,9 @@ export default function DashboardNavigation() {
           borderTopWidth: 2,
           borderTopColor: COLORS.palette.orange,
         },
-      }}
-      sceneContainerStyle={{
-        backgroundColor: COLORS.palette.black,
+        sceneStyle: {
+          backgroundColor: COLORS.palette.black,
+        },
       }}
       initialRouteName="places/find"
     >
