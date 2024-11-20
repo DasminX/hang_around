@@ -26,9 +26,6 @@ export class DataSource {
   public static setup(): void {
     const pickedDataSource = process.env.HA_APP_DATA_SOURCE as string;
 
-    console.log(process.env);
-    console.log(pickedDataSource);
-
     if (pickedDataSource == DataSourceEnum.IN_MEMORY) {
       this._setInMemory();
     } else if (pickedDataSource == DataSourceEnum.FIREBASE) {
