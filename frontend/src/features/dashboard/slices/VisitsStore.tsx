@@ -16,5 +16,5 @@ export const useVisitsStore = create<VisitsCredentialsType>((set) => ({
         ? [...visit, ...(state.visits || [])]
         : [visit, ...(state.visits || [])],
     })),
-  resetVisits: () => set((state) => ({ ...state, visits: null })), // TODO tu też update rfAt?
+  resetVisits: () => set((state) => ({ ...state, visits: null })),
 }));
