@@ -11,6 +11,7 @@ describe("Place Model", () => {
     mapsUri: "http://maps.google.com/centralpark",
     location: new Location([40.7128, -74.006]),
     isAccessible: true,
+    priceLevel: 3,
   };
 
   it("should create an instance of Place with provided arguments", () => {
@@ -23,6 +24,7 @@ describe("Place Model", () => {
     expect(place.rating).toBe(placeArgs.rating);
     expect(place.mapsUri).toBe(placeArgs.mapsUri);
     expect(place.isAccessible).toBe(placeArgs.isAccessible);
+    expect(place.priceLevel).toBe(placeArgs.priceLevel);
   });
 
   it("should have properties of correct types", () => {

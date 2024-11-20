@@ -16,6 +16,7 @@ describe("Visit Model", () => {
     isAccessible: true,
     userId: "user-456",
     happenedAt: timestamp,
+    priceLevel: 3,
   };
 
   it("should create an instance of Visit with provided arguments", () => {
@@ -30,6 +31,7 @@ describe("Visit Model", () => {
     expect(visit.isAccessible).toBe(visitArgs.isAccessible);
     expect(visit.userId).toBe(visitArgs.userId);
     expect(visit.happenedAt).toBe(visitArgs.happenedAt);
+    expect(visit.priceLevel).toBe(visitArgs.priceLevel);
   });
 
   it("should handle URL and string for mapsUri", () => {

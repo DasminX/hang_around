@@ -21,6 +21,7 @@ describe("InMemoryVisitsDatabase", () => {
     isAccessible: true,
     userId,
     happenedAt: Date.now() as Timestamp,
+    priceLevel: 3,
   };
 
   beforeEach(() => {
@@ -42,6 +43,7 @@ describe("InMemoryVisitsDatabase", () => {
     expect(visit.isAccessible).toBe(visitArgs.isAccessible);
     expect(visit.userId).toBe(visitArgs.userId);
     expect(visit.happenedAt).toBe(visitArgs.happenedAt);
+    expect(visit.priceLevel).toBe(visitArgs.priceLevel);
   });
 
   it("should get visits for a user", async () => {
