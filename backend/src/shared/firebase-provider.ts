@@ -15,16 +15,11 @@ export class FirebaseProvider {
     const adminAuth = getAdminAuth(adminApp);
     logger.info("Admin firebase initialized...");
 
-    console.log(process.env);
-
     const clientApp = initializeClientApp(this._getAppConfig());
-    console.log("client app", clientApp);
     const clientAuth = getClientAuth(clientApp);
-    console.log("client auth", clientAuth);
     logger.info("Client firebase initialized...");
 
     const db = getFirestore(adminApp, process.env.DB_ID as string);
-    console.log("Db", db);
     db.settings({
       credentials: {
         client_email: process.env.DB_CLIENT_EMAIL,
