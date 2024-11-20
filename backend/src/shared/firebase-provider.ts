@@ -15,6 +15,8 @@ export class FirebaseProvider {
     const adminAuth = getAdminAuth(adminApp);
     logger.info("Admin firebase initialized...");
 
+    console.log(process.env);
+
     const clientApp = initializeClientApp(this._getAppConfig());
     console.log("client app", clientApp);
     const clientAuth = getClientAuth(clientApp);
