@@ -10,7 +10,7 @@ import { loadEnvConfig } from "./utils/config";
 
   loadEnvConfig();
 
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT || 8080;
   const server = getApp().listen(port, () => {
     logger.info(`App running on port ${port}...`);
   });
