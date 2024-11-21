@@ -1,5 +1,14 @@
 import { APIResponseErrorI, APIResponseSuccessI } from "@dasminx/hang-around-common";
-import { HTTPMethod } from "http-method-enum";
+
+enum HTTPMethod {
+  DELETE = "DELETE",
+  GET = "GET",
+  HEAD = "HEAD",
+  OPTIONS = "OPTIONS",
+  PATCH = "PATCH",
+  POST = "POST",
+  PUT = "PUT",
+}
 
 type OptsType = {
   method: keyof typeof HTTPMethod;
