@@ -1,5 +1,5 @@
 import { API_PREFIX } from "@dasminx/hang-around-common";
 
-export const BACKEND_API_PATH = `http://192.168.100.25:3000${API_PREFIX}`;
+const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL;
 
-// TODO deploy
+export const BACKEND_API_PATH = `${API_URL}${API_PREFIX}`;

@@ -25,6 +25,7 @@ export const getApp = () => {
   const app = express();
 
   app.options("*", cors());
+  app.set("trust proxy", true);
   app.use(helmet());
   app.use(cookieParser());
 
