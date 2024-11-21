@@ -26,7 +26,7 @@
     "@dasminx/hang-around-common": "1.0.30",
     "@expo/vector-icons": "^14.0.4",
     "@react-native-async-storage/async-storage": "1.23.1",
-    "expo": "~52.0.9",
+    "expo": "^51.0.39",
     "expo-font": "^13.0.1",
     "expo-linking": "^7.0.3",
     "expo-location": "^18.0.2",

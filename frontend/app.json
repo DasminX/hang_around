@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Hang Around",
-    "slug": "HA_V1",
+    "slug": "hav1",
     "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -23,8 +23,7 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#77aca2"
-      },
-      "package": "com.dasminx.HA_V1"
+      }
     },
     "plugins": [
       "expo-router",
