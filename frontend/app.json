@@ -7,7 +7,6 @@
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
@@ -23,21 +22,11 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#77aca2"
-      },
-      "package": "com.dasminx.HA_V1"
+      }
     },
     "plugins": [
       "expo-router",
       "expo-font"
-    ],
-    "extra": {
-      "router": {
-        "origin": false
-      },
-      "eas": {
-        "projectId": "311a1dae-b24f-4341-9c23-edbb885f8115"
-      }
-    },
-    "owner": "dasminx"
+    ]
   }
 }
