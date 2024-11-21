@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Hang Around",
+    "name": "HA_V1",
     "slug": "hav1",
-    "version": "1.1.0",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -23,12 +23,21 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#77aca2"
-      }
+      },
+      "package": "com.dasminx.hav1"
     },
     "plugins": [
       "expo-router",
       "expo-font"
     ],
-    "owner": "dasminx"
+    "owner": "dasminx",
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "bb7d397d-b937-4d2f-99bc-f73597c33cda"
+      }
+    }
   }
 }
