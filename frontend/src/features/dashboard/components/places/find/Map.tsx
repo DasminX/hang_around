@@ -1,11 +1,13 @@
 import { Location } from "@dasminx/hang-around-common";
-import { memo } from "react";
+import { memo, useState } from "react";
 import { StyleSheet } from "react-native";
 import MapView, { MapPressEvent, Marker } from "react-native-maps";
 
 import { usePlacesStore } from "../../../slices/PlacesStore";
 
 export const Map = memo(() => {
+  const [mapLoaded, setMapLoaded] = useState(false);
+
   const location = usePlacesStore((state) => state.location);
   const setLocation = usePlacesStore((state) => state.setLocation);
 
@@ -32,9 +34,13 @@ export const Map = memo(() => {
       loadingEnabled
       showsUserLocation
       showsCompass
+      onMapLoaded={() => {
+        setMapLoaded(true);
+      }}
+      key={process.env.MAPS_KEY}
       onPress={handleMapPress}
     >
-      {location && (
+      {location && mapLoaded && (
         <Marker
           pinColor="red"
           coordinate={{

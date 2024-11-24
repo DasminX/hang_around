@@ -12,9 +12,6 @@
       "distribution": "internal",
       "android": {
         "buildType": "apk"
-      },
-      "env": {
-        "EXPO_PUBLIC_BACKEND_URL": "https://hang-around-408616514182.europe-west9.run.app/"
       }
     },
     "production": {
