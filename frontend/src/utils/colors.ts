@@ -8,4 +8,7 @@ export const COLORS = {
     red: "#E3020B",
     blue: "#0291E3",
   },
+  theme: {
+    white: "#CCCCCC",
+  },
 };

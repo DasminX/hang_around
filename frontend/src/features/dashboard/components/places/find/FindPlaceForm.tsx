@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
 import VariantButton from "../../../../../shared/ui/button/VariantButton";
+import { COLORS } from "../../../../../utils/colors";
 import { HowFarFormField } from "./HowFarFormField";
 import { IsOpenFieldForm } from "./IsOpenFieldForm";
 import { LocationFormField } from "./LocationFormField";
@@ -62,6 +63,7 @@ const styles = StyleSheet.create({
   },
   formText: {
     marginVertical: 8,
+    color: COLORS.theme.white,
   },
   submitButton: {
     width: 200,

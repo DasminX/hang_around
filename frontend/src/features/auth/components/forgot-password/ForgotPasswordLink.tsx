@@ -7,7 +7,7 @@ import { COLORS } from "../../../../utils/colors";
 export const ForgotPasswordLink = () => {
   const { t } = useTranslation();
   return (
-    <Text variant="labelLarge">
+    <Text variant="labelLarge" style={{ color: COLORS.theme.white }}>
       {t("auth.forgotPassword")}{" "}
       <Text variant="bodyLarge">
         <Link

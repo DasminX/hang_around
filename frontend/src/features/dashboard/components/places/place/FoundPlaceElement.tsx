@@ -25,11 +25,11 @@ export const FoundPlaceElement = ({ placeDetails }: { placeDetails: PlaceArgs })
   return (
     <ScrollView>
       <Surface style={styles.surface} elevation={1}>
-        <Text variant="titleLarge" style={{ textAlign: "center" }}>
+        <Text variant="titleLarge" style={{ textAlign: "center", color: COLORS.theme.white }}>
           {placeDetails.name}
         </Text>
         <View style={{ flexDirection: "row" }}>
-          <Text>
+          <Text style={{ color: COLORS.theme.white }}>
             {t("place.rating")}: {placeDetails.rating}{" "}
           </Text>
           {new Array(Math.round(placeDetails.rating)).fill(null).map((_, index) => (
@@ -43,13 +43,13 @@ export const FoundPlaceElement = ({ placeDetails }: { placeDetails: PlaceArgs })
             source={placeDetails.isAccessible ? "wheelchair-accessibility" : "alert-box"}
             color={placeDetails.isAccessible ? COLORS.variants.green : COLORS.variants.red}
           />
-          <Text variant="labelMedium">
+          <Text variant="labelMedium" style={{ color: COLORS.theme.white }}>
             {t(placeDetails.isAccessible ? "place.accessible" : "place.notAccessible")}
           </Text>
         </View>
         {/* TODO */}
         <View style={styles.accessible}>
-          <Text variant="labelMedium">
+          <Text variant="labelMedium" style={{ color: COLORS.theme.white }}>
             {placeDetails.priceLevel > 0 ? "$".repeat(placeDetails.priceLevel) : "no $"}
           </Text>
         </View>
@@ -68,7 +68,7 @@ export const FoundPlaceElement = ({ placeDetails }: { placeDetails: PlaceArgs })
             {t("common.warning")}
           </Dialog.Title>
           <Dialog.Content>
-            <Text style={{ textAlign: "center" }} variant="bodyMedium">
+            <Text style={{ textAlign: "center", color: COLORS.theme.white }} variant="bodyMedium">
               {t("place.wannaVisit")}
             </Text>
           </Dialog.Content>

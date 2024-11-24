@@ -15,7 +15,9 @@ export const RegisterForm = ({ onSubmit }: { onSubmit: () => unknown }) => {
 
   return (
     <View style={styles.form}>
-      <Text variant="titleLarge">{t("auth.register")}</Text>
+      <Text style={{ color: COLORS.theme.white }} variant="titleLarge">
+        {t("auth.register")}
+      </Text>
       <EmailFormField />
       <PasswordFormField />
       <RepeatPasswordFormField />

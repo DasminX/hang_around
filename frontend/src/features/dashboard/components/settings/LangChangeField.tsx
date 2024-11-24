@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { Text } from "react-native-paper";
 
+import { COLORS } from "../../../../utils/colors";
 import { APP_PREFERRED_LANG } from "../../../../utils/constants";
 
 const LANGS = {
@@ -20,7 +21,9 @@ export const LangChangeField = () => {
 
   return (
     <View style={styles.root}>
-      <Text variant="titleMedium">{t("settings.change_lang")}:</Text>
+      <Text style={{ color: COLORS.theme.white }} variant="titleMedium">
+        {t("settings.change_lang")}:
+      </Text>
       <View style={styles.flagsContainer}>
         {Object.entries(LANGS).map(([lang, flag]) => {
           if (i18n.resolvedLanguage === lang) return;

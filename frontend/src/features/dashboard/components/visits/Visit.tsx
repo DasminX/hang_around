@@ -17,10 +17,10 @@ export const Visit = ({ visit }: { visit: VisitArgs }) => {
   return (
     <ScrollView>
       <Surface style={styles.surface} elevation={1}>
-        <Text variant="titleLarge" style={{ textAlign: "center" }}>
+        <Text variant="titleLarge" style={{ textAlign: "center", color: COLORS.theme.white }}>
           {visit.name}
         </Text>
-        <Text variant="bodyLarge">
+        <Text variant="bodyLarge" style={{ color: COLORS.theme.white }}>
           {t("visits.visitedAt")}:{" "}
           <Text variant="labelLarge" style={{ color: COLORS.palette.orange }}>
             {new Date(visit.happenedAt).toLocaleString()}
@@ -40,7 +40,7 @@ export const Visit = ({ visit }: { visit: VisitArgs }) => {
             {t("common.warning")}
           </Dialog.Title>
           <Dialog.Content>
-            <Text style={{ textAlign: "center" }} variant="bodyMedium">
+            <Text style={{ textAlign: "center", color: COLORS.theme.white }} variant="bodyMedium">
               {t("visits.leavingApp")}
             </Text>
           </Dialog.Content>

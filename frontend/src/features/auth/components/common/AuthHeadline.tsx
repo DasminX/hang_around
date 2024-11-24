@@ -9,7 +9,7 @@ type AuthHeadlineProps = {
 
 export const AuthHeadline = ({ headlineText, showAppName }: AuthHeadlineProps) => {
   return (
-    <Headline style={{ textAlign: "center", marginVertical: 24 }}>
+    <Headline style={{ textAlign: "center", marginVertical: 24, color: COLORS.theme.white }}>
       {headlineText}
       {showAppName && <Text style={{ color: COLORS.palette.orange }}>HangAround!</Text>}
     </Headline>

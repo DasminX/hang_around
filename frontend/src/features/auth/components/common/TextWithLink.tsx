@@ -6,14 +6,14 @@ import { COLORS } from "../../../../utils/colors";
 type TextWithLinkProps = {
   text: string;
   link: {
-    path: Href<string | object>;
+    path: Href;
     text: string;
   };
 };
 
 export const TextWithLink = ({ text, link }: TextWithLinkProps) => {
   return (
-    <Text variant="labelLarge">
+    <Text variant="labelLarge" style={{ color: COLORS.theme.white }}>
       {text}{" "}
       <Text variant="bodyLarge">
         <Link style={{ color: COLORS.variants.blue }} replace href={link.path}>

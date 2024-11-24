@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 10,
     textAlign: "center",
+    color: COLORS.theme.white,
   },
   slider: {
     marginVertical: 20,

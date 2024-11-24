@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
 import VariantButton from "../../../../shared/ui/button/VariantButton";
+import { COLORS } from "../../../../utils/colors";
 import { EmailFormField } from "../common/EmailFormField";
 import { PasswordFormField } from "../common/PasswordFormField";
 import { TextWithLink } from "../common/TextWithLink";
@@ -13,7 +14,9 @@ export const LoginForm = ({ onSubmit }: { onSubmit: () => unknown }) => {
 
   return (
     <View style={styles.form}>
-      <Text variant="titleLarge">{t(`auth.login`)}</Text>
+      <Text style={styles.text} variant="titleLarge">
+        {t(`auth.login`)}
+      </Text>
       <EmailFormField />
       <PasswordFormField />
       <VariantButton onPress={onSubmit}>{t("auth.login")}</VariantButton>
@@ -36,5 +39,8 @@ const styles = StyleSheet.create({
   links: {
     rowGap: 4,
     alignItems: "center",
+  },
+  text: {
+    color: COLORS.theme.white,
   },
 });
