@@ -25,7 +25,10 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#77aca2"
       },
-      "package": "com.dasminx.hav1"
+      "package": "com.dasminx.hav1",
+      "permissions": [
+        "INTERNET"
+      ]
     },
     "plugins": [
       "expo-router",
