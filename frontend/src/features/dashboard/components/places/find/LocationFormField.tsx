@@ -54,7 +54,11 @@ export const LocationFormField = memo(() => {
     if (enterManually) {
       Outlet = <ManualCoordsInputs onChooseOnMap={onChooseOnMap} />;
     } else if (isLocalisationActivated) {
-      Outlet = <Map />;
+      try {
+        Outlet = <Map />;
+      } catch (error) {
+        Outlet = <ManualCoordsInputs onChooseOnMap={onChooseOnMap} />;
+      }
     } else {
       Outlet = <MapPlaceholder onEnterManuallyPress={onEnterManuallyPress} />;
     }
