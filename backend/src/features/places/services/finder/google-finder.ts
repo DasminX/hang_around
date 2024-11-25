@@ -60,14 +60,11 @@ export class GooglePlacesFinder implements PlacesFinderI {
 
       return res[0].places
         .filter((place) => {
-          if (
-            typeof args.isOpen === "boolean" &&
-            !(place.currentOpeningHours?.openNow || place.regularOpeningHours?.openNow)
-          ) {
+          if (args.openOnly && !(place.currentOpeningHours?.openNow || place.regularOpeningHours?.openNow)) {
             return false;
           }
 
-          if (typeof place.rating !== "number" || place.rating < args.minRating) {
+          if (args.minRating && (typeof place.rating !== "number" || +place.rating < args.minRating)) {
             return false;
           }
 

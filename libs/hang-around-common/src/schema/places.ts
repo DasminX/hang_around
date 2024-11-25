@@ -35,10 +35,10 @@ export const FIND_PLACES_SCHEMA = z.lazy(() =>
       location,
       typesOfFood,
       howFar,
-      minRating: rating,
-      isOpen: z
+      minRating: rating.optional(),
+      openOnly: z
         .boolean({
-          message: PlacesValidationErrors.INVALID_ISOPEN_TYPE,
+          message: PlacesValidationErrors.INVALID_OPENONLY_TYPE,
         })
         .optional(),
       priceLevels: z

@@ -8,7 +8,7 @@ import { FindPlaceResponse } from "./responses";
 import { DistanceConverter } from "./utils/distance-converter";
 
 export const findPlacesController: ExpressMiddlewareCaught = async (req, res) => {
-  const { location, howFar, typesOfFood, minRating, isOpen, priceLevels } = parseInputBySchemaOrThrow(
+  const { location, howFar, typesOfFood, minRating, openOnly, priceLevels } = parseInputBySchemaOrThrow(
     req.body,
     FIND_PLACES_SCHEMA,
   );
@@ -18,7 +18,7 @@ export const findPlacesController: ExpressMiddlewareCaught = async (req, res) =>
     radius: new DistanceConverter(howFar).getInMeters(),
     typesOfFood: typesOfFood as Array<(typeof TYPE_OF_FOOD_ARRAY)[number]>,
     minRating,
-    isOpen,
+    openOnly,
     priceLevels,
   });
 

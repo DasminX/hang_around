@@ -6,9 +6,9 @@ export type PlacesFindArgs = {
   location: Location;
   typesOfFood: Array<(typeof TYPE_OF_FOOD_ARRAY)[number]>;
   radius: number;
-  minRating: number;
   priceLevels: [number, number];
-  isOpen?: boolean;
+  minRating?: number;
+  openOnly?: boolean;
 };
 
 export interface PlacesFinderI {
