@@ -84,6 +84,9 @@ export class AppFirebaseError extends AppError {
       case "auth/email-already-in-use":
         super(errMsg, StatusCodes.CONFLICT, ErrorCode.ACCOUNT_ALREADY_EXISTS);
         break;
+      case "auth/id-token-expired":
+        super(errMsg, StatusCodes.UNAUTHORIZED, ErrorCode.NOT_AUTHENTICATED);
+        break;
       default:
         super(errMsg, StatusCodes.BAD_REQUEST, ErrorCode.UNKNOWN_ERROR);
     }
