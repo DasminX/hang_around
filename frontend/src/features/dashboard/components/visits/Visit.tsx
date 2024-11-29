@@ -13,7 +13,6 @@ export const Visit = ({ visit }: { visit: VisitArgs }) => {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // TODO display image, priceLevel, paymentOptions, navigate button instead of visit button
   return (
     <ScrollView>
       <Surface style={styles.surface} elevation={1}>

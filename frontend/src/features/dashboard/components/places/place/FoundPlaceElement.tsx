@@ -8,10 +8,10 @@ import { Dialog, Icon, Portal, Surface, Text } from "react-native-paper";
 import { useTokenStore } from "../../../../../shared/slices/tokenStore";
 import VariantButton from "../../../../../shared/ui/button/VariantButton";
 import { COLORS } from "../../../../../utils/colors";
+import { signOut } from "../../../../auth/api/fetchers";
 import { createVisit } from "../../../api/fetchers";
 import { useVisitsStore } from "../../../slices/VisitsStore";
 
-// TODO change placesArgs to models common
 export const FoundPlaceElement = ({ placeDetails }: { placeDetails: PlaceArgs }) => {
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
@@ -21,7 +21,6 @@ export const FoundPlaceElement = ({ placeDetails }: { placeDetails: PlaceArgs })
 
   const token = useTokenStore((state) => state.token);
 
-  // TODO  paymentOptions, navigate button instead of visit button
   return (
     <ScrollView>
       <Surface style={styles.surface} elevation={1}>
@@ -47,15 +46,13 @@ export const FoundPlaceElement = ({ placeDetails }: { placeDetails: PlaceArgs })
             {t(placeDetails.isAccessible ? "place.accessible" : "place.notAccessible")}
           </Text>
         </View>
-        {/* TODO */}
         <View style={styles.accessible}>
           <Text variant="labelMedium" style={{ color: COLORS.theme.white }}>
             {placeDetails.priceLevel > 0 ? "$".repeat(placeDetails.priceLevel) : "no $"}
           </Text>
         </View>
-        {/* /TODO */}
         <View>
-          <VariantButton onPress={() => setVisible(true)}>{t("place.visit")}</VariantButton>
+          <VariantButton onPress={() => setVisible(true)}>{t("visits.see")}</VariantButton>
         </View>
       </Surface>
       <Portal>
@@ -84,11 +81,17 @@ export const FoundPlaceElement = ({ placeDetails }: { placeDetails: PlaceArgs })
                 const { id: _, ...detailsWithoutId } = placeDetails;
 
                 const newlyCreatedVisit = await createVisit(detailsWithoutId, token);
-                if (!(newlyCreatedVisit instanceof Error) && newlyCreatedVisit.status == "ok") {
-                  storeVisits(newlyCreatedVisit.data as VisitArgs);
-                  /* TODO store in Async Storage also */
-                  Linking.openURL(placeDetails.mapsUri);
-                  setVisible(false);
+                if (!(newlyCreatedVisit instanceof Error)) {
+                  if (
+                    newlyCreatedVisit.status === "fail" &&
+                    newlyCreatedVisit.error.httpCode === 401
+                  ) {
+                    await signOut();
+                  } else if (newlyCreatedVisit.status == "ok") {
+                    storeVisits(newlyCreatedVisit.data as VisitArgs);
+                    Linking.openURL(placeDetails.mapsUri);
+                    setVisible(false);
+                  }
                 }
                 setLoading(false);
               }}
@@ -115,6 +118,7 @@ const styles = StyleSheet.create({
     width: 360,
     borderRadius: 16,
     borderColor: COLORS.palette.orange,
+    backgroundColor: "transparent",
     borderWidth: 1,
   },
   accessible: {

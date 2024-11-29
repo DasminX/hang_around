@@ -5,9 +5,9 @@ import { Text } from "react-native-paper";
 import VariantButton from "../../../../../shared/ui/button/VariantButton";
 import { COLORS } from "../../../../../utils/colors";
 import { HowFarFormField } from "./HowFarFormField";
-import { IsOpenFieldForm } from "./IsOpenFieldForm";
 import { LocationFormField } from "./LocationFormField";
 import { MinRatingFormField } from "./MinRatingFormField";
+import { OpenOnlyFieldForm } from "./OpenOnlyFieldForm";
 import { PriceLevelsFieldForm } from "./PriceLevelsFieldForm";
 import { TypesOfFoodFieldForm } from "./TypesOfFoodFieldForm";
 
@@ -36,9 +36,9 @@ export const FindPlaceForm = ({
       <MinRatingFormField />
       <TypesOfFoodFieldForm />
       <Text style={styles.formText} variant="titleLarge">
-        {t("dashboard.isOpen")}
+        {t("dashboard.openOnly")}
       </Text>
-      <IsOpenFieldForm />
+      <OpenOnlyFieldForm />
       <Text style={styles.formText} variant="titleLarge">
         {t("dashboard.priceLevels")}
       </Text>

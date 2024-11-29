@@ -8,7 +8,6 @@ import { Map } from "./Map";
 import { MapPlaceholder } from "./MapPlaceholder";
 
 export const LocationFormField = memo(() => {
-  const [wasLoaded, setWasLoaded] = useState<boolean>(false);
   const [isLocalisationActivated, setIsLocalisationActivated] = useState(false);
   const [enterManually, setEnterManually] = useState(false);
 
@@ -40,28 +39,17 @@ export const LocationFormField = memo(() => {
         }
       } catch (error) {
         setIsLocalisationActivated(false);
-      } finally {
-        if (!wasLoaded) {
-          setWasLoaded(true);
-        }
       }
     })();
   }, [enterManually]);
 
   let Outlet: ReactNode | null = null;
 
-  if (wasLoaded) {
-    if (enterManually) {
-      Outlet = <ManualCoordsInputs onChooseOnMap={onChooseOnMap} />;
-    } else if (isLocalisationActivated) {
-      try {
-        Outlet = <Map />;
-      } catch (error) {
-        Outlet = <ManualCoordsInputs onChooseOnMap={onChooseOnMap} />;
-      }
-    } else {
-      Outlet = <MapPlaceholder onEnterManuallyPress={onEnterManuallyPress} />;
-    }
+  // Przetestować czy dziala git bez "wasLoaded"
+  if (enterManually) {
+    Outlet = <ManualCoordsInputs onChooseOnMap={onChooseOnMap} />;
+  } else if (isLocalisationActivated) {
+    Outlet = <Map />;
   } else {
     Outlet = <MapPlaceholder onEnterManuallyPress={onEnterManuallyPress} />;
   }

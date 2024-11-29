@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from "react-native";
 import { Headline } from "react-native-paper";
 
+import { signOut } from "../../../src/features/auth/api/fetchers";
 import { findPlaces } from "../../../src/features/dashboard/api/fetchers";
 import { FindPlaceForm } from "../../../src/features/dashboard/components/places/find/FindPlaceForm";
 import { useFoundPlaceStore } from "../../../src/features/dashboard/slices/FoundPlaceStore";
@@ -23,7 +24,7 @@ export default function FindPlaceIndex() {
   const minRating = usePlacesStore((state) => state.minRating);
   const typesOfFood = usePlacesStore((state) => state.typesOfFood);
   const priceLevels = usePlacesStore((state) => state.priceLevels);
-  const isOpen = usePlacesStore((state) => state.isOpen);
+  const openOnly = usePlacesStore((state) => state.openOnly);
 
   const resetInputs = usePlacesStore((state) => state.resetPlacesCredentials);
 
@@ -38,7 +39,7 @@ export default function FindPlaceIndex() {
   const onSubmitHandler = async () => {
     setIsLoading(true);
     const res = await findPlaces(
-      { howFar, location, minRating, typesOfFood, priceLevels, isOpen },
+      { howFar, location, minRating, typesOfFood, priceLevels, openOnly },
       token,
     );
     if (res instanceof Error) {
@@ -51,10 +52,14 @@ export default function FindPlaceIndex() {
     setIsLoading(false);
     switch (res.status) {
       case "fail":
-        return setError({
-          title: t("errors.occured"),
-          description: t(getApiErrorCode(res)),
-        });
+        if (res.error.httpCode === 401) {
+          return await signOut();
+        } else {
+          return setError({
+            title: t("errors.occured"),
+            description: t(getApiErrorCode(res)),
+          });
+        }
       case "ok":
         if (Array.isArray(res.data)) {
           setPlaces(res.data);

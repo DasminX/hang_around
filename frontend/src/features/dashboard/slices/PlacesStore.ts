@@ -9,7 +9,7 @@ type PlacesCredentialsType = FindPlacesSchemaType & {
   setMinRating: (value: FindPlacesSchemaType["minRating"]) => void;
   setTypesOfFood: (value: FindPlacesSchemaType["typesOfFood"]) => void;
   setPriceLevels: (value: FindPlacesSchemaType["priceLevels"]) => void;
-  setIsOpen: (value: FindPlacesSchemaType["isOpen"]) => void;
+  setOpenOnly: (value: FindPlacesSchemaType["openOnly"]) => void;
   resetPlacesCredentials: () => void;
 };
 
@@ -36,7 +36,7 @@ export const usePlacesStore = create<PlacesCredentialsType>((set) => ({
     set((state: FindPlacesSchemaType) => ({ ...state, typesOfFood })),
   setPriceLevels: (priceLevels: FindPlacesSchemaType["priceLevels"]) =>
     set((state: FindPlacesSchemaType) => ({ ...state, priceLevels })),
-  setIsOpen: (isOpen: FindPlacesSchemaType["isOpen"]) =>
-    set((state: FindPlacesSchemaType) => ({ ...state, isOpen })),
+  setOpenOnly: (openOnly: FindPlacesSchemaType["openOnly"]) =>
+    set((state: FindPlacesSchemaType) => ({ ...state, openOnly })),
   resetPlacesCredentials: () => set(() => DEFAULT_PLACES_FIELDS),
 }));

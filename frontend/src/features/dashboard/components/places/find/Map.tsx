@@ -1,17 +1,28 @@
 import { Location } from "@dasminx/hang-around-common";
-import { memo, useState } from "react";
+import { useFocusEffect } from "expo-router";
+import { memo, useCallback, useState } from "react";
 import { StyleSheet } from "react-native";
-import MapView, { MapPressEvent, Marker } from "react-native-maps";
+import MapView, { MapPressEvent, Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
+import { COLORS } from "../../../../../utils/colors";
 import { usePlacesStore } from "../../../slices/PlacesStore";
 
 export const Map = memo(() => {
-  const [mapLoaded, setMapLoaded] = useState(false);
-
   const location = usePlacesStore((state) => state.location);
   const setLocation = usePlacesStore((state) => state.setLocation);
+  const [mapKey, setMapKey] = useState(Math.random().toString());
 
-  const handleMapPress = (e: MapPressEvent) => {
+  useFocusEffect(
+    useCallback(() => {
+      setMapKey(Math.random().toString());
+
+      return () => {
+        setMapKey(Math.random().toString());
+      };
+    }, []),
+  );
+
+  const onMapPress = (e: MapPressEvent) => {
     const coords = new Location([
       e.nativeEvent.coordinate.latitude,
       e.nativeEvent.coordinate.longitude,
@@ -21,7 +32,7 @@ export const Map = memo(() => {
 
   if (!location) return null;
 
-  /* TODO naprawic mapke - cos nie dziala (nie zaznacza markera i nie dziala onPress) */
+  // TODO kluczyk
   return (
     <MapView
       style={styles.map}
@@ -31,16 +42,16 @@ export const Map = memo(() => {
         latitudeDelta: 0.05,
         longitudeDelta: 0.05,
       }}
+      key={mapKey}
       loadingEnabled
       showsUserLocation
       showsCompass
-      onMapLoaded={() => {
-        setMapLoaded(true);
-      }}
-      key={process.env.MAPS_KEY}
-      onPress={handleMapPress}
+      provider={PROVIDER_GOOGLE}
+      onPress={onMapPress}
+      loadingBackgroundColor={COLORS.palette.black}
+      loadingIndicatorColor={COLORS.palette.orange}
     >
-      {location && mapLoaded && (
+      {location && (
         <Marker
           pinColor="red"
           coordinate={{

@@ -71,7 +71,7 @@ export default {
     foundPlaces: "Found places:",
     settings: "Settings",
     visits: "Visits",
-    isOpen: "Open now only",
+    openOnly: "Open now only",
     priceLevels: "Price range",
   },
   place: {
@@ -147,7 +147,7 @@ export default {
     visitedAt: "Visited at",
     seeOnMap: "See on map",
     leavingApp:
-      "Do you see the place on a map? Confirming redirects you to the localisation of the place in Google Place App.",
+      "Do you want to see the place on a map? Confirming redirects you to the localisation of the place in Google Place App.",
     see: "See",
   },
 };

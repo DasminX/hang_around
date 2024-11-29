@@ -23,7 +23,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@dasminx/hang-around-common": "1.0.30",
+    "@dasminx/hang-around-common": "1.0.32",
     "@expo/vector-icons": "^14.0.4",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-navigation/bottom-tabs": "^7.0.0",

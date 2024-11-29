@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from "react-native";
 import { Divider } from "react-native-paper";
 
+import { signOut } from "../../../src/features/auth/api/fetchers";
 import { getVisits } from "../../../src/features/dashboard/api/fetchers";
 import { NoVisitsFound } from "../../../src/features/dashboard/components/visits/NoVisitsFound";
 import { VisitsHeadline } from "../../../src/features/dashboard/components/visits/VisitsHeadline";
@@ -23,8 +24,12 @@ export default function VisitsIndex() {
   useEffect(() => {
     (async () => {
       const refreshed = await getVisits(token);
-      if (!(refreshed instanceof Error) && refreshed.status == "ok") {
-        storeVisits(refreshed.data as VisitArgs[]);
+      if (!(refreshed instanceof Error)) {
+        if (refreshed.status === "fail" && refreshed.error.httpCode === 401) {
+          await signOut();
+        } else if (refreshed.status === "ok") {
+          storeVisits(refreshed.data as VisitArgs[]);
+        }
       }
     })();
 

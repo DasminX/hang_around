@@ -71,7 +71,7 @@ export default {
     foundPlaces: "Wyszukane miejsca:",
     settings: "Ustawienia",
     visits: "Wizyty",
-    isOpen: "Tylko otwarte teraz",
+    openOnly: "Tylko otwarte teraz",
     priceLevels: "Zakres cen",
   },
   place: {
