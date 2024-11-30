@@ -32,7 +32,6 @@ export const Map = memo(() => {
 
   if (!location) return null;
 
-  // TODO kluczyk
   return (
     <MapView
       style={styles.map}

@@ -1,6 +1,7 @@
 import { RESET_PASSWORD_SCHEMA, SIGN_IN_SCHEMA, SIGN_UP_SCHEMA } from "@dasminx/hang-around-common";
 import { StatusCodes } from "http-status-codes";
 
+import { BlacklistToken } from "../../shared/blacklist-token";
 import { DataSource } from "../../shared/data-source";
 import { parseInputBySchemaOrThrow } from "../../shared/validators/validate-zod-schema";
 import { ExpressMiddlewareCaught } from "../../utils/types";
@@ -30,9 +31,9 @@ export const resetPasswordController: ExpressMiddlewareCaught = async (req, res)
   return res.status(StatusCodes.OK).json(new ResetPasswordResponse());
 };
 
-// TODO blacklist tokens
 export const signOutController: ExpressMiddlewareCaught = async (_req, res) => {
   await DataSource.auth.signOut();
+  BlacklistToken.add(res.locals.user.token);
 
   return res.status(StatusCodes.OK).json(new SignOutResponse());
 };

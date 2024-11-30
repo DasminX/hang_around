@@ -1,12 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 
+import { BlacklistToken } from "../blacklist-token";
 import { DataSource } from "../data-source";
 import { NotAuthenticatedError } from "../errors";
 
 const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = getFromBearer(req.headers);
-    if (!token) {
+    if (!token || BlacklistToken.isBlacklisted(token)) {
       throw new NotAuthenticatedError();
     }
 

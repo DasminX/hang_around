@@ -8,7 +8,8 @@ export class FirebaseTokenVerifier implements TokenVerifierI {
 
   async verify(token: string): Promise<VerifyTokenResult> {
     try {
-      return await this._adminAuth.verifyIdToken(token);
+      const userData = await this._adminAuth.verifyIdToken(token);
+      return Object.assign(userData, { token });
     } catch (error) {
       throw new NotAuthenticatedError();
     }
