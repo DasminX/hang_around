@@ -7,7 +7,7 @@ import { RequestLimitExceededError } from "../../../shared/errors";
 export const placesRateLimiter = rateLimit({
   limit: process.env.HA_APP_DATA_SOURCE === "IN_MEMORY" ? 5 : 10,
   windowMs: ONE_HOUR,
-  keyGenerator: (req: Request, res: Response) => res.locals.user?.uid ?? req.ip,
+  keyGenerator: (req: Request, res: Response) => res.locals.user?.uid ?? req.headers["x-forwarded-for"] ?? req.ip,
   handler: (_req, _res, next) =>
     next(
       new RequestLimitExceededError(
