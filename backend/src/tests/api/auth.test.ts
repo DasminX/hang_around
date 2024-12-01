@@ -2,9 +2,10 @@ import { API_PREFIX, ErrorCode } from "@dasminx/hang-around-common";
 import { randomUUID } from "crypto";
 import { StatusCodes } from "http-status-codes";
 import request from "supertest";
-import { beforeAll, describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it, vi } from "vitest";
 
 import { getApp } from "../../app";
+import { DataSource } from "../../shared/data-source";
 import {
   INVALID_EMAIL,
   INVALID_PASSWORD,
@@ -17,6 +18,11 @@ const app = getApp();
 const AUTH_PATH = `${API_PREFIX}/auth`;
 
 describe(`Route ${AUTH_PATH}`, () => {
+  beforeAll(() => {
+    // Mock token verification for authentication middleware
+    vi.spyOn(DataSource.tokenVerifier, "verify").mockResolvedValue({ uid: "user-123", token: randomUUID() });
+  });
+
   describe("POST /signin", () => {
     beforeAll(async () => {
       await request(app).post(`${AUTH_PATH}/signup`).send(VALID_SIGN_UP_CREDENTIALS);
@@ -116,24 +122,18 @@ describe(`Route ${AUTH_PATH}`, () => {
       expect(response2.body.error.errorCode).toBe(ErrorCode.INPUT_VALIDATION_ERROR);
     });
   });
-  describe("POST /signout", () => {
+
+  describe("GET /signout", () => {
     it("should return 200 when authenticated user signs out", async () => {
       const response = await request(app).get(`${AUTH_PATH}/signout`).set("Authorization", `Bearer ${randomUUID()}`);
 
       expect(response.status).toBe(StatusCodes.OK);
     });
 
-    // it("should return 401 when no token is provided", async () => {
-    //   const response = await request(app).get(`${AUTH_PATH}/signout`);
+    it("should return 401 when not authenticated user tries to sign out", async () => {
+      const response = await request(app).get(`${AUTH_PATH}/signout`);
 
-    //   expect(response.status).toBe(StatusCodes.UNAUTHORIZED);
-    //   expect(response.body.error.errorCode).toBe(ErrorCode.NOT_AUTHENTICATED);
-    // });
-
-    it("should return 401 when an invalid token is provided", async () => {
-      const response = await request(app).get(`${AUTH_PATH}/signout`).set("Authorization", `Bearer invalid-token`);
-
-      expect(response.status).toBe(StatusCodes.OK);
+      expect(response.status).toBe(StatusCodes.UNAUTHORIZED);
     });
   });
 });

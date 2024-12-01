@@ -21,7 +21,8 @@ describe("InMemoryTokenVerifier", () => {
 
     const result = await tokenVerifier.verify(mockToken);
 
-    expect(result).toEqual({ uid: "VALID-AUTHENTICATED-UUID" });
+    expect(result).toHaveProperty("uid");
+    expect(result.uid).toBe("VALID-AUTHENTICATED-UUID");
   });
 
   it("should throw NotAuthenticatedError for an invalid token", async () => {

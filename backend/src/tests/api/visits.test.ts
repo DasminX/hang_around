@@ -1,4 +1,5 @@
 import { API_PREFIX, Location, Timestamp } from "@dasminx/hang-around-common";
+import { randomUUID } from "crypto";
 import { StatusCodes } from "http-status-codes";
 import request from "supertest";
 import { beforeAll, describe, expect, it, vi } from "vitest";
@@ -12,10 +13,11 @@ const VISITS_PATH = `${API_PREFIX}/visits`;
 
 describe(`Route ${VISITS_PATH}`, () => {
   const userId = "user-123";
+  const validToken = randomUUID();
 
   beforeAll(() => {
     // Mock token verification for authentication middleware
-    vi.spyOn(DataSource.tokenVerifier, "verify").mockResolvedValue({ uid: userId });
+    vi.spyOn(DataSource.tokenVerifier, "verify").mockResolvedValue({ uid: userId, token: randomUUID() });
   });
 
   describe("POST /", () => {
@@ -48,7 +50,7 @@ describe(`Route ${VISITS_PATH}`, () => {
       const response = await request(app)
         .post(VISITS_PATH)
         .send(validVisitData)
-        .set("Authorization", "Bearer valid-token");
+        .set("Authorization", `Bearer ${validToken}`);
 
       expect(response.status).toBe(StatusCodes.CREATED);
       expect(response.body.data).toEqual(mockCreatedVisit);
@@ -92,7 +94,7 @@ describe(`Route ${VISITS_PATH}`, () => {
         () => new Promise((resolve) => setTimeout(() => resolve(mockVisits), 0)),
       );
 
-      const response = await request(app).get(VISITS_PATH).set("Authorization", "Bearer valid-token");
+      const response = await request(app).get(VISITS_PATH).set("Authorization", `Bearer ${validToken}`);
 
       expect(response.status).toBe(StatusCodes.OK);
       expect(response.body.data).toEqual(mockVisits);
@@ -124,7 +126,7 @@ describe(`Route ${VISITS_PATH}`, () => {
           new Promise((resolve) => setTimeout(() => resolve(visitId === "visit-id" ? mockVisit : null), 0)),
       );
 
-      const response = await request(app).get(`${VISITS_PATH}/visit-id`).set("Authorization", "Bearer valid-token");
+      const response = await request(app).get(`${VISITS_PATH}/visit-id`).set("Authorization", `Bearer ${validToken}`);
 
       expect(response.status).toBe(StatusCodes.OK);
       expect(response.body.data).toEqual(mockVisit);
@@ -143,7 +145,7 @@ describe(`Route ${VISITS_PATH}`, () => {
 
       const response = await request(app)
         .get(`${VISITS_PATH}/non-existent-id`)
-        .set("Authorization", "Bearer valid-token");
+        .set("Authorization", `Bearer ${validToken}`);
 
       expect(response.status).toBe(StatusCodes.OK);
       expect(response.body.data).toBeNull();
