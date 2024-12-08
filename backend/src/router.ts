@@ -1,15 +1,19 @@
 import express from "express";
+import fs from "fs";
+import path from "path";
 
-import authRouter from "./features/auth/router";
-import healthCheckRouter from "./features/healthcheck/router";
-import placesRouter from "./features/places/router";
-import visitsRouter from "./features/visits/router";
+export const getMainRouter = () => {
+  const router = express.Router();
 
-const router = express.Router();
+  const subRoutersPaths = fs.globSync("src/features/**/router.ts");
 
-router.use("/healthcheck", healthCheckRouter);
-router.use("/auth", authRouter);
-router.use("/places", placesRouter);
-router.use("/visits", visitsRouter);
+  for (const subpath of subRoutersPaths) {
+    /* eslint @typescript-eslint/no-var-requires: "off" */
+    const featureRouter = require(path.join(process.cwd(), subpath));
+    const featureName = subpath.replace(/^src[/\\]features[/\\]/, "").replace(/[\\/]router\.ts$/, "");
 
-export default router;
+    router.use(`/${featureName}`, featureRouter.default);
+  }
+
+  return router;
+};

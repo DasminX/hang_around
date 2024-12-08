@@ -7,7 +7,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 
 import { errorController } from "./error.controller";
-import mainRouter from "./router";
+import { getMainRouter } from "./router";
 import { DataSource } from "./shared/data-source";
 import { NotFoundError } from "./shared/errors";
 import { logger } from "./shared/logger";
@@ -43,6 +43,7 @@ export const getApp = () => {
 
   app.use(compression());
 
+  const mainRouter = getMainRouter();
   app.use(API_PREFIX, mainRouter);
 
   app.all("*", (req, _res, next) => next(new NotFoundError(req.originalUrl)));
