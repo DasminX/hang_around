@@ -51,6 +51,4 @@ expo-env.d.ts
 
 *.zip
 
-eas.json
-
-app.json
+coverage
