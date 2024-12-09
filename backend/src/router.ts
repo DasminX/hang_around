@@ -12,7 +12,12 @@ export const getMainRouter = async () => {
   for (const subpath of subRoutersPaths) {
     /* eslint @typescript-eslint/no-var-requires: "off" */
     try {
-      const featureRouter = await import(path.resolve(process.cwd(), subpath));
+      let featureRouter;
+      if (process.env.HA_APP_USE_COMMONJS == "TRUE") {
+        featureRouter = await import(path.resolve(process.cwd(), subpath));
+      } else {
+        featureRouter = require(path.resolve(process.cwd(), subpath));
+      }
       const featureName = subpath.replace(/^src[/\\]features[/\\]/, "").replace(/[\\/]router\.ts$/, "");
 
       router.use(`/${featureName}`, featureRouter.default);
