@@ -1,25 +1,17 @@
 import express from "express";
-import { glob } from "glob";
-import path from "path";
 
-import { logger } from "./shared/logger";
+import authRouter from "./features/auth/router";
+import healthCheckRouter from "./features/healthcheck/router";
+import placesRouter from "./features/places/router";
+import visitsRouter from "./features/visits/router";
 
 export const getMainRouter = async () => {
   const router = express.Router();
 
-  const subRoutersPaths = await glob("src/features/**/router.ts");
-
-  for (const subpath of subRoutersPaths) {
-    /* eslint @typescript-eslint/no-var-requires: "off" */
-    try {
-      const featureRouter = await import(path.resolve(process.cwd(), subpath));
-      const featureName = subpath.replace(/^src[/\\]features[/\\]/, "").replace(/[\\/]router\.ts$/, "");
-
-      router.use(`/${featureName}`, featureRouter.default);
-    } catch (error) {
-      logger.error("An error occured", error);
-    }
-  }
+  router.use("/healthcheck", healthCheckRouter);
+  router.use("/auth", authRouter);
+  router.use("/places", placesRouter);
+  router.use("/visits", visitsRouter);
 
   return router;
 };
