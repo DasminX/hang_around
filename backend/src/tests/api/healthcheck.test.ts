@@ -5,10 +5,11 @@ import { describe, expect, it } from "vitest";
 
 import { getApp } from "../../app";
 
-const app = getApp();
 const HEALTHCHECK_PATH = `${API_PREFIX}/healthcheck`;
 
-describe(`Route ${HEALTHCHECK_PATH}`, () => {
+describe(`Route ${HEALTHCHECK_PATH}`, async () => {
+  const app = await getApp();
+
   describe("GET /", () => {
     it("should give statusCode equal 200", async () => {
       const response = await request(app).get(HEALTHCHECK_PATH);

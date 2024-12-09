@@ -4,8 +4,8 @@ import request from "supertest";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 
 import { getApp } from "../../app";
+import { DataSource } from "../../data-source";
 import { Place } from "../../features/places/models/place";
-import { DataSource } from "../../shared/data-source";
 import {
   INVALID_FIND_PLACES_REQUEST,
   VALID_FIND_PLACES_REQUEST,
@@ -13,10 +13,11 @@ import {
   VALID_SIGN_UP_CREDENTIALS,
 } from "../test-data";
 
-const app = getApp();
 const PLACES_PATH = `${API_PREFIX}/places`;
 
-describe(`Route ${PLACES_PATH}`, () => {
+describe(`Route ${PLACES_PATH}`, async () => {
+  const app = await getApp();
+
   let authToken: string;
 
   beforeAll(async () => {

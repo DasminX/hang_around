@@ -1,7 +1,7 @@
 import { AppError, FIND_PLACES_SCHEMA, Location, TYPE_OF_FOOD_ARRAY } from "@dasminx/hang-around-common";
 import { StatusCodes } from "http-status-codes";
 
-import { DataSource } from "../../shared/data-source";
+import { DataSource } from "../../data-source";
 import { parseInputBySchemaOrThrow } from "../../shared/validators/validate-zod-schema";
 import { ExpressMiddlewareCaught } from "../../utils/types";
 import { FindPlaceResponse } from "./responses";

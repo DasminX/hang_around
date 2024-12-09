@@ -5,7 +5,7 @@ import request from "supertest";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 
 import { getApp } from "../../app";
-import { DataSource } from "../../shared/data-source";
+import { DataSource } from "../../data-source";
 import {
   INVALID_EMAIL,
   INVALID_PASSWORD,
@@ -14,10 +14,11 @@ import {
   VALID_SIGN_UP_CREDENTIALS,
 } from "../test-data";
 
-const app = getApp();
 const AUTH_PATH = `${API_PREFIX}/auth`;
 
-describe(`Route ${AUTH_PATH}`, () => {
+describe(`Route ${AUTH_PATH}`, async () => {
+  const app = await getApp();
+
   beforeAll(() => {
     // Mock token verification for authentication middleware
     vi.spyOn(DataSource.tokenVerifier, "verify").mockResolvedValue({ uid: "user-123", token: randomUUID() });

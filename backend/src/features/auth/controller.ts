@@ -1,8 +1,8 @@
 import { RESET_PASSWORD_SCHEMA, SIGN_IN_SCHEMA, SIGN_UP_SCHEMA } from "@dasminx/hang-around-common";
 import { StatusCodes } from "http-status-codes";
 
-import { BlacklistToken } from "../../shared/blacklist-token";
-import { DataSource } from "../../shared/data-source";
+import { DataSource } from "../../data-source";
+import { BlacklistToken } from "../../shared/services/blacklist-token";
 import { parseInputBySchemaOrThrow } from "../../shared/validators/validate-zod-schema";
 import { ExpressMiddlewareCaught } from "../../utils/types";
 import { ResetPasswordResponse, SignInResponse, SignOutResponse, SignUpResponse } from "./responses";

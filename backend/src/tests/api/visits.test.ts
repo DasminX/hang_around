@@ -5,13 +5,14 @@ import request from "supertest";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 
 import { getApp } from "../../app";
-import { DataSource } from "../../shared/data-source";
+import { DataSource } from "../../data-source";
 
 // Mock DataSource
-const app = getApp();
 const VISITS_PATH = `${API_PREFIX}/visits`;
 
-describe(`Route ${VISITS_PATH}`, () => {
+describe(`Route ${VISITS_PATH}`, async () => {
+  const app = await getApp();
+
   const userId = "user-123";
   const validToken = randomUUID();
 

@@ -1,7 +1,7 @@
 import { CREATE_VISIT_SCHEMA, GET_VISITS_SCHEMA, Location, Timestamp } from "@dasminx/hang-around-common";
 import { StatusCodes } from "http-status-codes";
 
-import { DataSource } from "../../shared/data-source";
+import { DataSource } from "../../data-source";
 import { parseInputBySchemaOrThrow } from "../../shared/validators/validate-zod-schema";
 import { ExpressMiddlewareCaught } from "../../utils/types";
 import { CreateVisitResponse, GetAllVisitsForAuthUserResponse, GetVisitResponse } from "./responses";

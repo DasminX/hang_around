@@ -9,5 +9,10 @@ export default defineConfig({
     },
     testTimeout: 30000,
     dir: "./src",
+    environment: "node",
+    coverage: {
+      provider: "istanbul",
+      reporter: ["text", "json", "html"],
+    },
   },
 });

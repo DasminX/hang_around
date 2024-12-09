@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 
-import { BlacklistToken } from "../blacklist-token";
-import { DataSource } from "../data-source";
+import { DataSource } from "../../data-source";
 import { NotAuthenticatedError } from "../errors";
+import { BlacklistToken } from "../services/blacklist-token";
 
 const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   try {

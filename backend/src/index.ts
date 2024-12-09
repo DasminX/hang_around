@@ -2,7 +2,7 @@ import { getApp } from "./app";
 import { logger } from "./shared/logger";
 import { loadEnvConfig } from "./utils/config";
 
-(() => {
+(async () => {
   process.on("uncaughtException", (err) => {
     logger.error(`Uncaught exception: ${err.toString()}`, err);
     process.exit(1);
@@ -11,7 +11,7 @@ import { loadEnvConfig } from "./utils/config";
   loadEnvConfig();
 
   const port = process.env.PORT || 8080;
-  const server = getApp().listen(port, () => {
+  const server = (await getApp()).listen(port, () => {
     logger.info(`App running on port ${port}...`);
   });
 
