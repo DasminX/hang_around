@@ -1,5 +1,5 @@
 import express from "express";
-import fs from "fs";
+import { glob } from "glob";
 import path from "path";
 
 import { logger } from "./shared/logger";
@@ -7,7 +7,7 @@ import { logger } from "./shared/logger";
 export const getMainRouter = async () => {
   const router = express.Router();
 
-  const subRoutersPaths = fs.globSync("src/features/**/router.ts");
+  const subRoutersPaths = await glob("src/features/**/router.ts");
 
   for (const subpath of subRoutersPaths) {
     /* eslint @typescript-eslint/no-var-requires: "off" */
