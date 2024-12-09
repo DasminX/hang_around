@@ -8,6 +8,7 @@ export const getMainRouter = async () => {
   const router = express.Router();
 
   const subRoutersPaths = await glob("src/features/**/router.ts");
+  console.log(subRoutersPaths);
 
   for (const subpath of subRoutersPaths) {
     /* eslint @typescript-eslint/no-var-requires: "off" */
@@ -20,6 +21,8 @@ export const getMainRouter = async () => {
       logger.error("An error occured", error);
     }
   }
+
+  console.log(router);
 
   return router;
 };
