@@ -1,16 +1,19 @@
 import { Location } from "@dasminx/hang-around-common";
 import { useFocusEffect } from "expo-router";
 import { memo, useCallback, useState } from "react";
+import React from "react";
 import { StyleSheet } from "react-native";
-import MapView, { MapPressEvent, Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, { Circle, MapPressEvent, Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
 import { COLORS } from "../../../../../utils/colors";
 import { usePlacesStore } from "../../../slices/PlacesStore";
 
 export const Map = memo(() => {
+  const [mapKey, setMapKey] = useState(Math.random().toString());
+
   const location = usePlacesStore((state) => state.location);
   const setLocation = usePlacesStore((state) => state.setLocation);
-  const [mapKey, setMapKey] = useState(Math.random().toString());
+  const howFar = usePlacesStore((state) => state.howFar);
 
   useFocusEffect(
     useCallback(() => {
@@ -51,13 +54,25 @@ export const Map = memo(() => {
       loadingIndicatorColor={COLORS.palette.orange}
     >
       {location && (
-        <Marker
-          pinColor="red"
-          coordinate={{
-            latitude: Array.isArray(location) ? location[0] : location.lat,
-            longitude: Array.isArray(location) ? location[1] : location.lng,
-          }}
-        />
+        <>
+          <Marker
+            pinColor="red"
+            coordinate={{
+              latitude: Array.isArray(location) ? location[0] : location.lat,
+              longitude: Array.isArray(location) ? location[1] : location.lng,
+            }}
+          />
+          <Circle
+            center={{
+              latitude: Array.isArray(location) ? location[0] : location.lat,
+              longitude: Array.isArray(location) ? location[1] : location.lng,
+            }}
+            radius={howFar.unit === "yd" ? howFar.distance * 0.9144 : howFar.distance}
+            strokeWidth={1}
+            strokeColor="rgba(0, 0, 255, 0.5)"
+            fillColor="rgba(0, 0, 255, 0.2)"
+          />
+        </>
       )}
     </MapView>
   );

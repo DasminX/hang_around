@@ -1,7 +1,7 @@
-import { APIResponseErrorI, ONE_DAY } from "@dasminx/hang-around-common";
+import { APIResponseErrorI, ONE_HOUR } from "@dasminx/hang-around-common";
 
 export const isKeptTokenValid = (token: string, expirationTime: number) =>
-  token?.trim() !== "" && !isNaN(expirationTime) && expirationTime + 90 * ONE_DAY > Date.now();
+  token?.trim() !== "" && !isNaN(expirationTime) && expirationTime + 1 * ONE_HOUR > Date.now();
 
 export const getApiErrorCode = (res: APIResponseErrorI): `api_errors.${string}` => {
   if (Array.isArray(res.error.details) && typeof res.error.details.at(0)?.code === "string") {
