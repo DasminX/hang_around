@@ -1,4 +1,5 @@
-// import { router } from "expo-router";
+import { useFocusEffect } from "expo-router";
+import { useCallback } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from "react-native";
 
 import { FoundPlaces } from "../../../src/features/dashboard/components/places/place/FoundPlaces";
@@ -7,6 +8,15 @@ import { useFoundPlaceStore } from "../../../src/features/dashboard/slices/Found
 
 export default function PlaceView() {
   const places = useFoundPlaceStore((state) => state.places);
+  const resetPlaces = useFoundPlaceStore((state) => state.resetPlaces);
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        resetPlaces();
+      };
+    }, []),
+  );
 
   return (
     <ScrollView>

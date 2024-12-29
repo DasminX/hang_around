@@ -1,6 +1,6 @@
 import { Location } from "@dasminx/hang-around-common";
 import { useFocusEffect } from "expo-router";
-import { memo, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import React from "react";
 import { StyleSheet } from "react-native";
 import MapView, { Circle, MapPressEvent, Marker, PROVIDER_GOOGLE } from "react-native-maps";
@@ -8,7 +8,7 @@ import MapView, { Circle, MapPressEvent, Marker, PROVIDER_GOOGLE } from "react-n
 import { COLORS } from "../../../../../utils/colors";
 import { usePlacesStore } from "../../../slices/PlacesStore";
 
-export const Map = memo(() => {
+export const Map = () => {
   const [mapKey, setMapKey] = useState(Math.random().toString());
 
   const location = usePlacesStore((state) => state.location);
@@ -76,7 +76,7 @@ export const Map = memo(() => {
       )}
     </MapView>
   );
-});
+};
 
 const styles = StyleSheet.create({
   map: {

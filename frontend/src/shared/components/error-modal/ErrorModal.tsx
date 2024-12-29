@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 import { Dialog /* , type DialogProps */, Portal, Text } from "react-native-paper";
 
+import { COLORS } from "../../../utils/colors";
 import VariantButton from "../../ui/button/VariantButton";
 import { useErrorModalStore } from "./errorModalStore";
 
@@ -19,6 +20,7 @@ export const ErrorModal = memo(() => {
       <Dialog
         visible={occured}
         dismissable={false}
+        style={styles.dialog}
         /* onDismiss={setDefaultError} */
       >
         <Dialog.Title style={styles.center}>{title}</Dialog.Title>
@@ -38,8 +40,18 @@ export const ErrorModal = memo(() => {
 });
 
 const styles = StyleSheet.create({
+  dialog: {
+    backgroundColor: COLORS.palette.black,
+    borderColor: COLORS.palette.orange,
+    borderWidth: 1,
+  },
   center: {
     textAlign: "center",
+    color: COLORS.theme.white,
   },
-  button: { width: "50%", marginRight: "auto", marginLeft: "auto" },
+  button: {
+    width: "50%",
+    marginRight: "auto",
+    marginLeft: "auto",
+  },
 });

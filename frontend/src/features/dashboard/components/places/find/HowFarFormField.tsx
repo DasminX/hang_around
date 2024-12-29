@@ -15,7 +15,10 @@ export const HowFarFormField = memo(() => {
       <OutlinedInput
         keyboardType="number-pad"
         placeholder="1000"
-        onChangeText={(distance: string) => setHowFar({ ...howFar, distance: +distance })}
+        value={howFar.distance.toString()}
+        onChangeText={(distance: string) => {
+          setHowFar({ ...howFar, distance: +distance });
+        }}
         width="short"
       />
       <View style={styles.segmentContainer}>
@@ -60,7 +63,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.palette.orange,
     paddingVertical: 12,
     paddingHorizontal: 24,
-    backgroundColor: COLORS.palette.black, // Default button color
+    backgroundColor: COLORS.palette.black,
     color: COLORS.palette.orange,
   },
   leftButton: {

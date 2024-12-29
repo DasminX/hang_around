@@ -6,6 +6,7 @@ import { Text } from "react-native-paper";
 
 import VariantButton from "../../../../../shared/ui/button/VariantButton";
 import OutlinedInput from "../../../../../shared/ui/input/OutlinedInput";
+import { COLORS } from "../../../../../utils/colors";
 import { usePlacesStore } from "../../../slices/PlacesStore";
 
 export const ManualCoordsInputs = memo(({ onChooseOnMap }: { onChooseOnMap: () => void }) => {
@@ -17,7 +18,7 @@ export const ManualCoordsInputs = memo(({ onChooseOnMap }: { onChooseOnMap: () =
     <View style={styles.root}>
       <View style={styles.inputContainer}>
         <View style={styles.input}>
-          <Text>{t("dashboard.lat")}</Text>
+          <Text style={{ color: COLORS.theme.white }}>{t("dashboard.lat")}</Text>
           <OutlinedInput
             keyboardType="number-pad"
             placeholder="0"
@@ -26,7 +27,7 @@ export const ManualCoordsInputs = memo(({ onChooseOnMap }: { onChooseOnMap: () =
           />
         </View>
         <View style={styles.input}>
-          <Text>{t("dashboard.lat")}</Text>
+          <Text style={{ color: COLORS.theme.white }}>{t("dashboard.lat")}</Text>
           <OutlinedInput
             keyboardType="number-pad"
             placeholder="0"

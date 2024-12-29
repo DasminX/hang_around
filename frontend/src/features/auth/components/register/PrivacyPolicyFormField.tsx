@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { Checkbox, Text } from "react-native-paper";
 
+import { COLORS } from "../../../../utils/colors";
 import { useAuthFormStore } from "../../slices/authFormInputsStore";
 
 export const PrivacyPolicyFormField = memo(() => {
@@ -19,7 +20,7 @@ export const PrivacyPolicyFormField = memo(() => {
           setPrivacyPolicy(!isPrivacyPolicy);
         }}
       />
-      <Text>{t("auth.privacyPolicy")}</Text>
+      <Text style={{ color: COLORS.theme.white }}>{t("auth.privacyPolicy")}</Text>
     </View>
   );
 });

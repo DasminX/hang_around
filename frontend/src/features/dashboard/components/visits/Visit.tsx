@@ -80,5 +80,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderColor: COLORS.palette.orange,
     borderWidth: 1,
+    backgroundColor: COLORS.palette.black,
   },
 });

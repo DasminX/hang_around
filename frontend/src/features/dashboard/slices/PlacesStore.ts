@@ -15,11 +15,10 @@ type PlacesCredentialsType = FindPlacesSchemaType & {
 
 const DEFAULT_PLACES_FIELDS: FindPlacesSchemaType = {
   howFar: {
-    distance: 0,
+    distance: 1000,
     unit: "m",
   },
-  location: new Location([-181, -181]),
-  minRating: 0,
+  location: new Location([0, 0]),
   typesOfFood: [],
   priceLevels: [-1, 4],
 };

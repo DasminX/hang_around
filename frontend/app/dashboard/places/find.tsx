@@ -1,10 +1,9 @@
 import { router } from "expo-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from "react-native";
 import { Headline } from "react-native-paper";
 
-import { signOut } from "../../../src/features/auth/api/fetchers";
 import { findPlaces } from "../../../src/features/dashboard/api/fetchers";
 import { FindPlaceForm } from "../../../src/features/dashboard/components/places/find/FindPlaceForm";
 import { useFoundPlaceStore } from "../../../src/features/dashboard/slices/FoundPlaceStore";
@@ -26,22 +25,16 @@ export default function FindPlaceIndex() {
   const priceLevels = usePlacesStore((state) => state.priceLevels);
   const openOnly = usePlacesStore((state) => state.openOnly);
 
-  const resetInputs = usePlacesStore((state) => state.resetPlacesCredentials);
-
   const setError = useErrorModalStore((state) => state.setError);
 
   const setPlaces = useFoundPlaceStore((state) => state.setPlaces);
 
-  useEffect(() => {
-    resetInputs();
-  }, []);
-
-  const onSubmitHandler = async () => {
-    setIsLoading(true);
+  const findPlacesHandler = async () => {
     const res = await findPlaces(
       { howFar, location, minRating, typesOfFood, priceLevels, openOnly },
       token,
     );
+
     if (res instanceof Error) {
       return setError({
         title: t("errors.occured"),
@@ -49,11 +42,10 @@ export default function FindPlaceIndex() {
       });
     }
 
-    setIsLoading(false);
     switch (res.status) {
       case "fail":
         if (res.error.httpCode === 401) {
-          return await signOut();
+          return router.replace("/auth/login?error=SESSION_EXPIRED");
         } else {
           return setError({
             title: t("errors.occured"),
@@ -80,7 +72,16 @@ export default function FindPlaceIndex() {
     >
       <ScrollView style={styles.scrollView}>
         <Headline style={styles.headline}>{t("dashboard.findPlace")}</Headline>
-        <FindPlaceForm onSubmit={onSubmitHandler} isLoading={isLoading} />
+        <FindPlaceForm
+          onSubmit={async () => {
+            if (isLoading) return;
+
+            setIsLoading(true);
+            await findPlacesHandler();
+            setIsLoading(false);
+          }}
+          isLoading={isLoading}
+        />
       </ScrollView>
     </KeyboardAvoidingView>
   );

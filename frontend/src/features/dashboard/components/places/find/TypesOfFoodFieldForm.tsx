@@ -143,5 +143,6 @@ const styles = StyleSheet.create({
   },
   button: {
     marginHorizontal: "auto",
+    width: 300,
   },
 });
