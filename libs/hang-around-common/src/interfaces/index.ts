@@ -5,6 +5,7 @@ export interface PlaceArgs {
   id: string;
   name: string;
   rating: number;
+  ratingCount: number;
   mapsUri: string;
   location: Location;
   isAccessible: boolean;

@@ -29,6 +29,17 @@ const howFar = z.object({
   }),
 });
 
+const priceLevel = z
+  .number({
+    message: PlacesValidationErrors.INVALID_PRICE_LEVELS,
+  })
+  .min(-1, {
+    message: PlacesValidationErrors.INVALID_PRICE_LEVELS,
+  })
+  .max(4, {
+    message: PlacesValidationErrors.INVALID_PRICE_LEVELS,
+  });
+
 export const FIND_PLACES_SCHEMA = z.lazy(() =>
   z
     .object({
@@ -42,33 +53,9 @@ export const FIND_PLACES_SCHEMA = z.lazy(() =>
         })
         .optional(),
       priceLevels: z
-        .tuple(
-          [
-            z
-              .number({
-                message: PlacesValidationErrors.INVALID_PRICE_LEVELS,
-              })
-              .min(-1, {
-                message: PlacesValidationErrors.INVALID_PRICE_LEVELS,
-              })
-              .max(4, {
-                message: PlacesValidationErrors.INVALID_PRICE_LEVELS,
-              }),
-            z
-              .number({
-                message: PlacesValidationErrors.INVALID_PRICE_LEVELS,
-              })
-              .min(-1, {
-                message: PlacesValidationErrors.INVALID_PRICE_LEVELS,
-              })
-              .max(4, {
-                message: PlacesValidationErrors.INVALID_PRICE_LEVELS,
-              }),
-          ],
-          {
-            message: PlacesValidationErrors.INVALID_PRICE_LEVELS,
-          }
-        )
+        .tuple([priceLevel, priceLevel], {
+          message: PlacesValidationErrors.INVALID_PRICE_LEVELS,
+        })
         .refine((data) => data[0] <= data[1], {
           message: PlacesValidationErrors.INVALID_PRICE_LEVELS,
           path: ["priceLevels"],
