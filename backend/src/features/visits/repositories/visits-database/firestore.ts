@@ -41,6 +41,6 @@ export class VisitsFirestore implements VisitsDatabaseI {
 
     return [
       ...visitsDocuments.docs.map((visit) => new Visit({ id: visit.id, ...(visit.data() as Omit<VisitArgs, "id">) })),
-    ].sort((a: Visit, b: Visit) => b.happenedAt - a.happenedAt);
+    ].sort((a: Visit, b: Visit) => a.happenedAt - b.happenedAt);
   }
 }
