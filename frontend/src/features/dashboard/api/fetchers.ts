@@ -31,7 +31,10 @@ export const getVisitById = async (id: string, authToken: string) => {
   });
 };
 
-export const createVisit = async (props: Omit<PlaceArgs, "id">, authToken: string) => {
+export const createVisit = async (
+  props: Omit<PlaceArgs, "id" | "ratingCount">,
+  authToken: string,
+) => {
   return await fetchData(`${BACKEND_API_PATH}/visits`, {
     method: "POST",
     send: props,

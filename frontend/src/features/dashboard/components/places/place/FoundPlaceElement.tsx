@@ -104,7 +104,7 @@ export const FoundPlaceElement = ({ placeDetails }: { placeDetails: PlaceArgs })
               loading={loading}
               onPress={async () => {
                 setLoading(true);
-                const { id: _, ...detailsWithoutId } = placeDetails;
+                const { id: _, ratingCount: __, ...detailsWithoutId } = placeDetails;
 
                 const newlyCreatedVisit = await createVisit(detailsWithoutId, token);
                 if (!(newlyCreatedVisit instanceof Error)) {
