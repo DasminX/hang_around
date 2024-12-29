@@ -47,7 +47,7 @@ export class GooglePlacesFinder implements PlacesFinderI {
           otherArgs: {
             headers: {
               "X-Goog-FieldMask":
-                "places.id,places.accessibilityOptions,places.displayName,places.googleMapsUri,places.location,places.types,places.rating,places.priceLevel",
+                "places.id,places.accessibilityOptions,places.displayName,places.googleMapsUri,places.location,places.types,places.rating,places.priceLevel,places.userRatingCount",
               // "*",
             },
           },
@@ -80,16 +80,23 @@ export class GooglePlacesFinder implements PlacesFinderI {
 
           return true;
         })
+        .filter((place) => {
+          if (!place.displayName?.text) return false;
+          if (!place.location?.latitude || !place.location?.longitude) return false;
+
+          return true;
+        })
         .map(
           (place) =>
             new Place({
-              id: place.id ?? "Not specified",
-              name: place.displayName?.text ?? "Not specified",
+              id: place.id ?? Math.random().toString().slice(2),
+              name: place.displayName!.text!,
               location: new Location({
-                lat: place.location?.latitude ?? Number.NaN,
-                lng: place.location?.longitude ?? Number.NaN,
+                lat: place.location!.latitude!,
+                lng: place.location!.longitude!,
               }),
               rating: place.rating ?? Number.NaN,
+              ratingCount: place.userRatingCount ?? Number.NaN,
               mapsUri: place.googleMapsUri ?? "",
               isAccessible: Boolean(place.accessibilityOptions?.wheelchairAccessibleEntrance),
               priceLevel: getPriceLevelNumeric(place.priceLevel),

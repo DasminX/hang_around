@@ -40,6 +40,7 @@ describe(`Route ${PLACES_PATH}`, async () => {
                   mapsUri: "https://hav1.com",
                   name: "Mock place",
                   rating: 4,
+                  ratingCount: 10,
                   priceLevel: 3,
                 }),
               ]);

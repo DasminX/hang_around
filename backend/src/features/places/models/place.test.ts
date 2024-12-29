@@ -8,6 +8,7 @@ describe("Place Model", () => {
     id: "1",
     name: "Central Park",
     rating: 4.5,
+    ratingCount: 10,
     mapsUri: "http://maps.google.com/centralpark",
     location: new Location([40.7128, -74.006]),
     isAccessible: true,
