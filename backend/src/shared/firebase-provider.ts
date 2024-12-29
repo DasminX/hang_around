@@ -41,19 +41,4 @@ export class FirebaseProvider {
       appId: process.env.FIREBASE_APP_ID as string,
     };
   }
-
-  public static get ERROR_MESSAGES() {
-    return {
-      "auth/invalid-email": "Invalid email provided!",
-      "auth/user-disabled": "User account has been disabled!",
-      "auth/user-not-found": "User not found!",
-      "auth/wrong-password": "Invalid password provided!",
-      "auth/invalid-credential": "Invalid credentials!",
-      "auth/weak-password": "Password should be at least 6 characters long.",
-      "auth/email-already-in-use": "Email is already in use!",
-      "auth/id-token-expired": "Session expired! Sign in again.",
-      "auth/argument-error": "Authorization token is invalid or malformed. Try again.",
-      // "auth/requests-to-this-api-identitytoolkit-method-google.cloud.identitytoolkit.v1.authenticationservice.signinwithpassword-are-blocked.": "Your identityToolkit is not enabled."
-    } as const;
-  }
 }

@@ -4,7 +4,6 @@ import { FirebaseError } from "firebase/app";
 import { StatusCodes } from "http-status-codes";
 
 import { isObjectWithAllProperties } from "../utils/functions";
-import { FirebaseProvider } from "./firebase-provider";
 import { ZodIssueMessage } from "./validators/validate-zod-schema";
 
 export class DataSourceError extends AppError {
@@ -77,15 +76,24 @@ export class RequestLimitExceededError extends AppError {
 export class AppFirebaseError extends AppError {
   constructor(originalFirebaseError: FirebaseError) {
     const errMsg =
-      FirebaseProvider.ERROR_MESSAGES[originalFirebaseError.code as keyof typeof FirebaseProvider.ERROR_MESSAGES] ||
-      "Unknown error occured. Try again later.";
+      AppFirebaseError.ERROR_MESSAGES[originalFirebaseError.code as keyof typeof AppFirebaseError.ERROR_MESSAGES] ||
+      "Firebase error code doesn't match with one provided...";
 
     switch (originalFirebaseError.code) {
       case "auth/email-already-in-use":
         super(errMsg, StatusCodes.CONFLICT, ErrorCode.ACCOUNT_ALREADY_EXISTS);
         break;
       case "auth/id-token-expired":
+      case "auth/argument-error":
         super(errMsg, StatusCodes.UNAUTHORIZED, ErrorCode.NOT_AUTHENTICATED);
+        break;
+      case "auth/invalid-email":
+      case "auth/wrong-password":
+      case "auth/invalid-credential":
+        super(errMsg, StatusCodes.BAD_REQUEST, ErrorCode.BAD_CREDENTIALS);
+        break;
+      case "auth/user-disabled":
+        super(errMsg, StatusCodes.NOT_FOUND, ErrorCode.NOT_FOUND);
         break;
       default:
         super(errMsg, StatusCodes.BAD_REQUEST, ErrorCode.UNKNOWN_ERROR);
@@ -94,5 +102,20 @@ export class AppFirebaseError extends AppError {
 
   public static isFirebaseError(object: unknown): object is FirebaseError {
     return isObjectWithAllProperties(object, "message", "code");
+  }
+
+  private static get ERROR_MESSAGES() {
+    return {
+      "auth/invalid-email": "Invalid email provided!",
+      "auth/user-disabled": "User account has been disabled!",
+      "auth/user-not-found": "User not found!",
+      "auth/wrong-password": "Invalid password provided!",
+      "auth/invalid-credential": "Invalid credentials!",
+      "auth/weak-password": "Password should be at least 6 characters long.",
+      "auth/email-already-in-use": "Email is already in use!",
+      "auth/id-token-expired": "Session expired! Sign in again.",
+      "auth/argument-error": "Authorization token is invalid or malformed. Try again.",
+      // "auth/requests-to-this-api-identitytoolkit-method-google.cloud.identitytoolkit.v1.authenticationservice.signinwithpassword-are-blocked.": "Your identityToolkit is not enabled."
+    } as const;
   }
 }
