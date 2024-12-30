@@ -8,6 +8,7 @@ import { Dialog, Icon, Portal, Surface, Text } from "react-native-paper";
 
 import { useTokenStore } from "../../../../../shared/slices/tokenStore";
 import VariantButton from "../../../../../shared/ui/button/VariantButton";
+import { resetAsyncStorageAuthTokenProps } from "../../../../../utils/async-storage-helpers";
 import { COLORS } from "../../../../../utils/colors";
 import { createVisit } from "../../../api/fetchers";
 import { useVisitsStore } from "../../../slices/VisitsStore";
@@ -16,6 +17,8 @@ export const FoundPlaceElement = ({ placeDetails }: { placeDetails: PlaceArgs })
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const resetTokenCredentials = useTokenStore((state) => state.resetTokenCredentials);
 
   const storeVisits = useVisitsStore((state) => state.setVisits);
 
@@ -112,6 +115,8 @@ export const FoundPlaceElement = ({ placeDetails }: { placeDetails: PlaceArgs })
                     newlyCreatedVisit.status === "fail" &&
                     newlyCreatedVisit.error.httpCode === 401
                   ) {
+                    await resetAsyncStorageAuthTokenProps();
+                    resetTokenCredentials();
                     return router.replace("/auth/login?error=SESSION_EXPIRED");
                   } else if (newlyCreatedVisit.status == "ok") {
                     storeVisits([newlyCreatedVisit.data as VisitArgs]);

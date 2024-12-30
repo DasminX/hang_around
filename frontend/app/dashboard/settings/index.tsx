@@ -1,4 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -6,10 +5,11 @@ import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from "re
 import { Divider } from "react-native-paper";
 
 import { signOut } from "../../../src/features/auth/api/fetchers";
+import { AvatarEmailField } from "../../../src/features/dashboard/components/settings/AvatarEmailField";
 import { LangChangeField } from "../../../src/features/dashboard/components/settings/LangChangeField";
 import { useTokenStore } from "../../../src/shared/slices/tokenStore";
 import VariantButton from "../../../src/shared/ui/button/VariantButton";
-import { AUTH_TOKEN, AUTH_TOKEN_EXP } from "../../../src/utils/constants";
+import { resetAsyncStorageAuthTokenProps } from "../../../src/utils/async-storage-helpers";
 
 export default function SettingsIndex() {
   const { t } = useTranslation();
@@ -22,7 +22,8 @@ export default function SettingsIndex() {
 
     try {
       await signOut();
-      await AsyncStorage.multiRemove([AUTH_TOKEN, AUTH_TOKEN_EXP]);
+      await resetAsyncStorageAuthTokenProps();
+
       resetTokenCredentials();
       router.push("/auth/login");
     } catch (_err) {
@@ -38,6 +39,8 @@ export default function SettingsIndex() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <ScrollView>
+        <AvatarEmailField />
+        <Divider />
         <LangChangeField />
         <Divider />
         {/* More later */}

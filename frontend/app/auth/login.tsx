@@ -56,15 +56,17 @@ export default function Login() {
           description: t(getApiErrorCode(res)),
         });
       case "ok":
-        if (isObjectWithAllProperties(res.data, "token", "expirationTime")) {
+        if (isObjectWithAllProperties(res.data, "token", "expirationTime", "email")) {
           await setAsyncStorageAuthTokenProps(
             res.data.token as string,
             res.data.expirationTime as Timestamp,
+            res.data.email as string,
           );
 
           setTokenCredentials({
             token: res.data.token as string,
             expirationTime: res.data.expirationTime as Timestamp,
+            email: res.data.email as string,
           });
           return router.push("/dashboard/places/find");
         }

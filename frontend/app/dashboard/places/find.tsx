@@ -10,6 +10,7 @@ import { useFoundPlaceStore } from "../../../src/features/dashboard/slices/Found
 import { usePlacesStore } from "../../../src/features/dashboard/slices/PlacesStore";
 import { useErrorModalStore } from "../../../src/shared/components/error-modal/errorModalStore";
 import { useTokenStore } from "../../../src/shared/slices/tokenStore";
+import { resetAsyncStorageAuthTokenProps } from "../../../src/utils/async-storage-helpers";
 import { COLORS } from "../../../src/utils/colors";
 import { getApiErrorCode } from "../../../src/utils/functions";
 
@@ -24,6 +25,8 @@ export default function FindPlaceIndex() {
   const typesOfFood = usePlacesStore((state) => state.typesOfFood);
   const priceLevels = usePlacesStore((state) => state.priceLevels);
   const openOnly = usePlacesStore((state) => state.openOnly);
+
+  const resetTokenCredentials = useTokenStore((state) => state.resetTokenCredentials);
 
   const setError = useErrorModalStore((state) => state.setError);
 
@@ -45,6 +48,8 @@ export default function FindPlaceIndex() {
     switch (res.status) {
       case "fail":
         if (res.error.httpCode === 401) {
+          await resetAsyncStorageAuthTokenProps();
+          resetTokenCredentials();
           return router.replace("/auth/login?error=SESSION_EXPIRED");
         } else {
           return setError({

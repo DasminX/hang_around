@@ -11,6 +11,7 @@ import { VisitsHeadline } from "../../../src/features/dashboard/components/visit
 import { VisitsList } from "../../../src/features/dashboard/components/visits/VisitsList";
 import { useVisitsStore } from "../../../src/features/dashboard/slices/VisitsStore";
 import { useTokenStore } from "../../../src/shared/slices/tokenStore";
+import { resetAsyncStorageAuthTokenProps } from "../../../src/utils/async-storage-helpers";
 
 export default function VisitsIndex() {
   const { t } = useTranslation();
@@ -20,11 +21,16 @@ export default function VisitsIndex() {
 
   const token = useTokenStore((state) => state.token);
 
+  const resetTokenCredentials = useTokenStore((state) => state.resetTokenCredentials);
+
   useEffect(() => {
     (async () => {
       const refreshed = await getVisits(token);
       if (!(refreshed instanceof Error)) {
         if (refreshed.status === "fail" && refreshed.error.httpCode === 401) {
+          await resetAsyncStorageAuthTokenProps();
+
+          resetTokenCredentials();
           router.replace("/auth/login?error=SESSION_EXPIRED");
         } else if (refreshed.status === "ok") {
           setVisits(refreshed.data as VisitArgs[]);

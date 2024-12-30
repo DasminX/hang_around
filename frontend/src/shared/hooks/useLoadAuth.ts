@@ -14,10 +14,14 @@ export const useLoadAuth = () => {
   useEffect(() => {
     (async () => {
       try {
-        const [token, expirationTime] = await getAsyncStorageAuthTokenProps();
+        const [token, expirationTime, email] = await getAsyncStorageAuthTokenProps();
 
         if (isTokenValid(token, expirationTime)) {
-          setTokenCredentials({ token, expirationTime: expirationTime as Timestamp });
+          setTokenCredentials({
+            token,
+            expirationTime: expirationTime as Timestamp,
+            email: email as string,
+          });
         }
       } catch (e) {
         console.log(`Error in getting auth token properties: ${e}`);
