@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
@@ -15,6 +15,8 @@ import { getApiErrorCode } from "../../src/utils/functions";
 
 export default function ForgotPassword() {
   const { t } = useTranslation();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const email = useAuthFormStore((state) => state.email);
   const resetInputs = useAuthFormStore((state) => state.resetInputValues);
@@ -58,7 +60,18 @@ export default function ForgotPassword() {
             {t(`auth.remindPassword`)}
           </Text>
           <EmailFormField />
-          <VariantButton onPress={forgotPasswordHandler}>{t("common.send")}</VariantButton>
+          <VariantButton
+            loading={isLoading}
+            onPress={async () => {
+              if (isLoading) return;
+
+              setIsLoading(true);
+              await forgotPasswordHandler();
+              setIsLoading(false);
+            }}
+          >
+            {t("common.send")}
+          </VariantButton>
         </View>
       </View>
     </KeyboardAvoidingView>
