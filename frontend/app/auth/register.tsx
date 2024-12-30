@@ -59,7 +59,7 @@ export default function Register() {
         });
 
       case "ok":
-        return router.push("/auth");
+        return router.push("/auth/login");
     }
   }
 
