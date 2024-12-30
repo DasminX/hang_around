@@ -12,7 +12,7 @@ export const signinController: ExpressMiddlewareCaught = async (req, res) => {
 
   const token = await DataSource.auth.signIn(email, password);
 
-  return res.status(StatusCodes.OK).json(new SignInResponse(token));
+  return res.status(StatusCodes.OK).json(new SignInResponse(token, email));
 };
 
 export const signupController: ExpressMiddlewareCaught = async (req, res) => {
