@@ -6,13 +6,13 @@ import { parseInputBySchemaOrThrow } from "../../shared/validators/validate-zod-
 import { ExpressMiddlewareCaught } from "../../utils/types";
 import { CreateVisitResponse, GetAllVisitsForAuthUserResponse, GetVisitResponse } from "./responses";
 
-export const getVisitsForAuthUser: ExpressMiddlewareCaught = async (_req, res) => {
+export const getUserVisits: ExpressMiddlewareCaught = async (_req, res) => {
   const visits = await DataSource.visits.getVisitsForUser(res.locals.user.uid);
 
   return res.status(StatusCodes.OK).json(new GetAllVisitsForAuthUserResponse(visits));
 };
 
-export const getVisit: ExpressMiddlewareCaught = async (req, res) => {
+export const getUserVisitById: ExpressMiddlewareCaught = async (req, res) => {
   const { id: visitId } = parseInputBySchemaOrThrow(req.params, GET_VISITS_SCHEMA);
 
   const visit = await DataSource.visits.getVisitById(visitId, res.locals.user.uid);
