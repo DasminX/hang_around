@@ -60,16 +60,12 @@ export class GooglePlacesFinder implements PlacesFinderI {
 
       return res[0].places
         .filter((place) => {
-          if (args.openOnly && !(place.currentOpeningHours?.openNow || place.regularOpeningHours?.openNow)) {
-            return false;
-          }
-
-          if (args.minRating && (typeof place.rating !== "number" || +place.rating < args.minRating)) {
-            return false;
-          }
+          if (!place.displayName?.text) return false;
+          if (!place.location?.latitude || !place.location?.longitude) return false;
+          if (args.openOnly && !(place.currentOpeningHours?.openNow || place.regularOpeningHours?.openNow)) return false;
+          if (args.minRating && (typeof place.rating !== "number" || +place.rating < args.minRating)) return false;
 
           const placePriceLevelNumeric = getPriceLevelNumeric(place.priceLevel);
-
           if (
             typeof placePriceLevelNumeric !== "number" ||
             placePriceLevelNumeric < args.priceLevels[0] ||
@@ -77,12 +73,6 @@ export class GooglePlacesFinder implements PlacesFinderI {
           ) {
             return false;
           }
-
-          return true;
-        })
-        .filter((place) => {
-          if (!place.displayName?.text) return false;
-          if (!place.location?.latitude || !place.location?.longitude) return false;
 
           return true;
         })
